@@ -31,7 +31,6 @@ ball = {
 function love.load()
     -- love.load is run once when the game is loaded. It is good for loading settings
     love.graphics.setBackgroundColor(28, 107, 160) -- a nice blue colour
-
     reset_ball()
 end
 
@@ -109,6 +108,7 @@ function handle_collisions()
        bounce_ball_off_paddle(paddle_left)
     end
 
+    -- right paddle
     if ball.y >= paddle_right.y and
        ball.y <= paddle_right.y + PADDLE_HEIGHT and
        ball.x >= paddle_right.x and
