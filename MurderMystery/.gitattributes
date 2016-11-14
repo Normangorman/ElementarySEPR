@@ -1,0 +1,6 @@
+* text=auto
+
+ProjectSettings/* eol=lf
+*.unity eol=lf
+*.meta eol=lf
+*.cs eol=crlf
