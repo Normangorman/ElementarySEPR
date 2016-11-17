@@ -6,11 +6,11 @@ Get git: https://git-for-windows.github.io/
 
 Configure Unity to work with Git:
 
-![Unity git config](https://dl.dropboxusercontent.com/u/80523064/unity_git_config1.PNG =446x669)
-![Unity git config](https://dl.dropboxusercontent.com/u/80523064/unity_git_config2.PNG =553x537)
+![Unity git config](https://dl.dropboxusercontent.com/u/80523064/unity_git_config1.PNG)
+![Unity git config](https://dl.dropboxusercontent.com/u/80523064/unity_git_config2.PNG)
 
 We are following the Git strategy described in this article: http://nvie.com/posts/a-successful-git-branching-model/
-![Git branching strategy](http://nvie.com/img/git-model@2x.png =560x742)
+![Git branching strategy](http://nvie.com/img/git-model@2x.png)
 
 When you want to add a new feature, checkout the latest commit on the develop branch and make a new branch for your feature.
 
