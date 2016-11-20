@@ -8,7 +8,6 @@ public class Room : MonoBehaviour
     public int sizey;
     public int numbTiles;
 
-	// Use this for initialization
     void Start()
     {
         sizex = createRandomInt(7,15);
@@ -53,4 +52,5 @@ public class Room : MonoBehaviour
         int i = Random.Range(min, max);
         return i;
     }
+
 }

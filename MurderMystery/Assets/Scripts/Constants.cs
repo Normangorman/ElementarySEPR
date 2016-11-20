@@ -1,15 +1,19 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿
+public class Constants
+{
+    // Enum of all the characters in the game
+	public enum People { DonaldTrump, Dumbledore, MarilynMonroe, FreddieMercury, JamesBond, TheQueen}
 
-public class Constants : MonoBehaviour {
+    // Enum of all the rooms in the game
+    public enum Rooms { IslandInteraction, Cafe, Office1, Office2, Office3, Balcony}
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    // Enum of all the clues in the game
+    public enum Clues { Dagger, Letter, BlondeHair}
+
+    // Enum of all the items in the game
+    public enum Items { Hat, WalkingStick, MagnifyingGlass }
+
+
+    // DO WE WANT ALL THESE IN DICTIONARIES INSTEAD SO WE CAN HAVE A DESCRIPTION?
+
 }

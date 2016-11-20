@@ -1,116 +1,71 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using System.Linq;
-using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
 
-    void Start()
+    public int layerMask;
+    private UIController UIController;
+    private InteractionPair interaction;
+
+    private int interaction_points = 100;
+    public List<Constants.Items> InventoryList;
+
+    private int i = 5;
+    public float speed = 2f;                          
+    
+    public int InteractionPoints
     {
-        var ray1 = new Ray(transform.position, new Vector3(0, -10, 0)); // Raycasts down to check if there is a tile underneath. If so
-        Debug.DrawRay(transform.position, new Vector3(0, -10, 0), Color.green, float.MaxValue, false);
-        RaycastHit hit1;
-        if (Physics.Raycast(ray1, out hit1))                                  // and there is a hit then move the player to that tile. If not,
+        get
         {
-            Debug.Log("Name: " + hit1.collider.name + "    Position: " + hit1.collider.transform.position);
-            if (hit1.collider.tag == "Tile")                                  // then don't do anything. player stays still
-            {
-                transform.position = hit1.transform.position + new Vector3(0, 1, 0);
-            }
+            return interaction_points;
         }
-    }
-
-    /*
-    public Tile tile;
-
-    private int x_position;
-    private int y_osition;
-
-    public int xPosition
-    {
-        get { return x_position; }
         set
         {
-            /*
-             * Get Tile underneath
-             * set its player value to true
-             
+            interaction_points = InteractionPoints;
+            UIController.SetInteractionPoint(InteractionPoints);
         }
     }
 
-    public int xPosition
+    public void Awake()
     {
-        get { return y_position; }
-        set
-        {
-            /*
-             * Get Tile underneath
-             * set its player value to true
-             
-        }
+        layerMask = gameObject.layer;
+        UIController = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<UIController>().Instance;
+        interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>();
     }
 
-    public Tile GetTile()
-    {
-        return Tile;
-    }
 
-Raycast to get the tile underneath
-    */
+    void FixedUpdate()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+        transform.position += new Vector3 (moveHorizontal, moveVertical, 0) * Time.deltaTime * speed;
+    }
 
     void Update()
     {
-        #region INPUT HANDLERS
-        if (Input.GetButtonDown("VerticalUp"))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (isValidMovement(new Vector3(-1, 0, 0)))
+            NPC n = GetPlayerInRadius();
+            if (n != null)
             {
-                transform.position = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
+                interaction.instance.InitiliaseInteraction(n);
             }
         }
-
-        if (Input.GetButtonDown("VerticalDown"))
-        {
-            if (isValidMovement(new Vector3(1, 0, 0)))
-            {
-                transform.position = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
-            }
-        }
-        if (Input.GetButtonDown("HorizontalLeft"))
-        {
-            if (isValidMovement(new Vector3(0, 0, -1)))
-            {
-                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
-            }
-        }
-        if (Input.GetButtonDown("HorizontalRight"))
-        {
-            if (isValidMovement(new Vector3(0, 0, 1)))
-            {
-                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
-            }
-        }
-        #endregion
     }
 
-    bool isValidMovement(Vector3 vec)
+    NPC GetPlayerInRadius()
     {
-        var ray1 = new Ray(transform.position + vec, new Vector3(0, -10, 0)); // Raycasts down to check if there is a tile underneath. If so
-        Debug.DrawRay(transform.position + vec, new Vector3(0, -10, 0), Color.green, float.MaxValue, false);
-        RaycastHit hit1;
-        if (Physics.Raycast(ray1, out hit1))                                  // and there is a hit then move the player to that tile. If not,
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 5);
+        foreach (Collider2D col in hitColliders)
         {
-            Debug.Log("Name: " + hit1.collider.name + "    Position: " + hit1.collider.transform.position);
-            if (hit1.collider.tag == "Tile")                                  // then don't do anything. player stays still
+            if (col.GetComponent<NPC>() != null)
             {
-                return true;
+                return col.gameObject.GetComponent<NPC>();
             }
         }
-        return false;
+        return null;
     }
-   
 }
+
