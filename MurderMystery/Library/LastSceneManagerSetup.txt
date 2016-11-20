@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/main_andrew.unity
+- path: Assets/main_beng.unity
   isLoaded: 1
   isActive: 1
