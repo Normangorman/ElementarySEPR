@@ -1,16 +1,58 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Xml.Serialization;
 
 public class Player : Character
 {
+    private int aggressive;
+    private int friendly;
+    private int charisma;
+    private int sarcasm;
+
+    public int Aggressive
+    {
+        get {return aggressive;}
+        set
+        {
+            aggressive = Aggressive;
+            UIController.AggressiveBar.Value = Aggressive; 
+        }
+    }
+    public int Friendly
+    {
+        get { return friendly; }
+        set
+        {
+            friendly = Friendly;
+            UIController.FriendlyBar.Value = Friendly;
+        }
+    }
+    public int Charisma
+    {
+        get { return charisma; }
+        set
+        {
+            charisma = Charisma;
+            UIController.CharismaBar.Value = Charisma;
+        }
+    }
+    public int Sarcasm
+    {
+        get { return sarcasm; }
+        set
+        {
+            sarcasm = Sarcasm;
+            UIController.SarcasmBar.Value = Sarcasm;
+        }
+    }
 
     public int layerMask;
     private UIController UIController;
     private InteractionPair interaction;
 
     private int interaction_points = 100;
-    public List<Constants.Items> InventoryList;
+    public List<Item> InventoryList;
 
     private int i = 5;
     public float speed = 2f;                          
@@ -24,7 +66,7 @@ public class Player : Character
         set
         {
             interaction_points = InteractionPoints;
-            UIController.SetInteractionPoint(InteractionPoints);
+            //UIController.SetInteractionPoint(InteractionPoints);
         }
     }
 
@@ -35,6 +77,19 @@ public class Player : Character
         interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>();
     }
 
+    public void OnTrigger2D(Collider2D col)
+    {
+        if (col.tag == "Item")
+        {
+            AddToInventory(col.GetComponent<Item>());
+        }
+    }
+
+    public void AddToInventory(Item item)
+    {
+        InventoryList.Add(item);
+        UIController.AddToInventoryList(item);
+    }
 
     void FixedUpdate()
     {

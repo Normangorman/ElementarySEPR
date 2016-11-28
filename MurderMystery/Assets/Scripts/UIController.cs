@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Security.Policy;
 using UnityEngine.UI;
 using ProgressBar;
 
@@ -27,8 +28,9 @@ public class UIController : MonoBehaviour, IUserInterface
     public void Awake()
     {
         Instance = this;
-        GetPlayerAbilities();
-        GetNpcAbilities();
+        //SetPlayerAbilities();
+        //SetNpcAbilities();
+        //SetInteractionPoint();
     }
 
     public void GetGuestList()
@@ -36,7 +38,7 @@ public class UIController : MonoBehaviour, IUserInterface
         throw new NotImplementedException();
     }
 
-    public void SetInteractionPoint(int i)
+    public void SetInteractionPoint(int i = 0)
     {
         InteractionPointBar.Value = i;
     }
@@ -46,7 +48,7 @@ public class UIController : MonoBehaviour, IUserInterface
         throw new NotImplementedException();
     }
 
-    public void GetNpcAbilities()
+    public void SetNpcAbilities()
     {
         NpcAggressiveBar.Value = 50;
         NpcCharismaBar.Value = 30;
@@ -59,7 +61,7 @@ public class UIController : MonoBehaviour, IUserInterface
         throw new NotImplementedException();
     }
 
-    public void GetPlayerAbilities()
+    public void SetPlayerAbilities()
     {
         AggressiveBar.Value = 50;
         CharismaBar.Value = 30;
@@ -81,4 +83,23 @@ public class UIController : MonoBehaviour, IUserInterface
     {
         DialogueBox.text = str;
     }
+
+    public void GetPlayerAbilities()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void GetNpcAbilities()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AddToInventoryList(Item item)
+    {
+        var r = Resources.Load("Item") as GameObject;
+        GameObject  g = Instantiate(r, transform, false) as GameObject;
+        g.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(item.name);
+        g.transform.GetChild(1).GetComponent<Text>().text = item.description;
+    }
+
 }
