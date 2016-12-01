@@ -77,11 +77,12 @@ public class Player : Character
         interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>();
     }
 
-    public void OnTrigger2D(Collider2D col)
+    public void OnTriggerEnter2D(Collider2D other)
     {
-        if (col.tag == "Item")
+        if (other.gameObject.CompareTag("ItemPickup"))
         {
-            AddToInventory(col.GetComponent<Item>());
+            AddToInventory(other.GetComponent<Item>());
+            other.gameObject.SetActive(false);
         }
     }
 
