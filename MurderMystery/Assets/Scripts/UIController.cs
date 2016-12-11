@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System;
-using System.Security.Policy;
 using UnityEngine.UI;
 using ProgressBar;
 
@@ -96,8 +95,9 @@ public class UIController : MonoBehaviour, IUserInterface
 
     public void AddToInventoryList(Item item)
     {
-        var r = Resources.Load("Item") as GameObject;
-        GameObject  g = Instantiate(r, transform, false) as GameObject;
+        Transform parent = GameObject.FindGameObjectWithTag("InventoryList").transform;
+        GameObject r = Resources.Load("Item") as GameObject;
+        GameObject  g = Instantiate(r, parent, false) as GameObject;
         g.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(item.name);
         g.transform.GetChild(1).GetComponent<Text>().text = item.description;
     }
