@@ -1,19 +1,61 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Xml.Serialization;
 
 public class Player : Character
 {
+    private int aggressive;
+    private int friendly;
+    private int charisma;
+    private int sarcasm;
+
+    public int Aggressive
+    {
+        get {return aggressive;}
+        set
+        {
+            aggressive = Aggressive;
+            UIController.AggressiveBar.Value = Aggressive; 
+        }
+    }
+    public int Friendly
+    {
+        get { return friendly; }
+        set
+        {
+            friendly = Friendly;
+            UIController.FriendlyBar.Value = Friendly;
+        }
+    }
+    public int Charisma
+    {
+        get { return charisma; }
+        set
+        {
+            charisma = Charisma;
+            UIController.CharismaBar.Value = Charisma;
+        }
+    }
+    public int Sarcasm
+    {
+        get { return sarcasm; }
+        set
+        {
+            sarcasm = Sarcasm;
+            UIController.SarcasmBar.Value = Sarcasm;
+        }
+    }
 
     public int layerMask;
     private UIController UIController;
     private InteractionPair interaction;
 
     private int interaction_points = 100;
-    public List<Constants.Items> InventoryList;
+    public List<Item> InventoryList;
 
     private int i = 5;
-    public float speed = 2f;                          
+    public float speed = 0.05f;                          
     
     public int InteractionPoints
     {
@@ -24,7 +66,7 @@ public class Player : Character
         set
         {
             interaction_points = InteractionPoints;
-            UIController.SetInteractionPoint(InteractionPoints);
+            //UIController.SetInteractionPoint(InteractionPoints);
         }
     }
 
@@ -35,14 +77,50 @@ public class Player : Character
         interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>();
     }
 
+    public void OnTriggerEnter2D(Collider2D item)
+    {
+        if (item.gameObject.CompareTag("ItemPickup"))
+        {
+            AddToInventory(item.GetComponent<Item>());
+            item.gameObject.SetActive(false);
+            // Show a notification to show that it has been picked up
+        }
+    }
+
+    public void AddToInventory(Item item)
+    {
+        InventoryList.Add(item); // Adds it to the player's inventory
+        UIController.AddToInventoryList(item); // Add it to the inventory list in the UI
+    }
 
     void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        transform.position += new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * speed ;
+        /*
+         * Update is called every 0.05 seconds so it is not based on frame rate. 
+         
+        // gets the horizontal input from the player's keyboard
+        float moveHorizontal = Input.GetAxis("Horizontal"); 
+        // gets the vertical input from the player's keyboard
+        float moveVertical = Input.GetAxis("Vertical"); 
+        // Moves the player by how much they have inputed but not in the z axis
         transform.position += new Vector3 (moveHorizontal, moveVertical, 0) * Time.deltaTime * speed;
+        */
+    }
+    // Update is called once per frame
+    /*
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.tag == "stairs")
+            speed = speed / 1.5f;
     }
 
+    void OnTriggerExit2D(Collider2D coll)
+    {
+        if (coll.tag == "stairs")
+            speed = speed * 1.5f;
+    }
+    */
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))

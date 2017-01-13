@@ -1,4 +1,6 @@
 ﻿
+using System.Reflection;
+
 public class Constants
 {
     // Enum of all the characters in the game
@@ -14,6 +16,6 @@ public class Constants
     public enum Items { Hat, WalkingStick, MagnifyingGlass }
 
 
-    // DO WE WANT ALL THESE IN DICTIONARIES INSTEAD SO WE CAN HAVE A DESCRIPTION?
+    
 
 }

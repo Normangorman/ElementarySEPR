@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Cosmetic : Item {
+public class Cosmetic {
 
 	// Use this for initialization
 	void Start () {
