@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.Xml.Serialization;
@@ -77,9 +78,19 @@ public class Player : Character
         interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>();
     }
 
-    public void OnTriggerEnter2D(Collider2D item)
+    public void ChoosePlayer(string person)
     {
-        if (item.gameObject.CompareTag("ItemPickup"))
+       UIController.SetPerson((Constants.People)Enum.Parse(typeof(Constants.People), person));
+    } 
+
+
+    public void OnTriggerEnter2D(Collider2D col)
+    {
+        /*
+         * This function adds the item that the player goes accross to their inventory 
+         * with its description that has been got from the json file
+         */
+        if (col.gameObject.CompareTag("Item"))
         {
             AddToInventory(item.GetComponent<Item>());
             item.gameObject.SetActive(false);

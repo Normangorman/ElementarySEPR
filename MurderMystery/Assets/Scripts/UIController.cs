@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using ProgressBar;
 
@@ -47,12 +48,13 @@ public class UIController : MonoBehaviour, IUserInterface
         throw new NotImplementedException();
     }
 
-    public void SetNpcAbilities()
+    public void SetNpcAbilities(Constants.People person)
     {
-        NpcAggressiveBar.Value = 50;
-        NpcCharismaBar.Value = 30;
-        NpcFriendlyBar.Value = 90;
-        NpcSarcasmBar.Value = 10;
+        Dictionary<Constants.People, List<int>> Dict = Constants.CharacterValues;
+        NpcAggressiveBar.Value = Dict[person][0];
+        NpcFriendlyBar.Value = Dict[person][1];
+        NpcCharismaBar.Value = Dict[person][2];
+        NpcSarcasmBar.Value = Dict[person][3];
     }
 
     public void GetNpcIcon()
@@ -60,12 +62,33 @@ public class UIController : MonoBehaviour, IUserInterface
         throw new NotImplementedException();
     }
 
-    public void SetPlayerAbilities()
+    public void SetPerson(Constants.People p)
     {
-        AggressiveBar.Value = 50;
-        CharismaBar.Value = 30;
-        FriendlyBar.Value = 90;
-        SarcasmBar.Value = 10;
+        SetPlayerAbilities(p);
+        SetPlayerIcon(p);
+    }
+
+    public void SetPlayerIcon(Constants.People p)
+    {
+        Sprite img = Resources.Load(p.ToString()) as Sprite;
+        PlayerIcon.GetComponent<Image>().sprite = img;
+    }
+
+    public void SetPlayerAbilities(Constants.People person)
+    {
+        Dictionary<Constants.People, List<int>> Dict = Constants.CharacterValues;
+        NpcAggressiveBar.Value = Dict[person][0];
+        NpcFriendlyBar.Value = Dict[person][1];
+        NpcCharismaBar.Value = Dict[person][2];
+        NpcSarcasmBar.Value = Dict[person][3];
+    }
+
+    public void SetPlayerAbilities(int i, int j, int k, int l)
+    {
+        NpcAggressiveBar.Value = i;
+        NpcFriendlyBar.Value = j;
+        NpcCharismaBar.Value = k;
+        NpcSarcasmBar.Value = l;
     }
 
     public void GetPlayerIcon()

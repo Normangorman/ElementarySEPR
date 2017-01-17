@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 
     public float Time;
 
+    // This dictionary is the person and the description of that person
     Dictionary<Constants.People, string> GuestList = new Dictionary<Constants.People, string>
     {
         {Constants.People.DonaldTrump, "Twat"},
