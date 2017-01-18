@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System;
 
 public class StoryGraph {
 	/* This class represents the graph of a story in the game.
@@ -15,11 +16,16 @@ public class StoryGraph {
 		public readonly string description;
 		public readonly List<string> requirements;
 		public bool completed = false;
+        public bool unlocked = false;
+
 		public StoryGraphState(string title, string description, List<string> requirements)
 		{
+            Debug.LogFormat("Creating new StoryGraphState: {0}, {1}, {2}", title, description, requirements.Count);
 			this.title = title;
 			this.description = description;
 			this.requirements = requirements;
+            if (requirements.Count == 0)
+                unlocked = true;
 		}
 	}
 
@@ -38,12 +44,23 @@ public class StoryGraph {
         JArray statesJSON = (JArray)graphJSON.GetValue("states");
         foreach (var state in statesJSON.Children<JObject>())
         {
-            List<string> stateRequirements = state.Value<List<string>>("requirements");
-            states.Add(new StoryGraphState(
-                state.Value<string>("title"),
-                state.Value<string>("description"),
-                stateRequirements));
+            string title = (string)state["title"];
+            string description = (string)state["description"];
+            JArray requirements = (JArray)state["requirements"];
+
+            List<string> requirementsList;
+            // State might not have any requirements
+            if (requirements == null)
+                requirementsList = new List<string>();
+            else
+                requirementsList = (List<string>)requirements.ToObject<List<string>>();
+
+            Debug.LogFormat("var state: {0}, title {1}, desc {2}, reqs {3}", state, title, description, requirementsList);
+
+            states.Add(new StoryGraphState(title, description, requirementsList));
         }
+
+        Debug.LogFormat("StoryGraph loaded: {0} states", CountStates().ToString());
 	}
 
 	public void CompleteState(string stateTitle)
@@ -51,44 +68,48 @@ public class StoryGraph {
         /* Marks the state with the given title as being completed.
          * Also calls the StoryScript's OnStateCompleted hook for the given state.
          * If any new states are unlocked by this completion, the OnStateUnlocked hook is called for each one.
+         *   Raises an Exception if the state with the given title was not found (probably due to typo).
+         *   Raises an Exception if the state's requirements were not met (StoryScripts should not try and do this). 
          */
-		Debug.Log("Setting state as completed: " + stateTitle);
-        storyScript.OnStateCompleted(stateTitle);
-
+		Debug.Log("CompleteState called for " + stateTitle);
 		StoryGraphState state = GetStateWithTitle(stateTitle);
+
+        // Check if this state's requirements are actually met
+        foreach (var req in state.requirements)
+        {
+            if (!GetStateWithTitle(req).completed)
+            {
+                throw new StateRequirementsNotMet(stateTitle);
+            }
+        }
+        Debug.Log("All requirements are met");
+
+        // If they are met, mark the state completed
+        Debug.Log("Marking state as completed and calling storyScript's OnStateCompleted");
+        storyScript.OnStateCompleted(stateTitle);
 		state.completed = true;
 
-		// Check if completing this state unlocked any new states
-		List<StoryGraphState> childStates = new List<StoryGraphState>();
+		// Check if completing this state unlocks any new states
 		foreach (var otherState in states)
 		{
-			if (otherState.requirements.Count > 0)
-			{
-				if (otherState.requirements.Find(x => x == stateTitle) != "")
-					childStates.Add(otherState);
-			}
-		}
+            if (otherState.unlocked) continue;
 
-		if (childStates.Count > 0)
-		{
-			Debug.LogFormat("Found {} other states with this state as a parent.", childStates.Count);
-			foreach (var childState in childStates) {
-				bool allRequirementsComplete = true;
-				foreach (string requirementTitle in childState.requirements)
-				{
-					if (!GetStateWithTitle(requirementTitle).completed)
-					{
-						allRequirementsComplete = false;
-						Debug.LogFormat("Missing requirement for state {0}: {1}", childState.title, requirementTitle); 
-						break;
-					}
-				}
+            bool allReqsComplete = true;
+            foreach (var req in otherState.requirements)
+            {
+                if (!GetStateWithTitle(req).completed)
+                {
+                    allReqsComplete = false;
+                    break;
+                }
+            }
 
-				if (allRequirementsComplete)
-				{
-					storyScript.OnStateUnlocked(childState.title);
-				}
-			}
+            if (allReqsComplete)
+            {
+                Debug.Log("Unlocking state: " + otherState.title);
+                storyScript.OnStateUnlocked(otherState.title);
+                otherState.unlocked = true;
+            }
 		}
 	}
 
@@ -97,17 +118,50 @@ public class StoryGraph {
         return GetStateWithTitle(stateTitle).completed;
     }
 
+    public bool IsStateUnlocked(string stateTitle)
+    {
+        return GetStateWithTitle(stateTitle).unlocked;
+    }
+
+    public void ResetStory()
+    {
+        // Mainly used for testing - resets the story by marking all states as incomplete.
+        foreach (var state in states)
+            state.completed = false;
+    }
+
 	private StoryGraphState GetStateWithTitle(string stateTitle)
 	{
 		/* Returns the state with the given title
 		 */
 		foreach (var state in states)
 		{
+            Debug.Log("GetStateWithTitle considering state: " + state.title);
 			if (state.title == stateTitle)
 			{
 				return state;
 			}
 		}
-        return null;
+        throw new StateNotFound(stateTitle);
 	}
+
+    public int CountStates()
+    {
+        // Only used for testing
+        return states.Count;
+    }
+}
+
+public class StateNotFound : Exception
+{
+    public StateNotFound(string stateTitle) :
+        base("GetStateWithTitle called for '" + stateTitle + "' but it was not found. This is likely a typo")
+    { }
+}
+
+public class StateRequirementsNotMet : Exception
+{
+    public StateRequirementsNotMet(string stateTitle) :
+        base("CompleteState called for '" + stateTitle + "' but requirements not met.")
+    { }
 }

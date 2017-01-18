@@ -31,8 +31,8 @@ public class Player : Character
     public void Awake()
     {
         layerMask = gameObject.layer;
-        UIController = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<UIController>().Instance;
-        interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>();
+        //UIController = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<UIController>().Instance;
+        //interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>();
     }
 
 
@@ -52,6 +52,8 @@ public class Player : Character
             {
                 interaction.instance.InitiliaseInteraction(n);
             }
+
+            MessagePasser.BroadcastMessage("OnPlayerPressSpacebar");
         }
     }
 
