@@ -4,14 +4,16 @@ using UnityEngine;
 using System.Linq;
 using System.Xml.Serialization;
 
+//! Player Class.
+/*! Class which holds the Character that the player controls. */
 public class Player : Character
 {
-    private int aggressive;
-    private int friendly;
-    private int charisma;
-    private int sarcasm;
+    private int aggressive; //!< Player's aggressive value.
+    private int friendly; //!< Player's friendly value.
+    private int charisma; //!< Player's charisma value.
+    private int sarcasm; //!< Player's sarcasm value.
 
-    public int Aggressive
+    public int Aggressive //!< Aggressive value getter and setter.
     {
         get {return aggressive;}
         set
@@ -20,7 +22,7 @@ public class Player : Character
             UIController.AggressiveBar.Value = Aggressive; 
         }
     }
-    public int Friendly
+    public int Friendly //!< Friendly value getter and setter.
     {
         get { return friendly; }
         set
@@ -29,7 +31,7 @@ public class Player : Character
             UIController.FriendlyBar.Value = Friendly;
         }
     }
-    public int Charisma
+    public int Charisma //!< Charisma value getter and setter.
     {
         get { return charisma; }
         set
@@ -38,7 +40,7 @@ public class Player : Character
             UIController.CharismaBar.Value = Charisma;
         }
     }
-    public int Sarcasm
+    public int Sarcasm //!< Sarcasm value getter and setter.
     {
         get { return sarcasm; }
         set
@@ -48,17 +50,17 @@ public class Player : Character
         }
     }
 
-    public int layerMask;
-    private UIController UIController;
-    private InteractionPair interaction;
+    public int layerMask; //!<.
+    private UIController UIController; //!< UIController object.
+    private InteractionPair interaction; //!< Interaction object.
 
-    private int interaction_points = 100;
-    public List<Item> InventoryList;
+    private int interaction_points = 100; //!< Number of interactions remaining.
+    public List<Item> InventoryList; //!< Inventory of Items represented as a List.
 
-    private int i = 5;
-    public float speed = 0.05f;                          
-    
-    public int InteractionPoints
+    private int i = 5; //!<.
+    public float speed = 0.05f; //!< Player movement speed modifier .                      
+
+    public int InteractionPoints //!< Interaction Points getter and setter.
     {
         get
         {
@@ -71,20 +73,28 @@ public class Player : Character
         }
     }
 
-    public void Awake()
+    //! sets UIController object and interaction once all objects initialised.
+    public void Awake() 
     {
         layerMask = gameObject.layer;
         //UIController = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<UIController>().Instance;
         //interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>();
     }
 
-    public void ChoosePlayer(string person)
+    //! Sets character to player.
+    /*!
+     * \param person Chosen character.
+     */ 
+    public void ChoosePlayer(string person) 
     {
        UIController.SetPerson((Constants.People)Enum.Parse(typeof(Constants.People), person));
-    } 
+    }
 
-
-    public void OnTriggerEnter2D(Collider2D col)
+    //! Adds item that player triggers to inventory list.
+    /*!
+     * \param col Collider entered.
+     */ 
+    public void OnTriggerEnter2D(Collider2D col) 
     {
         /*
          * This function adds the item that the player goes accross to their inventory 
@@ -98,12 +108,17 @@ public class Player : Character
         }
     }
 
+    //! Adds an item to the inventory list.
+    /*!
+     * \param item Item to be added.
+     */ 
     public void AddToInventory(Item item)
     {
         InventoryList.Add(item); // Adds it to the player's inventory
         UIController.AddToInventoryList(item); // Add it to the inventory list in the UI
     }
 
+    //! Every 0.05 seconds gets movement infor and moves player accordingly.
     void FixedUpdate()
     {
         transform.position += new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * speed ;
@@ -132,6 +147,8 @@ public class Player : Character
             speed = speed * 1.5f;
     }
     */
+
+    //! Every frame, checks for space press and passes a message if an NPC is in range.
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -139,13 +156,17 @@ public class Player : Character
             NPC n = GetPlayerInRadius();
             if (n != null)
             {
-                interaction.instance.InitiliaseInteraction(n);
+                interaction.instance.InitialiseInteraction(n);
             }
 
             MessagePasser.Broadcast("OnPlayerPressSpacebar");
         }
     }
 
+    //! Checks for NPCs in range of the player.
+    /*!
+     * \return Character in radius.
+     */
     NPC GetPlayerInRadius()
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 5);
