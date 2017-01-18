@@ -4,14 +4,14 @@ using UnityEngine.EventSystems;
 
 public class NPC : Character
 {
-    public Constants.People name;
+    public Constants.People characterName;
     public InteractionPair interaction;
 
     void Start()
     {
         gameObject.layer = 9;
         //interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>().instance;
-        name = Constants.People.DonaldTrump;
+        characterName = Constants.People.DonaldTrump;
     }
 
     void OnMouseDown()

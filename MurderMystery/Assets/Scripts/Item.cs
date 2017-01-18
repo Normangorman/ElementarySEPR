@@ -5,14 +5,14 @@ using Newtonsoft.Json.Linq;
 public class Item : MonoBehaviour
 {
     public Constants.Items item;
-    public string name;
+    public string itemName;
     public string description;
 
     private const string itemJsonFile = "Assets/Scripts/Resources/item_descriptions.json";
 
     public Item(string name, string description)
     {
-        this.name = name;
+        this.itemName = name;
         this.description = description;
     }
 

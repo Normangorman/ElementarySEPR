@@ -92,8 +92,8 @@ public class Player : Character
          */
         if (col.gameObject.CompareTag("Item"))
         {
-            AddToInventory(item.GetComponent<Item>());
-            item.gameObject.SetActive(false);
+            AddToInventory(col.gameObject.GetComponent<Item>());
+            col.gameObject.SetActive(false);
             // Show a notification to show that it has been picked up
         }
     }
@@ -142,7 +142,7 @@ public class Player : Character
                 interaction.instance.InitiliaseInteraction(n);
             }
 
-            MessagePasser.BroadcastMessage("OnPlayerPressSpacebar");
+            MessagePasser.Broadcast("OnPlayerPressSpacebar");
         }
     }
 

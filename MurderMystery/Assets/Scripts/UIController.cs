@@ -121,7 +121,7 @@ public class UIController : MonoBehaviour, IUserInterface
         Transform parent = GameObject.FindGameObjectWithTag("InventoryList").transform;
         GameObject r = Resources.Load("Item") as GameObject;
         GameObject  g = Instantiate(r, parent, false) as GameObject;
-        g.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(item.name);
+        g.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(item.itemName);
         g.transform.GetChild(1).GetComponent<Text>().text = item.description;
     }
 
