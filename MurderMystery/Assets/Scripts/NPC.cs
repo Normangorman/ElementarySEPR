@@ -10,7 +10,7 @@ public class NPC : Character
     void Start()
     {
         gameObject.layer = 9;
-        interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>().instance;
+        //interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>().instance;
         name = Constants.People.DonaldTrump;
     }
 

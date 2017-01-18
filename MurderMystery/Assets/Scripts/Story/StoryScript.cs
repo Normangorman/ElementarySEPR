@@ -18,14 +18,14 @@ public abstract class StoryScript : MonoBehaviour {
 
 	public virtual void OnStateCompleted(string stateTitle)
 	{
-        /* Called when a state in the story has been completed.
+        /* Called by the story graph when a state in the story has been completed.
+         * (That's why StoryGraph has a reference to it's StoryScript)
 		 */
-        storyGraph.CompleteState(stateTitle);
 	}
 
 	public virtual void OnStateUnlocked(string stateTitle)
 	{
-		/* Called when a new state in the story has been unlocked
+		/* Called by the story graph when a new state in the story has been unlocked
 		 * (i.e. all it's requirements have been completed)
 		 */
 	}
@@ -53,4 +53,10 @@ public abstract class StoryScript : MonoBehaviour {
 		/* Called when the player leaves a room
 		 */
 	}
+
+    public StoryGraph GetStoryGraph()
+    {
+        // Only really needed for testing purposes
+        return storyGraph;
+    }
 }
