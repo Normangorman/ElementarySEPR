@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class ExampleStoryScript : StoryScript {
     private const string graphFilePath = "Assets/Scripts/Story/example_story.json";

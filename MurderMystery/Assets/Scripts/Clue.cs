@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Clue : Item
+public class Clue
 {
     private InteractionPair interaction;
 

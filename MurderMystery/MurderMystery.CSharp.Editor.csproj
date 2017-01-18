@@ -118,6 +118,9 @@
     <Reference Include="DOTweenProEditor">
       <HintPath>Assets\Demigiant\DOTweenPro\Editor\DOTweenProEditor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Newtonsoft.Json">
+      <HintPath>Assets\packages\Unity.Newtonsoft.Json.7.0.0.0\lib\net35-Client\Unity.Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="MurderMystery.CSharp.csproj">
@@ -264,6 +267,7 @@
     <None Include="Assets\DoozyUI\Presets\UIAnimations\OnClick\TwitchToLeft_OnClick.xml" />
     <None Include="Assets\DoozyUI\Presets\UIAnimations\OnClick\TwitchToRight_OnClick.xml" />
     <None Include="Assets\DoozyUI\Readme.txt" />
+    <None Include="Assets\packages\Unity.Newtonsoft.Json.7.0.0.0\lib\net35-Client\Unity.Newtonsoft.Json.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

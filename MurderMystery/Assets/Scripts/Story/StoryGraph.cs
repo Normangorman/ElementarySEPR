@@ -4,7 +4,8 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 
 public class StoryGraph {
-	/* This class represents the graph of a story in the game.
+	/* 
+     * This class represents the graph of a story in the game.
 	 * It has states which can be unlocked by the player by performing certain actions in the game.
 	 */
 
@@ -28,7 +29,8 @@ public class StoryGraph {
 
 	public StoryGraph(StoryScript storyScript, string graphFilePath)
 	{
-		/* Takes a path to a json file specifying the structure of the story.
+		/* 
+         * Takes a path to a json file specifying the structure of the story.
          * See Assets/Scripts/Story/example_story.json for an example
 		 */
 		Debug.Log("Loading story graph from: " + graphFilePath);
@@ -99,7 +101,8 @@ public class StoryGraph {
 
 	private StoryGraphState GetStateWithTitle(string stateTitle)
 	{
-		/* Returns the state with the given title
+		/* 
+         * Returns the state with the given title
 		 */
 		foreach (var state in states)
 		{
