@@ -4,40 +4,28 @@ using Newtonsoft.Json.Linq;
 
 public class Item : MonoBehaviour
 {
-    public Constants.Items item;
-    public string itemName;
-    public string description;
+    public Constants.Items type;
 
-    private const string itemJsonFile = "Assets/Scripts/Resources/item_descriptions.json";
-
-    public Item(string name, string description)
+    /*
+    public Item(Constants.Items type)
     {
-        this.itemName = name;
-        this.description = description;
+        this.type = type;
+    }
+    */
+
+    public string GetName()
+    {
+        return type.ToString();
     }
 
-    public void Start()
+    public string GetSpriteName()
     {
-        getItem(item);
+        // The name of the sprite associated with this item
+        return GetName();
     }
 
-
-    public static Item getItem(Constants.Items itemType)
+    public string GetDescription()
     {
-        Debug.Log("Loading story graph from: " + itemJsonFile);
-
-        JObject itemsJSON = JObject.Parse(File.ReadAllText(itemJsonFile));
-        JArray listItemJSON = (JArray)itemsJSON.GetValue("items");
-        foreach (var item in listItemJSON.Children<JObject>())
-        {
-            string title = item.Value<string>("name");
-            string description = item.Value<string>("description");
-
-            if (title == itemType.ToString())
-            {
-                return new Item(title, description);
-            }
-        }
-        return null;
+        return Constants.ItemDescriptions[type];
     }
 }

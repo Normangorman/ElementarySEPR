@@ -118,11 +118,13 @@ public class UIController : MonoBehaviour, IUserInterface
 
     public void AddToInventoryList(Item item)
     {
+        /*
         Transform parent = GameObject.FindGameObjectWithTag("InventoryList").transform;
         GameObject r = Resources.Load("Item") as GameObject;
         GameObject  g = Instantiate(r, parent, false) as GameObject;
-        g.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(item.itemName);
-        g.transform.GetChild(1).GetComponent<Text>().text = item.description;
+        g.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(item.GetSpriteName());
+        g.transform.GetChild(1).GetComponent<Text>().text = item.GetDescription();
+        */
     }
 
 }

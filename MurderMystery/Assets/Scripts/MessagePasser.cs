@@ -3,12 +3,15 @@ using System.Collections;
 
 public class MessagePasser : MonoBehaviour {
 
-    public static void Broadcast(string msg)
+    public static void OnNPCSpokenTo(NPC npc)
     {
-        if (msg == "OnPlayerTalkToNPC")
-        {
-            //storymanager.OnPlayerTalkToNPC();
-            //userinterface.OnPlayerTalkToNPC();
-        }
+        StoryManager.instance.GetStoryScript().OnNPCSpokenTo(npc);
     }
+
+    public static void OnItemFound(Item item)
+    {
+        StoryManager.instance.GetStoryScript().OnItemFound(item);
+    }
+
+    public static void OnPlayerPressSpacebar() { }
 }

@@ -21,7 +21,7 @@ public class StoryGraph {
 
 		public StoryGraphState(string title, string description, List<string> requirements)
 		{
-            Debug.LogFormat("Creating new StoryGraphState: {0}, {1}, {2}", title, description, requirements.Count);
+            //Debug.LogFormat("Creating new StoryGraphState: {0}, {1}, {2}", title, description, requirements.Count);
 			this.title = title;
 			this.description = description;
 			this.requirements = requirements;
@@ -57,7 +57,7 @@ public class StoryGraph {
             else
                 requirementsList = (List<string>)requirements.ToObject<List<string>>();
 
-            Debug.LogFormat("var state: {0}, title {1}, desc {2}, reqs {3}", state, title, description, requirementsList);
+            //Debug.LogFormat("var state: {0}, title {1}, desc {2}, reqs {3}", state, title, description, requirementsList);
 
             states.Add(new StoryGraphState(title, description, requirementsList));
         }
@@ -115,7 +115,17 @@ public class StoryGraph {
 		}
 	}
 
-    public bool IsStateCompleted(string stateTitle)
+    public void CompleteStateIfNeeded(string stateTitle)
+    {
+        // Utility function: a common pattern is "if (!state completed) complete state;"
+        // This reduces that to: "complete state if not already"
+        if (!IsStateComplete(stateTitle))
+        {
+            CompleteState(stateTitle);
+        }
+    }
+
+    public bool IsStateComplete(string stateTitle)
     {
         return GetStateWithTitle(stateTitle).completed;
     }
@@ -123,6 +133,12 @@ public class StoryGraph {
     public bool IsStateUnlocked(string stateTitle)
     {
         return GetStateWithTitle(stateTitle).unlocked;
+    }
+
+    public bool IsStateActive(string stateTitle)
+    {
+        // Active state = unlocked but not yet complete
+        return IsStateUnlocked(stateTitle) && !IsStateComplete(stateTitle);
     }
 
     public void ResetStory()
@@ -139,7 +155,7 @@ public class StoryGraph {
 		 */
 		foreach (var state in states)
 		{
-            Debug.Log("GetStateWithTitle considering state: " + state.title);
+            //Debug.Log("GetStateWithTitle considering state: " + state.title);
 			if (state.title == stateTitle)
 			{
 				return state;

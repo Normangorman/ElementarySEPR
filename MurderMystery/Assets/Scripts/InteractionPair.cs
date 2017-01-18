@@ -25,7 +25,7 @@ public class InteractionPair : MonoBehaviour
     {
         npc = a_NPC;
         interactionType = InteractionType.character;
-        Debug.Log(npc.characterName);
+        Debug.Log(npc.person);
         GetNextStory(Turn.character);
     }
 
@@ -33,7 +33,7 @@ public class InteractionPair : MonoBehaviour
     {
         item = a_item;
         interactionType = InteractionType.item;
-        Debug.Log(item.itemName);
+        Debug.Log(item.GetName());
     }
 
     private string GetNextStory(Turn turn)
@@ -46,7 +46,7 @@ public class InteractionPair : MonoBehaviour
         }
         else
         {
-            text = npc.characterName + ": Hello this is the president of the US speaking, who are you?";
+            text = npc.person + ": Hello this is the president of the US speaking, who are you?";
         }
         UIController.SetDialogueBoxTet(text);
         return text;

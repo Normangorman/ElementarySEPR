@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class StoryScript : MonoBehaviour {
+public abstract class StoryScript {
     /* This class represents the script for a particular story.
 	 * In our game's architecture we create dynamism by having several independent storylines.
 	 * So there will be one StoryScript for each of the different stories.
@@ -21,6 +21,7 @@ public abstract class StoryScript : MonoBehaviour {
         /* Called by the story graph when a state in the story has been completed.
          * (That's why StoryGraph has a reference to it's StoryScript)
 		 */
+        Debug.Log("State Completed: " + stateTitle);
 	}
 
 	public virtual void OnStateUnlocked(string stateTitle)
@@ -28,30 +29,35 @@ public abstract class StoryScript : MonoBehaviour {
 		/* Called by the story graph when a new state in the story has been unlocked
 		 * (i.e. all it's requirements have been completed)
 		 */
+        Debug.Log("State Unlocked: " + stateTitle);
 	}
 
-	public virtual void OnItemFound(string itemName)
+	public virtual void OnItemFound(Item item)
 	{
 		/* Called after the player picks up an item.
 		 */
+        Debug.Log("Item Found " + item.GetName());
 	}
 
-	public virtual void OnNPCSpokenTo(string npcName)
+	public virtual void OnNPCSpokenTo(NPC npc)
 	{
 		/* Called after the player finishes speaking to an NPC.
 		 */
+        Debug.Log("NPC spoken to " + npc.GetName());
 	}
 
-	public virtual void OnPlayerEnterRoom(string roomName)
+	public virtual void OnPlayerEnterRoom(Constants.Rooms room)
 	{
 		/* Called when the player enters a new room.
 		 */
+        Debug.Log("Player entered room" + room.ToString());
 	}
 
-	public virtual void OnPlayerLeaveRoom(string roomName)
+	public virtual void OnPlayerLeaveRoom(Constants.Rooms room)
 	{
 		/* Called when the player leaves a room
 		 */
+        Debug.Log("Player left room" + room.ToString());
 	}
 
     public StoryGraph GetStoryGraph()
