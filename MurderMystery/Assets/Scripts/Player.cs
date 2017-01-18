@@ -74,6 +74,8 @@ public class Player : Character
     public void Awake()
     {
         layerMask = gameObject.layer;
+        InventoryList = new List<Item>();
+        //TODO: UIController = new UIController();
         //UIController = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<UIController>().Instance;
         //interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>();
     }
@@ -90,11 +92,23 @@ public class Player : Character
          * This function adds the item that the player goes accross to their inventory 
          * with its description that has been got from the json file
          */
+        Debug.Log("Player OnTriggerEnter2D");
         if (col.gameObject.CompareTag("Item"))
         {
-            AddToInventory(col.gameObject.GetComponent<Item>());
-            col.gameObject.SetActive(false);
-            // Show a notification to show that it has been picked up
+            Debug.Log("Found item: " + col.gameObject.name);
+            Item itemComponent = col.gameObject.GetComponent<Item>();
+
+            if (itemComponent == null)
+            {
+                Debug.LogError("Object has Item tag but no Item component!");
+            }
+            else
+            {
+                AddToInventory(itemComponent);
+                col.gameObject.SetActive(false);
+                MessagePasser.OnItemFound(itemComponent);
+                // TODO: Show a notification to show that it has been picked up
+            }
         }
     }
 
@@ -136,21 +150,30 @@ public class Player : Character
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            NPC n = GetPlayerInRadius();
+            Debug.Log("Space bar pressed");
+            NPC n = GetNearbyNPC();
             if (n != null)
             {
-                interaction.instance.InitiliaseInteraction(n);
+                Debug.Log("Starting interaction with NPC: " + n.GetName());
+                // TODO: fix this
+                //interaction.instance.InitiliaseInteraction(n);
+                MessagePasser.OnNPCSpokenTo(n);
+            }
+            else
+            {
+                Debug.Log("No NPC found");
             }
 
-            MessagePasser.Broadcast("OnPlayerPressSpacebar");
+            MessagePasser.OnPlayerPressSpacebar();
         }
     }
 
-    NPC GetPlayerInRadius()
+    NPC GetNearbyNPC()
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 5);
         foreach (Collider2D col in hitColliders)
         {
+            //Debug.Log("Overlapping col: " + col.ToString());
             if (col.GetComponent<NPC>() != null)
             {
                 return col.gameObject.GetComponent<NPC>();

@@ -4,14 +4,20 @@ using UnityEngine.EventSystems;
 
 public class NPC : Character
 {
-    public Constants.People characterName;
-    public InteractionPair interaction;
+    public Constants.People person;
+    [HideInInspector] public InteractionPair interaction;
+
+    /*
+    public NPC(Constants.People person)
+    {
+        this.person = person;
+    }
+    */
 
     void Start()
     {
         gameObject.layer = 9;
         //interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>().instance;
-        characterName = Constants.People.DonaldTrump;
     }
 
     void OnMouseDown()
@@ -20,4 +26,8 @@ public class NPC : Character
         interaction.InitiliaseInteraction(this);
     }
 
+    public string GetName()
+    {
+        return person.ToString();
+    }
 }
