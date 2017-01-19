@@ -6,36 +6,37 @@ using UnityEngine;
 public class InteractionPair : MonoBehaviour
 {
     private UIController UIController; //! UIController allows manipulation of UI
-
-    private enum InteractionType { character, item} //!< enum of types of possible interactions
     private enum Turn { player, character} //!< enum of possible character interaction turns
+<<<<<<< HEAD
 
     private InteractionType interactionType; //!< the interaction type variable
     public InteractionPair instance; //!< instance of the InteractionPair class
     public Player player; //!< Player object
     public NPC npc; //!< NPC object
     public Clue item; //!< Clue object
+=======
+    
+    public InteractionPair instance;
+    public Player player;
+    public NPC npc;
+>>>>>>> 9d1fc7b... Updated some scripts and added colliders to all the NPCs
 
-    //! Method is run when initialised, setting UIController and player
+    
     public void Start() 
     {
         instance = this;
         UIController = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<UIController>().Instance;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
+    
 
-    //! Sets the Interaction to an NPC interaction,
-    /*! 
-     * \param a_NPC the NPC object that is being interacted with.
-     */ 
     public void InitialiseInteraction(NPC a_NPC) 
     {
         npc = a_NPC;
-        interactionType = InteractionType.character;
-        Debug.Log(npc.person);
         GetNextStory(Turn.character);
     }
 
+<<<<<<< HEAD
     //! Sets the Interaction to an Item interaction
     /*! 
      * \param a_item the Item object that is being interacted with.
@@ -52,6 +53,8 @@ public class InteractionPair : MonoBehaviour
      * \param a_item the Item object that is being interacted with.
      * \return string of speech
      */
+=======
+>>>>>>> 9d1fc7b... Updated some scripts and added colliders to all the NPCs
     private string GetNextStory(Turn turn)
     {
         // From the story manager get the next thing that the player and the npc can say
@@ -62,7 +65,7 @@ public class InteractionPair : MonoBehaviour
         }
         else
         {
-            text = npc.person + ": Hello this is the president of the US speaking, who are you?";
+            text = " Hello this is the president of the US speaking, who are you?";
         }
         UIController.SetDialogueBoxText(text);
         return text;
@@ -75,5 +78,7 @@ public class InteractionPair : MonoBehaviour
         GameObject button = GameObject.FindGameObjectWithTag("ResponseButton");
         button.SetActive(false);
     }
+
+    
 
 }

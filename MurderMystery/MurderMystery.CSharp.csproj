@@ -133,6 +133,7 @@
     <Compile Include="Assets\Scripts\IUserInterface.cs" />
     <Compile Include="Assets\Scripts\IntegrationTests\PlayerIntegration.cs" />
     <Compile Include="Assets\Scripts\InteractionPair.cs" />
+    <Compile Include="Assets\Scripts\Item.cs" />
     <Compile Include="Assets\Scripts\MessagePasser.cs" />
     <Compile Include="Assets\Scripts\NPC.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />

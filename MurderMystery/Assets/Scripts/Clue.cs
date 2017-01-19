@@ -14,6 +14,8 @@ public class Clue : MonoBehaviour
     public Clue(Constants.Clues type)
     {
         this.type = type;
+        description = Constants.ClueDescriptions[type];
+        img = Resources.Load(type.ToString()) as Sprite;
     }
 
     public string GetName()
@@ -21,14 +23,8 @@ public class Clue : MonoBehaviour
         return type.ToString();
     }
 
-    public string GetSpriteName()
-    {
-        // The name of the sprite associated with this item
-        return GetName();
-    }
-
     public string GetDescription()
     {
-        return Constants.ItemDescriptions[type];
+        return description;
     }
 }

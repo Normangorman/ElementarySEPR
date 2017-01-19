@@ -18,7 +18,7 @@ public class Constants
     // Enum of all the items in the game These can be used to enhance the player's abilities
     //public enum Items { Hat, WalkingStick, MagnifyingGlass, Dagger }
 
-    public static Dictionary<Clues, string> ItemDescriptions = new Dictionary<Clues, string>
+    public static Dictionary<Clues, string> ClueDescriptions = new Dictionary<Clues, string>
     {
         {Clues.Dagger, "A dagger with a smear or vivid red blood along the sharp side of the blade"},
         {Clues.Letter, "A letter addressed to ..... confessing their...."},
@@ -40,7 +40,7 @@ public class Constants
         {People.JamesBond, new List<int> {10, 20, 20} },
         {People.TheQueen, new List<int> {75, 15, 0} },
         {People.Poirot, new List<int> {10, 70, 20} },
-        {People.Poirot2, new List<int> {60, 10, 30} },
+        {People.Poirot2, new List<int> {60, 10, 30} }
     };
 
 }

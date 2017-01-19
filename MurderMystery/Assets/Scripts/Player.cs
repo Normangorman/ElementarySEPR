@@ -8,22 +8,11 @@ using System.Xml.Serialization;
 /*! Class which holds the Character that the player controls. */
 public class Player : Character
 {
-    private int aggressive; //!< Player's aggressive value.
-    private int friendly; //!< Player's friendly value.
-    private int charisma; //!< Player's charisma value.
-    private int sarcasm; //!< Player's sarcasm value.
+    private int friendly;
+    private int charisma;
+    private int sarcasm;
 
-    public int Aggressive //!< Aggressive value getter and setter.
-    {
-        get {return aggressive;}
-        set
-        {
-            aggressive = Aggressive;
-            UIController.AggressiveBar.Value = Aggressive; 
-        }
-    }
-    
-    public int Friendly //!< Friendly value getter and setter.
+    public int Friendly
     {
         get { return friendly; }
         set
@@ -56,9 +45,9 @@ public class Player : Character
     public int layerMask; //!<.
     private UIController UIController; //!< UIController object.
     private InteractionPair interaction; //!< Interaction object.
-
-    private int interaction_points = 100; //!< Number of interactions remaining.
-    public List<Clue> InventoryList; //!< Inventory of Items represented as a List.
+   
+    private int interaction_points = 100;
+    public List<Clue> InventoryList;
 
     private int i = 5; //!<.
     public float speed = 0.05f; //!< Player movement speed modifier .                      
@@ -90,28 +79,20 @@ public class Player : Character
     {
         if (person == 0)
         {
-            UIController.SetPerson(Constants.People.Poirot, 10, 70, 20);
+            UIController.SetPerson(Constants.People.Poirot);
         }
         else if (person == 1)
         {
-            UIController.SetPerson(Constants.People.Poirot2, 60, 10, 30);
+            UIController.SetPerson(Constants.People.Poirot);
         }
         Time.timeScale = 1;
     } 
 
-    //! Sets character to player.
-    /*!
-     * \param person Chosen character.
-     */ 
     public void ChoosePlayer(string person) 
     {
        UIController.SetPerson((Constants.People)Enum.Parse(typeof(Constants.People), person));
     }
 
-    //! Adds item that player triggers to inventory list.
-    /*!
-     * \param col Collider entered.
-     */ 
     public void OnTriggerEnter2D(Collider2D col) 
     {
         /*
@@ -138,10 +119,6 @@ public class Player : Character
         }
     }
 
-    //! Adds an item to the inventory list.
-    /*!
-     * \param item Item to be added.
-     */ 
     public void AddToInventory(Clue item)
     {
         InventoryList.Add(item); // Adds it to the player's inventory
@@ -202,13 +179,7 @@ public class Player : Character
         }
     }
 
-    NPC GetNearbyNPC() {}
-
-    //! Checks for NPCs in range of the player.
-    /*!
-     * \return Character in radius.
-     */
-    NPC GetPlayerInRadius()
+    NPC GetNearbyNPC()
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 5);
         foreach (Collider2D col in hitColliders)
