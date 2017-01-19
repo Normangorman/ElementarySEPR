@@ -7,35 +7,47 @@ using ProgressBar;
 public class UIController : MonoBehaviour, IUserInterface
 {
     #region Variables
+    [HideInInspector]
     public UIController Instance;
+    public Transform GuestList;
+    public Transform InventoryList;
 
     public ProgressBarBehaviour InteractionPointBar;
     public GameObject PlayerIcon;
     public GameObject NPCIcon;
     public ProgressBarBehaviour CharismaBar;
     public ProgressBarBehaviour FriendlyBar;
-    public ProgressBarBehaviour AggressiveBar;
     public ProgressBarBehaviour SarcasmBar;
     public ProgressBarBehaviour NpcCharismaBar;
     public ProgressBarBehaviour NpcFriendlyBar;
-    public ProgressBarBehaviour NpcAggressiveBar;
     public ProgressBarBehaviour NpcSarcasmBar;
+    public Text Button1Text;
+    public Text Button2Text;
+    public Text Button3Text;
     public Text DialogueBox;
-    public GameObject GuestList;
-    public GameObject InventoryList;
     #endregion
 
     public void Awake()
     {
         Instance = this;
-        //SetPlayerAbilities();
-        //SetNpcAbilities();
-        //SetInteractionPoint();
+        InventoryList = GameObject.FindGameObjectWithTag("InventoryList").transform;
+        GuestList = GameObject.FindGameObjectWithTag("GuestList").transform;
     }
 
     public void GetGuestList()
     {
         throw new NotImplementedException();
+    }
+
+    public void SetResponseTexts(string Text1, string Text2, string Text3)
+    {
+        /*
+         * Sets the texts for the different response buttons. Call this function with the names that
+         * you want to appear on the buttons when you are responding to an NPC
+         */
+        Button1Text.text = Text1;
+        Button2Text.text = Text2;
+        Button3Text.text = Text3;
     }
 
     public void SetInteractionPoint(int i = 0)
@@ -51,10 +63,9 @@ public class UIController : MonoBehaviour, IUserInterface
     public void SetNpcAbilities(Constants.People person)
     {
         Dictionary<Constants.People, List<int>> Dict = Constants.CharacterValues;
-        NpcAggressiveBar.Value = Dict[person][0];
-        NpcFriendlyBar.Value = Dict[person][1];
-        NpcCharismaBar.Value = Dict[person][2];
-        NpcSarcasmBar.Value = Dict[person][3];
+        NpcFriendlyBar.Value = Dict[person][0];
+        NpcCharismaBar.Value = Dict[person][1];
+        NpcSarcasmBar.Value = Dict[person][2];
     }
 
     public void GetNpcIcon()
@@ -62,33 +73,18 @@ public class UIController : MonoBehaviour, IUserInterface
         throw new NotImplementedException();
     }
 
-    public void SetPerson(Constants.People p)
+    public void SetPerson(Constants.People p, int i, int j, int k)
     {
-        SetPlayerAbilities(p);
-        SetPlayerIcon(p);
-    }
-
-    public void SetPlayerIcon(Constants.People p)
-    {
-        Sprite img = Resources.Load(p.ToString()) as Sprite;
+        Sprite img = Resources.Load("Poirot") as Sprite;
         PlayerIcon.GetComponent<Image>().sprite = img;
+        SetPlayerAbilities(i, j, k);
     }
 
-    public void SetPlayerAbilities(Constants.People person)
+    public void SetPlayerAbilities(int i, int j, int k)
     {
-        Dictionary<Constants.People, List<int>> Dict = Constants.CharacterValues;
-        NpcAggressiveBar.Value = Dict[person][0];
-        NpcFriendlyBar.Value = Dict[person][1];
-        NpcCharismaBar.Value = Dict[person][2];
-        NpcSarcasmBar.Value = Dict[person][3];
-    }
-
-    public void SetPlayerAbilities(int i, int j, int k, int l)
-    {
-        NpcAggressiveBar.Value = i;
-        NpcFriendlyBar.Value = j;
-        NpcCharismaBar.Value = k;
-        NpcSarcasmBar.Value = l;
+        NpcFriendlyBar.Value = i;
+        NpcCharismaBar.Value = j;
+        NpcSarcasmBar.Value = k;
     }
 
     public void GetPlayerIcon()
@@ -116,15 +112,12 @@ public class UIController : MonoBehaviour, IUserInterface
         throw new NotImplementedException();
     }
 
-    public void AddToInventoryList(Item item)
+    public void AddToInventoryList(Clue item)
     {
-        /*
-        Transform parent = GameObject.FindGameObjectWithTag("InventoryList").transform;
         GameObject r = Resources.Load("Item") as GameObject;
-        GameObject  g = Instantiate(r, parent, false) as GameObject;
+        GameObject  g = Instantiate(r, InventoryList, false) as GameObject;
         g.transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>(item.GetSpriteName());
         g.transform.GetChild(1).GetComponent<Text>().text = item.GetDescription();
-        */
     }
 
 }

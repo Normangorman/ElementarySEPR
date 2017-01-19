@@ -6,20 +6,10 @@ using System.Xml.Serialization;
 
 public class Player : Character
 {
-    private int aggressive;
     private int friendly;
     private int charisma;
     private int sarcasm;
 
-    public int Aggressive
-    {
-        get {return aggressive;}
-        set
-        {
-            aggressive = Aggressive;
-            UIController.AggressiveBar.Value = Aggressive; 
-        }
-    }
     public int Friendly
     {
         get { return friendly; }
@@ -53,7 +43,7 @@ public class Player : Character
     private InteractionPair interaction;
 
     private int interaction_points = 100;
-    public List<Item> InventoryList;
+    public List<Clue> InventoryList;
 
     private int i = 5;
     public float speed = 0.05f;                          
@@ -74,15 +64,23 @@ public class Player : Character
     public void Awake()
     {
         layerMask = gameObject.layer;
-        InventoryList = new List<Item>();
+        InventoryList = new List<Clue>();
         //TODO: UIController = new UIController();
-        //UIController = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<UIController>().Instance;
-        //interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>();
+        UIController = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<UIController>().Instance;
+        interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>();
     }
 
-    public void ChoosePlayer(string person)
+    public void ChoosePlayer(int person)
     {
-       UIController.SetPerson((Constants.People)Enum.Parse(typeof(Constants.People), person));
+        if (person == 0)
+        {
+            UIController.SetPerson(Constants.People.Poirot, 10, 70, 20);
+        }
+        else if (person == 1)
+        {
+            UIController.SetPerson(Constants.People.Poirot2, 60, 10, 30);
+        }
+        Time.timeScale = 1;
     } 
 
 
@@ -93,14 +91,14 @@ public class Player : Character
          * with its description that has been got from the json file
          */
         Debug.Log("Player OnTriggerEnter2D");
-        if (col.gameObject.CompareTag("Item"))
+        if (col.gameObject.CompareTag("Clue"))
         {
             Debug.Log("Found item: " + col.gameObject.name);
-            Item itemComponent = col.gameObject.GetComponent<Item>();
+            Clue itemComponent = col.gameObject.GetComponent<Clue>();
 
             if (itemComponent == null)
             {
-                Debug.LogError("Object has Item tag but no Item component!");
+                Debug.LogError("Object has Clue tag but no Clue component!");
             }
             else
             {
@@ -112,7 +110,7 @@ public class Player : Character
         }
     }
 
-    public void AddToInventory(Item item)
+    public void AddToInventory(Clue item)
     {
         InventoryList.Add(item); // Adds it to the player's inventory
         UIController.AddToInventoryList(item); // Add it to the inventory list in the UI

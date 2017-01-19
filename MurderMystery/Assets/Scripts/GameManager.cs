@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
 
-    public float Time;
+    public float time;
 
     // This dictionary is the person and the description of that person
     Dictionary<Constants.People, string> GuestList = new Dictionary<Constants.People, string>
@@ -17,5 +17,8 @@ public class GameManager : MonoBehaviour
         {Constants.People.TheQueen, "Old"}
     };
 
-
+    public void Awake()
+    {
+        Time.timeScale = 0;
+    }
 }

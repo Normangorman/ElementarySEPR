@@ -32,11 +32,11 @@ public abstract class StoryScript {
         Debug.Log("State Unlocked: " + stateTitle);
 	}
 
-	public virtual void OnItemFound(Item item)
+	public virtual void OnItemFound(Clue item)
 	{
 		/* Called after the player picks up an item.
 		 */
-        Debug.Log("Item Found " + item.GetName());
+        Debug.Log("Clue Found " + item.GetName());
 	}
 
 	public virtual void OnNPCSpokenTo(NPC npc)

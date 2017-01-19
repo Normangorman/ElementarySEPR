@@ -2,16 +2,16 @@
 using System.IO;
 using Newtonsoft.Json.Linq;
 
-public class Item : MonoBehaviour
+public class Clue : MonoBehaviour
 {
-    public Constants.Items type;
-
-    /*
-    public Item(Constants.Items type)
+    public Constants.Clues type;
+    public Sprite img;
+    public string description;
+    
+    public Clue(Constants.Clues type)
     {
         this.type = type;
     }
-    */
 
     public string GetName()
     {

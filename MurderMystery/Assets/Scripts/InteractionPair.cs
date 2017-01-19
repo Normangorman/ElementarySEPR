@@ -12,7 +12,7 @@ public class InteractionPair : MonoBehaviour
     public InteractionPair instance;
     public Player player;
     public NPC npc;
-    public Item item;
+    public Clue item;
 
     public void Start()
     {
@@ -29,7 +29,7 @@ public class InteractionPair : MonoBehaviour
         GetNextStory(Turn.character);
     }
 
-    public void InitiliaseInteraction(Item a_item)
+    public void InitiliaseInteraction(Clue a_item)
     {
         item = a_item;
         interactionType = InteractionType.item;
