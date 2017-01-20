@@ -1,17 +1,19 @@
 ﻿using System.Collections.Generic;
 
+//! Constants Class.
+/*! Class of enums containing names for objects and other info. */
 public class Constants
 {
     // Enum of all the characters in the game
 	public enum People { DonaldTrump, Dumbledore, MarilynMonroe, FreddieMercury, JamesBond, TheQueen, Receptionist,
-                         PabloEscobar, Poirot, Poirot2}
+                         PabloEscobar, Poirot, Poirot2} //!< Enum of all characters
 
     // Enum of all the rooms in the game
-    public enum Rooms { IslandInteraction, Cafe, Office1, Office2, Office3, Balcony, LectureTheatre, BinStore,
-                        Kitchen, CommonRoom, Room360, Stairwell }
+    public enum Rooms { IslandInteraction, Cafe, Office1, Office2, Office3, Balcony, LectureTheatre, BinStore, 
+                        Kitchen, CommonRoom, Room360, Stairwell } //!< Enum of all rooms
 
     // Enum of all the clues in the game
-    public enum Clues { Dagger, Letter, Hat, BlondeHair, WantedPoster, CateringNotes, CookBook, MercurysClothing}
+    public enum Clues { Dagger, Letter, Hat, BlondeHair, WantedPoster, CateringNotes, CookBook, MercurysClothing} //!< Enum of all clues
 
     // Enum of all the items in the game These can be used to enhance the player's abilities
     //public enum Items { Hat, WalkingStick, MagnifyingGlass, Dagger }
@@ -28,7 +30,7 @@ public class Constants
     };
 
     // Dictionary of the person and their intial values for their character traits
-    public static Dictionary<People, List<int>> CharacterValues = new Dictionary<People, List<int>>
+    public static Dictionary<People, List<int>> CharacterValues = new Dictionary<People, List<int>> //!< Dictionary associating characters and initial character traits.
     {
         // Person : Aggresive, friendly, charisma, sarcasm. ALWAYS IN THIS ORDER
         {People.DonaldTrump, new List<int> {0, 15, 15} },
@@ -40,6 +42,5 @@ public class Constants
         {People.Poirot, new List<int> {10, 70, 20} },
         {People.Poirot2, new List<int> {60, 10, 30} },
     };
-
 
 }
