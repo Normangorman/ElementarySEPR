@@ -8,7 +8,7 @@ public class MessagePasser : MonoBehaviour {
         StoryManager.instance.GetStoryScript().OnNPCSpokenTo(npc);
     }
 
-    public static void OnItemFound(Item item)
+    public static void OnItemFound(Clue item)
     {
         StoryManager.instance.GetStoryScript().OnItemFound(item);
     }

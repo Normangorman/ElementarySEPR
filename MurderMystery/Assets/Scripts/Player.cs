@@ -4,22 +4,14 @@ using UnityEngine;
 using System.Linq;
 using System.Xml.Serialization;
 
+//! Player Class.
+/*! Class which holds the Character that the player controls. */
 public class Player : Character
 {
-    private int aggressive;
     private int friendly;
     private int charisma;
     private int sarcasm;
 
-    public int Aggressive
-    {
-        get {return aggressive;}
-        set
-        {
-            aggressive = Aggressive;
-            UIController.AggressiveBar.Value = Aggressive; 
-        }
-    }
     public int Friendly
     {
         get { return friendly; }
@@ -29,7 +21,8 @@ public class Player : Character
             UIController.FriendlyBar.Value = Friendly;
         }
     }
-    public int Charisma
+
+    public int Charisma //!< Charisma value getter and setter.
     {
         get { return charisma; }
         set
@@ -38,7 +31,8 @@ public class Player : Character
             UIController.CharismaBar.Value = Charisma;
         }
     }
-    public int Sarcasm
+
+    public int Sarcasm //!< Sarcasm value getter and setter.
     {
         get { return sarcasm; }
         set
@@ -48,17 +42,17 @@ public class Player : Character
         }
     }
 
-    public int layerMask;
-    private UIController UIController;
-    private InteractionPair interaction;
-
+    public int layerMask; //!<.
+    private UIController UIController; //!< UIController object.
+    private InteractionPair interaction; //!< Interaction object.
+   
     private int interaction_points = 100;
-    public List<Item> InventoryList;
+    public List<Clue> InventoryList;
 
-    private int i = 5;
-    public float speed = 0.05f;                          
-    
-    public int InteractionPoints
+    private int i = 5; //!<.
+    public float speed = 0.05f; //!< Player movement speed modifier .                      
+
+    public int InteractionPoints //!< Interaction Points getter and setter.
     {
         get
         {
@@ -71,36 +65,49 @@ public class Player : Character
         }
     }
 
-    public void Awake()
+    //! sets UIController object and interaction once all objects initialised.
+    public void Awake() 
     {
         layerMask = gameObject.layer;
-        InventoryList = new List<Item>();
+        InventoryList = new List<Clue>();
         //TODO: UIController = new UIController();
-        //UIController = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<UIController>().Instance;
-        //interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>();
+        UIController = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<UIController>().Instance;
+        interaction = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<InteractionPair>();
     }
 
-    public void ChoosePlayer(string person)
+    public void ChoosePlayer(int person)
     {
-       UIController.SetPerson((Constants.People)Enum.Parse(typeof(Constants.People), person));
+        if (person == 0)
+        {
+            UIController.SetPerson(Constants.People.Poirot);
+        }
+        else if (person == 1)
+        {
+            UIController.SetPerson(Constants.People.Poirot);
+        }
+        Time.timeScale = 1;
     } 
 
+    public void ChoosePlayer(string person) 
+    {
+       UIController.SetPerson((Constants.People)Enum.Parse(typeof(Constants.People), person));
+    }
 
-    public void OnTriggerEnter2D(Collider2D col)
+    public void OnTriggerEnter2D(Collider2D col) 
     {
         /*
          * This function adds the item that the player goes accross to their inventory 
          * with its description that has been got from the json file
          */
         Debug.Log("Player OnTriggerEnter2D");
-        if (col.gameObject.CompareTag("Item"))
+        if (col.gameObject.CompareTag("Clue"))
         {
             Debug.Log("Found item: " + col.gameObject.name);
-            Item itemComponent = col.gameObject.GetComponent<Item>();
+            Clue itemComponent = col.gameObject.GetComponent<Clue>();
 
             if (itemComponent == null)
             {
-                Debug.LogError("Object has Item tag but no Item component!");
+                Debug.LogError("Object has Clue tag but no Clue component!");
             }
             else
             {
@@ -112,12 +119,13 @@ public class Player : Character
         }
     }
 
-    public void AddToInventory(Item item)
+    public void AddToInventory(Clue item)
     {
         InventoryList.Add(item); // Adds it to the player's inventory
         UIController.AddToInventoryList(item); // Add it to the inventory list in the UI
     }
 
+    //! Every 0.05 seconds gets movement infor and moves player accordingly.
     void FixedUpdate()
     {
         transform.position += new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * speed ;
@@ -146,6 +154,8 @@ public class Player : Character
             speed = speed * 1.5f;
     }
     */
+
+    //! Every frame, checks for space press and passes a message if an NPC is in range.
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -162,6 +172,7 @@ public class Player : Character
             else
             {
                 Debug.Log("No NPC found");
+                interaction.instance.InitialiseInteraction(n);
             }
 
             MessagePasser.OnPlayerPressSpacebar();

@@ -18,27 +18,27 @@ public class Mystery1Script : StoryScript {
         base.OnStateUnlocked(stateTitle);
 	}
 
-	public override void OnItemFound(Item item)
+	public override void OnItemFound(Clue item)
 	{
         base.OnItemFound(item);
         if (!IsIntroComplete()) return;
 
-        if (item.type == Constants.Items.WantedPoster) {
+        if (item.type == Constants.Clues.WantedPoster) {
             storyGraph.CompleteStateIfNeeded("Find wanted poster in bins");
         }
-        else if (item.type == Constants.Items.CateringNotes)
+        else if (item.type == Constants.Clues.CateringNotes)
         {
             storyGraph.CompleteStateIfNeeded("Find catering notes");
         }
-        else if (item.type == Constants.Items.CookBook)
+        else if (item.type == Constants.Clues.CookBook)
         {
             storyGraph.CompleteStateIfNeeded("Find Dumbledore's Cookbook");
         }
-        else if (item.type == Constants.Items.MercurysClothing)
+        else if (item.type == Constants.Clues.MercurysClothing)
         {
             storyGraph.CompleteStateIfNeeded("Find Mercury's clothing");
         }
-        else if (item.type == Constants.Items.Dagger)
+        else if (item.type == Constants.Clues.Dagger)
         {
             storyGraph.CompleteStateIfNeeded("Find a bloody dagger");
         }
