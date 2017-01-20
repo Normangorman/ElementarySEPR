@@ -1,68 +1,50 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 using System.IO;
 using System;
 
-public class StoryGraph {
+public abstract class StoryGraph {
 	/* 
      * This class represents the graph of a story in the game.
 	 * It has states which can be unlocked by the player by performing certain actions in the game.
 	 */
 
-	private class StoryGraphState {
+	public class StoryGraphState {
 		/* Represents a particular state within the story.
 		 */ 
 		public readonly string title;
 		public readonly string description;
-		public readonly List<string> requirements;
+		public readonly string[] requirements;
 		public bool completed = false;
         public bool unlocked = false;
+        public Dictionary<Constants.People, Dictionary<string, string>> dialogue; // (character -> (topic -> text)) dictionary
 
-		public StoryGraphState(string title, string description, List<string> requirements)
+		public StoryGraphState(string title, string description, string[] requirements,
+                               Dictionary<Constants.People, Dictionary<string, string>> dialogue)
 		{
             //Debug.LogFormat("Creating new StoryGraphState: {0}, {1}, {2}", title, description, requirements.Count);
 			this.title = title;
 			this.description = description;
 			this.requirements = requirements;
-            if (requirements.Count == 0)
+            if (requirements.Length == 0)
                 unlocked = true;
+            this.dialogue = dialogue;
 		}
 	}
 
-	private List<StoryGraphState> states = new List<StoryGraphState>(); // perhaps an an actual graph data structure would be better
-	private StoryScript storyScript;
+    protected string storyName; // set in child class when it is constructed
+    protected List<StoryGraphState> states;
+    private StoryScript storyScript;
+    // currentDialogue is a (person -> (topic -> text)) dictionary.
+    // As new states are unlocked it is populated so that the most up to date text for each topic is available.
+    private Dictionary<Constants.People, Dictionary<string, string>> currentDialogue;
 
-	public StoryGraph(StoryScript storyScript, string graphFilePath)
+	public StoryGraph(StoryScript storyScript)
 	{
-		/* 
-         * Takes a path to a json file specifying the structure of the story.
-         * See Assets/Scripts/Story/example_story.json for an example
-		 */
-		Debug.Log("Loading story graph from: " + graphFilePath);
-		this.storyScript = storyScript;
+        this.storyScript = storyScript;
+        this.currentDialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 
-        JObject graphJSON = JObject.Parse(File.ReadAllText(graphFilePath));
-        JArray statesJSON = (JArray)graphJSON.GetValue("states");
-        foreach (var state in statesJSON.Children<JObject>())
-        {
-            string title = (string)state["title"];
-            string description = (string)state["description"];
-            JArray requirements = (JArray)state["requirements"];
-
-            List<string> requirementsList;
-            // State might not have any requirements
-            if (requirements == null)
-                requirementsList = new List<string>();
-            else
-                requirementsList = (List<string>)requirements.ToObject<List<string>>();
-
-            //Debug.LogFormat("var state: {0}, title {1}, desc {2}, reqs {3}", state, title, description, requirementsList);
-
-            states.Add(new StoryGraphState(title, description, requirementsList));
-        }
-
-        Debug.LogFormat("StoryGraph loaded: {0} states", CountStates().ToString());
+        // Child class should set storyName and states in it's constructor.
 	}
 
 	public void CompleteState(string stateTitle)
@@ -111,9 +93,22 @@ public class StoryGraph {
                 Debug.Log("Unlocking state: " + otherState.title);
                 storyScript.OnStateUnlocked(otherState.title);
                 otherState.unlocked = true;
+
+                UpdateCurrentDialogue(otherState);
             }
 		}
 	}
+
+    public Dictionary<string, string> GetCurrentDialogueForPerson(Constants.People person)
+    {
+        // Returns a (topic -> text) dictionary
+        if (!currentDialogue.ContainsKey(person))
+        {
+            throw new Exception("No dialogue found for person: " + person.ToString());
+        }
+
+        return currentDialogue[person];
+    }
 
     public void CompleteStateIfNeeded(string stateTitle)
     {
@@ -148,6 +143,12 @@ public class StoryGraph {
             state.completed = false;
     }
 
+    public int CountStates()
+    {
+        // Only used for testing
+        return states.Count;
+    }
+
 	private StoryGraphState GetStateWithTitle(string stateTitle)
 	{
 		/* 
@@ -164,10 +165,24 @@ public class StoryGraph {
         throw new StateNotFound(stateTitle);
 	}
 
-    public int CountStates()
+    private void UpdateCurrentDialogue(StoryGraphState newlyUnlockedState)
     {
-        // Only used for testing
-        return states.Count;
+        // Update the currentDialogue with this state's dialogue
+        foreach (Constants.People person in newlyUnlockedState.dialogue.Keys)
+        {
+            Dictionary<string, string> personDialogue = newlyUnlockedState.dialogue[person];
+            foreach (string topic in personDialogue.Keys)
+            {
+                string text = personDialogue[topic];
+
+                if (!currentDialogue.ContainsKey(person))
+                {
+                    currentDialogue[person] = new Dictionary<string, string>();
+                }
+
+                currentDialogue[person][topic] = text;
+            }
+        }
     }
 }
 
@@ -184,3 +199,5 @@ public class StateRequirementsNotMet : Exception
         base("CompleteState called for '" + stateTitle + "' but requirements not met.")
     { }
 }
+
+

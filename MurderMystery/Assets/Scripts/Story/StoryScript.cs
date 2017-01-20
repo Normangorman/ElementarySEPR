@@ -9,12 +9,7 @@ public abstract class StoryScript {
 	 * The StoryManager will call the hooks in StoryScript at the appropriate times, allowing all the
 	 * story-specific code to be contained within these classes.
 	 */
-	protected StoryGraph storyGraph;
-
-    public StoryScript(string storyGraphFilePath)
-    {
-        this.storyGraph = new StoryGraph(this, storyGraphFilePath);
-    }
+	protected StoryGraph storyGraph; // should be set by child class in constructor
 
 	public virtual void OnStateCompleted(string stateTitle)
 	{

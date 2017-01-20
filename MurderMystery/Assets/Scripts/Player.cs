@@ -158,6 +158,12 @@ public class Player : Character
                 // TODO: fix this
                 //interaction.instance.InitiliaseInteraction(n);
                 MessagePasser.OnNPCSpokenTo(n);
+                Dictionary<string, string> dialogue = StoryManager.instance.GetCurrentDialogueForPerson(n.person);
+                Debug.Log("Dialogue:");
+                foreach (string topic in dialogue.Keys)
+                {
+                    Debug.LogFormat("{0}: {1}", topic, dialogue[topic]);
+                }
             }
             else
             {
