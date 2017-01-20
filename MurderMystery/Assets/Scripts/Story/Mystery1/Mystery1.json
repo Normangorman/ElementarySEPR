@@ -1,0 +1,232 @@
+{
+    "states": [
+        {
+            "dialogue": {
+                "receptionist": {
+                    "NO_TOPIC": "Hi <detective>, we're glad to see you. There's been a murder in the Ron Cooke Hub, <victim>'s dead. Sorry we didn't check to see how he died, thought it would be more fun for you to find out..."
+                }
+            }, 
+            "description": "Talk to main hall receptionist", 
+            "title": "Intro"
+        }, 
+        {
+            "dialogue": {}, 
+            "requirements": [
+                "Intro"
+            ], 
+            "description": "Nobody in kitchen. Find everybody's meal orders. They all have burger, apart from pablo who had falafel.", 
+            "title": "Explore kitchen"
+        }, 
+        {
+            "dialogue": {
+                "receptionist": {
+                    "CCTV": "We only have footagee from inside the lecture theatre, and it's just a video of <char1> pacing around. I hope that's useful."
+                }
+            }, 
+            "requirements": [
+                "Intro"
+            ], 
+            "description": "Talk to Recpetionist about the CCTV footage.", 
+            "title": "Inspect Reception"
+        }, 
+        {
+            "dialogue": {
+                "char1": {
+                    "NO_TOPIC": "Hello <detective>, can I help you with anything?"
+                }
+            }, 
+            "requirements": [
+                "Inspect Reception"
+            ], 
+            "description": "Bond explains that he was meeting the Queen. They had a conversation about Brexit. Apparently Buckingham Palace is getting renovated and they were discussing interior decorating.", 
+            "title": "Question Bond"
+        }, 
+        {
+            "dialogue": {}, 
+            "requirements": [
+                "Intro"
+            ], 
+            "description": "You find some catering notes lying around, on it is a note saying \"Dumbledore needs to speak to the chef\".", 
+            "title": "Find catering notes"
+        }, 
+        {
+            "dialogue": {}, 
+            "requirements": [
+                "Inspect Reception"
+            ], 
+            "description": "There are two sets of footprints where James Bond was in the CCTV. That's suspicious.", 
+            "title": "Inspect lecture theatre"
+        }, 
+        {
+            "dialogue": {
+                "char4": {
+                    "NO_TOPIC": "How's it going <detective>?", 
+                    "general": "Actually I did notice something fishy going on, I heard some people talking up on the balcony but get this - they weren't even famous! I know right, don't know what that's all about."
+                }
+            }, 
+            "requirements": [
+                "Intro"
+            ], 
+            "description": "You meet Trump who says he heard non-famous voices coming from the balcony - is very worried he may have to talk to somebody with no influence.", 
+            "title": "Inspect bin store"
+        }, 
+        {
+            "dialogue": {}, 
+            "requirements": [
+                "Intro"
+            ], 
+            "description": "You find a wanted poster with a picture of Pablo on.", 
+            "title": "Find wanted poster in bins"
+        }, 
+        {
+            "dialogue": {}, 
+            "requirements": [
+                "Intro"
+            ], 
+            "description": "You find a ripped piece of Freddy Mercury's clothing.", 
+            "title": "Find Mercury's clothing"
+        }, 
+        {
+            "dialogue": {}, 
+            "requirements": [
+                "Explore kitchen"
+            ], 
+            "description": "Nobody is around. You find an epipen with \"Deliver in case of gluten ingestion\" written on the side.", 
+            "title": "Inspect stairwell"
+        }, 
+        {
+            "dialogue": {
+                "char6": {
+                    "NO_TOPIC": "Hello <detective>, can I assist you with anything?", 
+                    "general": "Nothing particularly exciting has happened, <char2> has been a bit stony this evening, hasn't spoken much and is just a bit boring."
+                }
+            }, 
+            "requirements": [
+                "Intro"
+            ], 
+            "description": "Find Marilyn Monroe. She mentions that the queen has been the least talkative and quite emotionless and boring.", 
+            "title": "Inspect common room"
+        }, 
+        {
+            "dialogue": {
+                "char5": {
+                    "NO_TOPIC": "Hey <detective>, what can I do for you?", 
+                    "clothes": "Oh that's mine yeah, I think that's a bit of my jeans. Must have done it dancing with <victim> earlier on."
+                }
+            }, 
+            "requirements": [
+                "Find Mercury's clothing"
+            ], 
+            "description": "Mercury says his ripped clothes were because he was dancing too hard.", 
+            "title": "Talk to Mercury about clothing"
+        }, 
+        {
+            "dialogue": {}, 
+            "requirements": [
+                "Intro"
+            ], 
+            "description": "You find a bloody dagger lying under a chair.", 
+            "title": "Find a bloody dagger"
+        }, 
+        {
+            "dialogue": {
+                "char3": {
+                    "cooking": "You think I'm the killer? Because of that? HAHAHAHAHA don't quit your day job my friend, I just appreciate good food.", 
+                    "NO_TOPIC": "Hello there <detective>, any luck?"
+                }
+            }, 
+            "requirements": [
+                "Find catering notes", 
+                "Find Dumbledore's Cookbook"
+            ], 
+            "description": "Go to the balcony. Dumbledore says that he is an aspiring chef, he mentioned this to the receptionist who made a note to say that the chef should talk to him.", 
+            "title": "Talk to Dumbledore about suspicions"
+        }, 
+        {
+            "dialogue": {}, 
+            "requirements": [
+                "Intro"
+            ], 
+            "description": "Find a walkie talkie on the balcony inside a flower pot (or something inconspicuous).", 
+            "title": "Inspect balcony"
+        }, 
+        {
+            "dialogue": {
+                "char2": {
+                    "CCTV": "Well I was in the middle of a conversation with <char1> actually, I'll be honest they do like to chatter...", 
+                    "NO_TOPIC": "Oh hi <detective>, you startled me!"
+                }
+            }, 
+            "requirements": [
+                "Question Bond"
+            ], 
+            "description": "Talk to Queen and ask her where she was at time of death. She says she was with Bond talking about things.", 
+            "title": "Inspect island"
+        }, 
+        {
+            "dialogue": {}, 
+            "requirements": [
+                "Intro"
+            ], 
+            "description": "You find a small rune-bound book on the floor. Inside are some very exotic sounding recipes and Dumbledore's name is incribed on the inside cover.", 
+            "title": "Find Dumbledore's Cookbook"
+        }, 
+        {
+            "dialogue": {}, 
+            "requirements": [
+                "Talk to Mercury about clothing"
+            ], 
+            "description": "Nobody is there but there's a montage of Freddy Mercury dancing his tits off.", 
+            "title": "Inspect 360 room"
+        }, 
+        {
+            "dialogue": {
+                "char2": {
+                    "NO_TOPIC": "Hi how is the detective work coming along?", 
+                    "clothes": "Well before the murder I'm fairly sure all <char5>'s clothes were in tact. How curious..."
+                }
+            }, 
+            "requirements": [
+                "Find Mercury's clothing"
+            ], 
+            "description": "Ask the Queen what she thinks about Mercury's ripped clothes, she says she saw his clothes all in order before the murder...", 
+            "title": "Talk to Queen about Mercury's clothes"
+        }, 
+        {
+            "dialogue": {
+                "char2": {
+                    "NO_TOPIC": "Hello detective, do you need a hand with anything?"
+                }
+            }, 
+            "requirements": [
+                "Intro"
+            ], 
+            "description": "Says that it's a shame about Pablo, says she had a long, deep conversation with him about all the wonderful things he did for the people of Columbia and for cocaine as an industry.", 
+            "title": "Talk to Queen"
+        }, 
+        {
+            "dialogue": {
+                "receptionist": {
+                    "allergy": "Oh that's <victim>'s, maybe they dropped it. They asked for a gluten-free meal but we just thought they were a bit of a hipster.", 
+                    "NO_TOPIC": "What's new detective?"
+                }
+            }, 
+            "requirements": [
+                "Inspect stairwell"
+            ], 
+            "description": "Ask them about the epipens. They explain he wanted a gluten-free meal, thought he was just a hipster.", 
+            "title": "Talk to Receptionist about Dinner"
+        }
+    ], 
+    "story_name": "SEPR Mystery 1", 
+    "aliases": {
+        "detective": "Poirot", 
+        "char1": "JamesBond", 
+        "char3": "Dumbledore", 
+        "char2": "TheQueen", 
+        "char5": "FreddieMercury", 
+        "char4": "DonaldTrump", 
+        "char6": "MarilynMonroe", 
+        "victim": "PabloEscobar"
+    }
+}
