@@ -13,5 +13,10 @@ public class MessagePasser : MonoBehaviour {
         StoryManager.instance.GetStoryScript().OnItemFound(item);
     }
 
+    public static void OnPlayerChangeRoom(Constants.Rooms room)
+    {
+        StoryManager.instance.GetStoryScript().OnPlayerChangeRoom(room);
+    }
+
     public static void OnPlayerPressSpacebar() { }
 }

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using System;
 using System.Runtime.Remoting;
 
@@ -30,6 +30,11 @@ public class StoryManager : MonoBehaviour {
     public StoryScript GetStoryScript()
     {
         return storyScript;
+    }
+
+    public Dictionary<string, string> GetCurrentDialogueForPerson(Constants.People npc)
+    {
+        return storyScript.GetStoryGraph().GetCurrentDialogueForPerson(npc);
     }
 	
 	void Update () {

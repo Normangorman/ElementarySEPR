@@ -1,31 +1,48 @@
 {
     "states": [
         {
+            "dialogue": {
+                "receptionist": {
+                    "NO_TOPIC": "Hi <detective>, we're glad to see you. There's been a murder in the Ron Cooke Hub, <victim>'s dead. Sorry we didn't check to see how he died, thought it would be more fun for you to find out..."
+                }
+            }, 
             "description": "Talk to main hall receptionist", 
             "title": "Intro"
         }, 
         {
+            "dialogue": {}, 
             "requirements": [
                 "Intro"
             ], 
-            "description": "Nobody in kitchen. Find everybody's meal orders. They all have Beef Wellington, apart from pablo who had Chicken Korma - what a wimp.", 
+            "description": "Nobody in kitchen. Find everybody's meal orders. They all have burger, apart from pablo who had falafel.", 
             "title": "Explore kitchen"
         }, 
         {
+            "dialogue": {
+                "receptionist": {
+                    "CCTV": "We only have footagee from inside the lecture theatre, and it's just a video of <char1> pacing around. I hope that's useful."
+                }
+            }, 
             "requirements": [
                 "Intro"
             ], 
-            "description": "CCTV shows James Bond in the lecture theatre.", 
-            "title": "View CCTV"
+            "description": "Talk to Recpetionist about the CCTV footage.", 
+            "title": "Inspect Reception"
         }, 
         {
+            "dialogue": {
+                "char1": {
+                    "NO_TOPIC": "Hello <detective>, can I help you with anything?"
+                }
+            }, 
             "requirements": [
-                "View CCTV"
+                "Inspect Reception"
             ], 
             "description": "Bond explains that he was meeting the Queen. They had a conversation about Brexit. Apparently Buckingham Palace is getting renovated and they were discussing interior decorating.", 
             "title": "Question Bond"
         }, 
         {
+            "dialogue": {}, 
             "requirements": [
                 "Intro"
             ], 
@@ -33,13 +50,20 @@
             "title": "Find catering notes"
         }, 
         {
+            "dialogue": {}, 
             "requirements": [
-                "View CCTV"
+                "Inspect Reception"
             ], 
             "description": "There are two sets of footprints where James Bond was in the CCTV. That's suspicious.", 
             "title": "Inspect lecture theatre"
         }, 
         {
+            "dialogue": {
+                "char4": {
+                    "NO_TOPIC": "How's it going <detective>?", 
+                    "general": "Actually I did notice something fishy going on, I heard some people talking up on the balcony but get this - they weren't even famous! I know right, don't know what that's all about."
+                }
+            }, 
             "requirements": [
                 "Intro"
             ], 
@@ -47,6 +71,7 @@
             "title": "Inspect bin store"
         }, 
         {
+            "dialogue": {}, 
             "requirements": [
                 "Intro"
             ], 
@@ -54,6 +79,7 @@
             "title": "Find wanted poster in bins"
         }, 
         {
+            "dialogue": {}, 
             "requirements": [
                 "Intro"
             ], 
@@ -61,6 +87,7 @@
             "title": "Find Mercury's clothing"
         }, 
         {
+            "dialogue": {}, 
             "requirements": [
                 "Explore kitchen"
             ], 
@@ -68,6 +95,12 @@
             "title": "Inspect stairwell"
         }, 
         {
+            "dialogue": {
+                "char6": {
+                    "NO_TOPIC": "Hello <detective>, can I assist you with anything?", 
+                    "general": "Nothing particularly exciting has happened, <char2> has been a bit stony this evening, hasn't spoken much and is just a bit boring."
+                }
+            }, 
             "requirements": [
                 "Intro"
             ], 
@@ -75,6 +108,12 @@
             "title": "Inspect common room"
         }, 
         {
+            "dialogue": {
+                "char5": {
+                    "NO_TOPIC": "Hey <detective>, what can I do for you?", 
+                    "clothes": "Oh that's mine yeah, I think that's a bit of my jeans. Must have done it dancing with <victim> earlier on."
+                }
+            }, 
             "requirements": [
                 "Find Mercury's clothing"
             ], 
@@ -82,6 +121,7 @@
             "title": "Talk to Mercury about clothing"
         }, 
         {
+            "dialogue": {}, 
             "requirements": [
                 "Intro"
             ], 
@@ -89,6 +129,12 @@
             "title": "Find a bloody dagger"
         }, 
         {
+            "dialogue": {
+                "char3": {
+                    "cooking": "You think I'm the killer? Because of that? HAHAHAHAHA don't quit your day job my friend, I just appreciate good food.", 
+                    "NO_TOPIC": "Hello there <detective>, any luck?"
+                }
+            }, 
             "requirements": [
                 "Find catering notes", 
                 "Find Dumbledore's Cookbook"
@@ -97,6 +143,7 @@
             "title": "Talk to Dumbledore about suspicions"
         }, 
         {
+            "dialogue": {}, 
             "requirements": [
                 "Intro"
             ], 
@@ -104,20 +151,28 @@
             "title": "Inspect balcony"
         }, 
         {
+            "dialogue": {
+                "char2": {
+                    "CCTV": "Well I was in the middle of a conversation with <char1> actually, I'll be honest they do like to chatter...", 
+                    "NO_TOPIC": "Oh hi <detective>, you startled me!"
+                }
+            }, 
             "requirements": [
                 "Question Bond"
             ], 
-            "description": "Talk to Queen and ask her where she was at time of death. She says she was with Bond talking about wallpapering.", 
+            "description": "Talk to Queen and ask her where she was at time of death. She says she was with Bond talking about things.", 
             "title": "Inspect island"
         }, 
         {
+            "dialogue": {}, 
             "requirements": [
                 "Intro"
             ], 
-            "description": "You find a small rune-bound book on the floor. Inside are some very exotic sounding recipes.", 
+            "description": "You find a small rune-bound book on the floor. Inside are some very exotic sounding recipes and Dumbledore's name is incribed on the inside cover.", 
             "title": "Find Dumbledore's Cookbook"
         }, 
         {
+            "dialogue": {}, 
             "requirements": [
                 "Talk to Mercury about clothing"
             ], 
@@ -125,6 +180,12 @@
             "title": "Inspect 360 room"
         }, 
         {
+            "dialogue": {
+                "char2": {
+                    "NO_TOPIC": "Hi how is the detective work coming along?", 
+                    "clothes": "Well before the murder I'm fairly sure all <char5>'s clothes were in tact. How curious..."
+                }
+            }, 
             "requirements": [
                 "Find Mercury's clothing"
             ], 
@@ -132,6 +193,11 @@
             "title": "Talk to Queen about Mercury's clothes"
         }, 
         {
+            "dialogue": {
+                "char2": {
+                    "NO_TOPIC": "Hello detective, do you need a hand with anything?"
+                }
+            }, 
             "requirements": [
                 "Intro"
             ], 
@@ -139,6 +205,12 @@
             "title": "Talk to Queen"
         }, 
         {
+            "dialogue": {
+                "receptionist": {
+                    "allergy": "Oh that's <victim>'s, maybe they dropped it. They asked for a gluten-free meal but we just thought they were a bit of a hipster.", 
+                    "NO_TOPIC": "What's new detective?"
+                }
+            }, 
             "requirements": [
                 "Inspect stairwell"
             ], 
@@ -146,5 +218,15 @@
             "title": "Talk to Receptionist about Dinner"
         }
     ], 
-    "story_name": "SEPR Mystery 1"
+    "story_name": "SEPR Mystery 1", 
+    "aliases": {
+        "detective": "Poirot", 
+        "char1": "JamesBond", 
+        "char3": "Dumbledore", 
+        "char2": "TheQueen", 
+        "char5": "FreddieMercury", 
+        "char4": "DonaldTrump", 
+        "char6": "MarilynMonroe", 
+        "victim": "PabloEscobar"
+    }
 }

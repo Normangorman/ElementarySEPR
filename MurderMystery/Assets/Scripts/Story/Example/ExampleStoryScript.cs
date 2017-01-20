@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 public class ExampleStoryScript : StoryScript {
+/*
     private const string graphFilePath = "Assets/Scripts/Story/example_story.json";
 
     public ExampleStoryScript() : base(graphFilePath)
@@ -28,4 +29,5 @@ public class ExampleStoryScript : StoryScript {
             storyGraph.CompleteState("Introduction");
         }
     }
+*/
 }
