@@ -76,11 +76,11 @@ public class Mystery1Script : StoryScript {
         }
 	}
 
-	public override void OnPlayerEnterRoom(Constants.Rooms room)
+	public override void OnPlayerChangeRoom(Constants.Rooms room)
 	{
-        base.OnPlayerEnterRoom(room);
+        base.OnPlayerChangeRoom(room);
 
-        if (room == Constants.Rooms.IslandInteraction && storyGraph.IsStateActive("Inspect Island"))
+        if (room == Constants.Rooms.InteractionIsland && storyGraph.IsStateActive("Inspect Island"))
         {
             storyGraph.CompleteState("Inspect Island");
         }
@@ -92,7 +92,7 @@ public class Mystery1Script : StoryScript {
         {
             storyGraph.CompleteState("Inspect balcony");
         }
-        else if (room == Constants.Rooms.BinStore && storyGraph.IsStateActive("Inspect bin store"))
+        else if (room == Constants.Rooms.BinBay && storyGraph.IsStateActive("Inspect bin store"))
         {
             storyGraph.CompleteState("Inspect bin store");
         }
@@ -108,15 +108,10 @@ public class Mystery1Script : StoryScript {
         {
             storyGraph.CompleteState("Inspect 360 room");
         }
-        else if (room == Constants.Rooms.Stairwell && storyGraph.IsStateActive("Inspect stairwell"))
+        else if (room == Constants.Rooms.Staircase1 && storyGraph.IsStateActive("Inspect stairwell"))
         {
             storyGraph.CompleteState("Inspect stairwell");
         }
-	}
-
-	public override void OnPlayerLeaveRoom(Constants.Rooms room)
-	{
-        base.OnPlayerLeaveRoom(room);
 	}
 
     private bool IsIntroComplete()

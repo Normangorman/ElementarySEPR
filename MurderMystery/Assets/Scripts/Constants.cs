@@ -9,8 +9,10 @@ public class Constants
                          PabloEscobar, Detective }
 
     // Enum of all the rooms in the game
-    public enum Rooms { IslandInteraction, Cafe, Office1, Office2, Office3, Balcony, LectureTheatre, BinStore,
-                        Kitchen, CommonRoom, Room360, Stairwell }
+    // TODO: this should only be the rooms we are actually using
+    // More in at the minute because certain rooms are mentioned in storyline 1 which don't actually exist in game
+    public enum Rooms { Kitchen, Lift, Staircase1, Staircase2, BinBay, BusinessRoom1, BusinessRoom2, ExhibitionRoom, InteractionIsland, LectureTheatre, Reception, Terrace, GrandHall,
+                        Balcony, CommonRoom, Room360 }
 
     // Enum of all the clues in the game
     public enum Clues { Dagger, Letter, BlondeHair}

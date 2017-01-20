@@ -41,19 +41,12 @@ public abstract class StoryScript {
         Debug.Log("NPC spoken to " + npc.GetName());
 	}
 
-	public virtual void OnPlayerEnterRoom(Constants.Rooms room)
-	{
+    public virtual void OnPlayerChangeRoom(Constants.Rooms room)
+    {
 		/* Called when the player enters a new room.
 		 */
         Debug.Log("Player entered room" + room.ToString());
-	}
-
-	public virtual void OnPlayerLeaveRoom(Constants.Rooms room)
-	{
-		/* Called when the player leaves a room
-		 */
-        Debug.Log("Player left room" + room.ToString());
-	}
+    }
 
     public StoryGraph GetStoryGraph()
     {
