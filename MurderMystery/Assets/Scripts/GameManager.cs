@@ -6,7 +6,8 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
 
-    public float Time; //!< Time constant which changes throughout gameplay.
+    public float time; //!< Time constant which changes throughout gameplay.
+    public float timeScale = 0; // TODO: What does this do?
 
     // This dictionary is the person and the description of that person
     Dictionary<Constants.People, string> GuestList = new Dictionary<Constants.People, string> //!< Dictionary associating characters and textual descriptions.
@@ -18,9 +19,4 @@ public class GameManager : MonoBehaviour
         {Constants.People.MarilynMonroe, "Actress"},
         {Constants.People.TheQueen, "Old"}
     };
-
-    public void Awake()
-    {
-        Time.timeScale = 0;
-    }
 }

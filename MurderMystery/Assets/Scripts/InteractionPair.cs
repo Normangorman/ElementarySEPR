@@ -7,20 +7,13 @@ public class InteractionPair : MonoBehaviour
 {
     private UIController UIController; //! UIController allows manipulation of UI
     private enum Turn { player, character} //!< enum of possible character interaction turns
-<<<<<<< HEAD
-
     private InteractionType interactionType; //!< the interaction type variable
     public InteractionPair instance; //!< instance of the InteractionPair class
     public Player player; //!< Player object
     public NPC npc; //!< NPC object
     public Clue item; //!< Clue object
-=======
-    
-    public InteractionPair instance;
-    public Player player;
-    public NPC npc;
->>>>>>> 9d1fc7b... Updated some scripts and added colliders to all the NPCs
 
+    enum InteractionType { item, npc }
     
     public void Start() 
     {
@@ -36,12 +29,11 @@ public class InteractionPair : MonoBehaviour
         GetNextStory(Turn.character);
     }
 
-<<<<<<< HEAD
     //! Sets the Interaction to an Item interaction
     /*! 
      * \param a_item the Item object that is being interacted with.
      */
-    public void InitialiseInteraction(Item a_item) 
+    public void InitialiseInteraction(Clue a_item) 
     {
         item = a_item;
         interactionType = InteractionType.item;
@@ -53,8 +45,6 @@ public class InteractionPair : MonoBehaviour
      * \param a_item the Item object that is being interacted with.
      * \return string of speech
      */
-=======
->>>>>>> 9d1fc7b... Updated some scripts and added colliders to all the NPCs
     private string GetNextStory(Turn turn)
     {
         // From the story manager get the next thing that the player and the npc can say
@@ -78,7 +68,4 @@ public class InteractionPair : MonoBehaviour
         GameObject button = GameObject.FindGameObjectWithTag("ResponseButton");
         button.SetActive(false);
     }
-
-    
-
 }
