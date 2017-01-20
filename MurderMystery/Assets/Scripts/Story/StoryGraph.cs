@@ -4,22 +4,32 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using System;
 
+//! Story Graph class.
+/*! Represents the graph of the story, with states that are unlocked by player actions.*/ 
 public class StoryGraph {
 	/* 
      * This class represents the graph of a story in the game.
 	 * It has states which can be unlocked by the player by performing certain actions in the game.
 	 */
 
+    //! Story Graph state class.
+    /*! Represents a particular state within the story. */ 
 	private class StoryGraphState {
 		/* Represents a particular state within the story.
 		 */ 
-		public readonly string title;
-		public readonly string description;
-		public readonly List<string> requirements;
-		public bool completed = false;
-        public bool unlocked = false;
+		public readonly string title; //!< State title.
+		public readonly string description; //!< State description.
+		public readonly List<string> requirements; //!< List of state requirements.
+		public bool completed = false; //!< State completed condition.
+        public bool unlocked = false; //!< State unlocked condition.
 
-		public StoryGraphState(string title, string description, List<string> requirements)
+        //! State constructor.
+        /*! 
+         * \param title State title.
+         * \param description State description.
+         * \param requirements List of state requirements.
+         */
+        public StoryGraphState(string title, string description, List<string> requirements)
 		{
             Debug.LogFormat("Creating new StoryGraphState: {0}, {1}, {2}", title, description, requirements.Count);
 			this.title = title;
@@ -30,10 +40,16 @@ public class StoryGraph {
 		}
 	}
 
-	private List<StoryGraphState> states = new List<StoryGraphState>(); // perhaps an an actual graph data structure would be better
-	private StoryScript storyScript;
+    // vv perhaps an an actual graph data structure would be better vv
+    private List<StoryGraphState> states = new List<StoryGraphState>(); //!< List of states. 
+	private StoryScript storyScript; //!< Current story script.
 
-	public StoryGraph(StoryScript storyScript, string graphFilePath)
+    //! StoryGraph constructor.
+    /*! 
+     * \param storyScript Current story script.
+     * \param graphFilePath JavaScript story graph file path.
+     */
+    public StoryGraph(StoryScript storyScript, string graphFilePath)
 	{
 		/* 
          * Takes a path to a json file specifying the structure of the story.
@@ -65,7 +81,11 @@ public class StoryGraph {
         Debug.LogFormat("StoryGraph loaded: {0} states", CountStates().ToString());
 	}
 
-	public void CompleteState(string stateTitle)
+    //! Changes a state's complete condition to true if it meets the requirements.
+    /*! 
+     * \param stateTitle Title of state that is to be completed.
+     */
+    public void CompleteState(string stateTitle)
 	{
         /* Marks the state with the given title as being completed.
          * Also calls the StoryScript's OnStateCompleted hook for the given state.
@@ -115,16 +135,27 @@ public class StoryGraph {
 		}
 	}
 
+    //! Tests if state is completed.
+    /*! 
+     * \param stateTitle State title.
+     * \return State completed condition.
+     */
     public bool IsStateCompleted(string stateTitle)
     {
         return GetStateWithTitle(stateTitle).completed;
     }
 
+    //! Tests if state is unlocked.
+    /*! 
+     * \param stateTitle State title.
+     * \return State unlocked condition.
+     */
     public bool IsStateUnlocked(string stateTitle)
     {
         return GetStateWithTitle(stateTitle).unlocked;
     }
 
+    //! Test method for resetting states complete conditions to false.
     public void ResetStory()
     {
         // Mainly used for testing - resets the story by marking all states as incomplete.
@@ -132,6 +163,11 @@ public class StoryGraph {
             state.completed = false;
     }
 
+    //! Searches list of states for a state with the title given.
+    /*!
+     * \param stateTitle Title of state being searched for.
+     * \return State that is found.
+     */ 
 	private StoryGraphState GetStateWithTitle(string stateTitle)
 	{
 		/* 
@@ -148,6 +184,10 @@ public class StoryGraph {
         throw new StateNotFound(stateTitle);
 	}
 
+    //! Test method for finding the number of states.
+    /*!
+     * \return Number of states.
+     */ 
     public int CountStates()
     {
         // Only used for testing
@@ -155,15 +195,27 @@ public class StoryGraph {
     }
 }
 
+//! StateNotFound Exception.
+/*! When a state is attempted to be referenced, but does not exist, it will throw this exception. */
 public class StateNotFound : Exception
 {
+    //! StateNotFound error message.
+    /*!
+     * \param stateTitle Title of state that was not found.
+     */ 
     public StateNotFound(string stateTitle) :
         base("GetStateWithTitle called for '" + stateTitle + "' but it was not found. This is likely a typo")
     { }
 }
 
+//! StateRequirementsNotMet Exception.
+/*! When a state is attempted to be switched to a completed position, but the requirements for completion are not met properly, it will throw this exception. */
 public class StateRequirementsNotMet : Exception
 {
+    //! StateRequirementsNotMet error message.
+    /*!
+     * \param stateTitle Title of state that has incorrect parameters.
+     */
     public StateRequirementsNotMet(string stateTitle) :
         base("CompleteState called for '" + stateTitle + "' but requirements not met.")
     { }
