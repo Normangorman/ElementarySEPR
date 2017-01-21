@@ -59,9 +59,9 @@ public class UIController : MonoBehaviour
     public void SetNPC(NPC npc)
     {
         NPCIcon.sprite = npc.Icon;
-        NpcFriendlyBar.Value = npc.GetFriendliness();
-        NpcCharismaBar.Value = npc.GetCharisma();
-        NpcSarcasmBar.Value = npc.GetSarcasm();
+        NpcFriendlyBar.Value = npc.Friendly;
+        NpcCharismaBar.Value = npc.Charisma;
+        NpcSarcasmBar.Value = npc.Sarcasm;
     }
 
 
@@ -95,35 +95,27 @@ public class UIController : MonoBehaviour
 
     public void SetButtonText(Dictionary<string, string> dialogue)
     {
-        Button0.GetComponent<ResponseButton>().ButtonText = dialogue.Keys.First();
-        Button0.GetComponent<ResponseButton>().Response = dialogue.Values.First();
+        Transform ResponseButtonTrans = GameObject.FindGameObjectWithTag("ResponseButtons").transform;
+        GameObject button = Resources.Load("ResponseButton") as GameObject;
+        int i = 0;
         dialogue.Remove(dialogue.Keys.First());
-        Button1.GetComponent<ResponseButton>().ButtonText = dialogue.Keys.First();
-        Button1.GetComponent<ResponseButton>().Response = dialogue.Values.First();
-        dialogue.Remove(dialogue.Keys.First());
-        Button2.GetComponent<ResponseButton>().ButtonText = dialogue.Keys.First();
-        Button2.GetComponent<ResponseButton>().Response = dialogue.Values.First();
-        dialogue.Remove(dialogue.Keys.First());
-        Debug.Log("Remaining keys in dictionary:: ");
-        foreach (var str in dialogue)
+        foreach (string key in dialogue.Keys)
         {
-            Debug.Log(str.Key);
+            GameObject b = Instantiate(button,ResponseButtonTrans,false) as GameObject;
+            b.transform.GetChild(0).GetComponent<Text>().text = key;
+            b.GetComponent<ResponseButton>().ButtonText = key;
+            b.GetComponent<ResponseButton>().Response = dialogue[key];
+            b.name = "ResponseButton" + i;
+            b.GetComponent<Button>().onClick.AddListener(() => MakeDialogueText("ResponseButton" + i));
         }
     }
 
-    public void ClickButton1()
+    public void MakeDialogueText(string name)
     {
-        DialogueBox.text = Button0.GetComponent<ResponseButton>().Response;
+        GameObject button = GameObject.Find(name);
+        SetDialogueBoxText(button.GetComponent<ResponseButton>().Response);
     }
 
-    public void ClickButton2()
-    {
-        DialogueBox.text = Button1.GetComponent<ResponseButton>().Response;
-    }
-    public void ClickButton3()
-    {
-        DialogueBox.text = Button2.GetComponent<ResponseButton>().Response;
-    }
     public void AddToInventoryList(Clue clue)
     {
         GameObject r = Resources.Load("Item") as GameObject;

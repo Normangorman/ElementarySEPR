@@ -9,11 +9,7 @@ using System.Xml.Serialization;
 public class Player : Character
 {
     //Player Properties
-    public Constants.People person;
-    public Sprite Icon;
-    private int friendly;
-    private int charisma;
-    private int sarcasm;
+
     public List<Clue> InventoryList;
     private int interaction_points = 100;
     public int InteractionPoints //!< Interaction Points getter and setter.
@@ -28,33 +24,23 @@ public class Player : Character
             //UIController.SetInteractionPoint(InteractionPoints);
         }
     }
-    public int Friendly
+
+    public new void SetFriendliness(int i)
     {
-        get { return friendly; }
-        set
-        {
-            friendly = Friendly;
-            UIController.FriendlyBar.Value = Friendly;
-        }
+        base.SetFriendliness(i);
+        UIController.FriendlyBar.Value = GetFriendliness();
     }
-    public int Charisma //!< Charisma value getter and setter.
+    public new void SetCharisma(int i)
     {
-        get { return charisma; }
-        set
-        {
-            charisma = Charisma;
-            UIController.CharismaBar.Value = Charisma;
-        }
+        base.SetCharisma(i);
+        UIController.CharismaBar.Value = GetCharisma();
     }
-    public int Sarcasm //!< Sarcasm value getter and setter.
+    public new void SetSarcasm(int i)
     {
-        get { return sarcasm; }
-        set
-        {
-            sarcasm = Sarcasm;
-            UIController.SarcasmBar.Value = Sarcasm;
-        }
+        base.SetSarcasm(i);
+        UIController.SarcasmBar.Value = GetSarcasm();
     }
+
     private int i = 5; //!<.
     public float speed = 0.05f; //!< Player movement speed modifier .                      
 
@@ -78,18 +64,18 @@ public class Player : Character
         {
             this.person = Constants.People.Poirot;
             Icon = GetSprite("_NPC/Images/Poirot");
-            friendly = Constants.CharacterValues[Constants.People.Poirot][0];
-            charisma = Constants.CharacterValues[Constants.People.Poirot][1];
-            sarcasm = Constants.CharacterValues[Constants.People.Poirot][2];
+            Friendly = Constants.CharacterValues[Constants.People.Poirot][0];
+            Charisma = Constants.CharacterValues[Constants.People.Poirot][1];
+            Sarcasm = Constants.CharacterValues[Constants.People.Poirot][2];
             UIController.SetPerson(this);
         }
         else if (person == 1)
         {
             this.person = Constants.People.Poirot2;
             Icon = GetSprite("_NPC/Images/Poirot");
-            friendly = Constants.CharacterValues[Constants.People.Poirot2][0];
-            charisma = Constants.CharacterValues[Constants.People.Poirot2][1];
-            sarcasm = Constants.CharacterValues[Constants.People.Poirot2][2];
+            Friendly = Constants.CharacterValues[Constants.People.Poirot2][0];
+            Charisma = Constants.CharacterValues[Constants.People.Poirot2][1];
+            Sarcasm = Constants.CharacterValues[Constants.People.Poirot2][2];
             UIController.SetPerson(this);
         }
         Time.timeScale = 1;
@@ -112,7 +98,7 @@ public class Player : Character
             speed = speed / 1.5f;
 
         if (col.tag == "NPC")
-            DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 3f, true, "Found NPC", "Press SPACE BAR to interact");
+            DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 3f, true, "Found NPC\nPress SPACE BAR to interact");
 
         if (col.gameObject.CompareTag("Clue"))
         {
@@ -128,7 +114,6 @@ public class Player : Character
                 AddToInventory(itemComponent);
                 col.gameObject.SetActive(false);
                 MessagePasser.OnItemFound(itemComponent);
-                DoozyUI.UIManager.ShowNotification("Example_1_Notification_5", 3f, true, "You have collected an Item", "You have collected an Item");
             }
         }
     } // Deals with picking up clues
@@ -155,10 +140,14 @@ public class Player : Character
         */
     }
 
-    void OnTriggerExit2D(Collider2D coll)
+    void OnTriggerExit2D(Collider2D col)
     {
-        if (coll.tag == "stairs")
+        if (col.tag == "stairs")
             speed = speed * 1.5f;
+
+        if (col.tag == "NPC")
+            DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 2f, true, "Leaving NPC\nYou have left the interaction zone");
+            CancelInteraction();
     }
 
     //! Every frame, checks for space press and passes a message if an NPC is in range.
@@ -172,15 +161,16 @@ public class Player : Character
                 StoryManager.GetCurrentDialogueForPerson(n.person);
                 MessagePasser.OnNPCSpokenTo(n);
                 Dictionary<string, string> dialogue = StoryManager.instance.GetCurrentDialogueForPerson(n.person);
-                Debug.Log("Dialogue for: " + n.person.ToString());
+                UIController.SetDialogueBoxText(dialogue["NO_TOPIC"]);
+                Debug.Log("Dialogue for: " + n.person);
                 foreach (string topic in dialogue.Keys)
                 {
                     Debug.LogFormat("{0}: {1}", topic, dialogue[topic]);
 
                 }
-
-                UIController.SetButtonText(dialogue);
                 InitialiseInteraction();
+                UIController.SetButtonText(dialogue);
+                UIController.SetNPC(n);
             }
             else
             {
@@ -213,10 +203,9 @@ public class Player : Character
          * It should show the text boxes and everything that needs to be shown on UI
          */
         DoozyUI.UIManager.ShowUiElement("NPCUI");
-        DoozyUI.UIManager.ShowUiElement("ResponseButtons");
+        DoozyUI.UIManager.ShowUiElement("InteractionTypeButtons");
         DoozyUI.UIManager.ShowUiElement("DialogueBox");
-
-        Time.timeScale = 0;
+        
     }
 
     public void CancelInteraction()
@@ -230,8 +219,13 @@ public class Player : Character
         DoozyUI.UIManager.HideUiElement("NPCUI");
         DoozyUI.UIManager.HideUiElement("ResponseButtons");
         DoozyUI.UIManager.HideUiElement("DialogueBox");
+        DoozyUI.UIManager.ShowUiElement("InteractionTypeButtons");
 
-        Time.timeScale = 1;
+    }
+
+    public void AccuseCharacter()
+    {
+        NPC npc = GetNearbyNPC();
     }
 }
 
