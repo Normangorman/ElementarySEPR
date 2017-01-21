@@ -50,6 +50,11 @@ public class StoryManager : MonoBehaviour {
         throw new NotImplementedException();
     }
 
+    internal string GetNpcDescription()
+    {
+        throw new NotImplementedException();
+    }
+
     public void OnAccuseCharacter(NPC n)
     {
         // Interacts with the GameManager to see if the player has won or lost

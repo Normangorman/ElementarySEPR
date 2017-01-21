@@ -10,6 +10,8 @@ public class Constants
 	public enum People { DonaldTrump, Dumbledore, MarilynMonroe, FreddieMercury, JamesBond, TheQueen, Receptionist,
                          PabloEscobar, Poirot, Poirot2, CompSciNerd} //!< Enum of all characters
 
+    public enum InteractionType { Friendly, Charismatic, Sarcastic}
+
     // Enum of all the rooms in the game
     // TODO: this should only be the rooms we are actually using
     // More in at the minute because certain rooms are mentioned in storyline 1 which don't actually exist in game

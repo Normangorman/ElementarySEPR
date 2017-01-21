@@ -44,7 +44,10 @@ public class Player : Character
     private int i = 5; //!<.
     public float speed = 0.05f; //!< Player movement speed modifier .                      
 
-   
+    public Constants.InteractionType CurrentInteractionType;
+    private Dictionary<string, string> CurrentDialogue;
+
+
     private StoryManager StoryManager;
     public int layerMask; //!<.
     private UIController UIController; //!< UIController object.
@@ -160,16 +163,15 @@ public class Player : Character
             {
                 StoryManager.GetCurrentDialogueForPerson(n.person);
                 MessagePasser.OnNPCSpokenTo(n);
-                Dictionary<string, string> dialogue = StoryManager.instance.GetCurrentDialogueForPerson(n.person);
-                UIController.SetDialogueBoxText(dialogue["NO_TOPIC"]);
+                CurrentDialogue = StoryManager.instance.GetCurrentDialogueForPerson(n.person);
+                UIController.SetDialogueBoxText(CurrentDialogue["NO_TOPIC"]);
                 Debug.Log("Dialogue for: " + n.person);
-                foreach (string topic in dialogue.Keys)
+                foreach (string topic in CurrentDialogue.Keys)
                 {
-                    Debug.LogFormat("{0}: {1}", topic, dialogue[topic]);
+                    Debug.LogFormat("{0}: {1}", topic, CurrentDialogue[topic]);
 
                 }
                 InitialiseInteraction();
-                UIController.SetButtonText(dialogue);
                 UIController.SetNPC(n);
             }
             else
@@ -219,13 +221,60 @@ public class Player : Character
         DoozyUI.UIManager.HideUiElement("NPCUI");
         DoozyUI.UIManager.HideUiElement("ResponseButtons");
         DoozyUI.UIManager.HideUiElement("DialogueBox");
-        DoozyUI.UIManager.ShowUiElement("InteractionTypeButtons");
+        DoozyUI.UIManager.HideUiElement("InteractionTypeButtons");
+        DoozyUI.UIManager.HideUiElement("InteractionStyleButtons");
+    }
 
+    public void TestForAcceptResponse()
+    {
+        switch (CurrentInteractionType)
+        {
+            case Constants.InteractionType.Friendly:
+                if (Math.Abs(GetFriendliness() - GetNearbyNPC().GetFriendliness()) < 20)
+                {
+                    UIController.SetButtonText(CurrentDialogue);
+                }
+                else
+                {
+                    UIController.SetDialogueBoxText("NEEDS TO BE SET TO DEFAULT SAYING FOR EACH CHARACTER");
+                }
+                break;
+            case Constants.InteractionType.Charismatic:
+                if (Math.Abs(GetCharisma() - GetNearbyNPC().GetCharisma()) < 20)
+                {
+                    UIController.SetButtonText(CurrentDialogue);
+                }
+                else
+                {
+                    UIController.SetDialogueBoxText("NEEDS TO BE SET TO DEFAULT SAYING FOR EACH CHARACTER");
+                }
+                break;
+            case Constants.InteractionType.Sarcastic:
+                Debug.Log(GetSarcasm() + "   " + GetNearbyNPC().GetSarcasm() + "    "+ Math.Abs(GetSarcasm() - GetNearbyNPC().GetSarcasm()));
+                if (Math.Abs(GetSarcasm() - GetNearbyNPC().GetSarcasm()) < 20)
+                {
+                    UIController.SetButtonText(CurrentDialogue);
+                }
+                else
+                {
+                    UIController.SetDialogueBoxText("NEEDS TO BE SET TO DEFAULT SAYING FOR EACH CHARACTER");
+                }
+                break;
+        }
+        DoozyUI.UIManager.HideUiElement("ResponseButtons");
+        DoozyUI.UIManager.HideUiElement("InteractionTypeButtons");
+        DoozyUI.UIManager.HideUiElement("InteractionStyleButtons");
     }
 
     public void AccuseCharacter()
     {
         MessagePasser.OnAccuseCharacter(GetNearbyNPC());
+    }
+
+    public void SetInteractionType(string interaction)
+    {
+        CurrentInteractionType = (Constants.InteractionType)Enum.Parse(typeof(Constants.InteractionType), interaction);
+        TestForAcceptResponse();
     }
 }
 
