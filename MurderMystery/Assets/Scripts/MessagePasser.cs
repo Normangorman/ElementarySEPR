@@ -20,5 +20,10 @@ public class MessagePasser : MonoBehaviour {
         DoozyUI.UIManager.ShowNotification("Example_1_Notification_5", 2f, true, StoryManager.instance.GetRoomDescription());
     }
 
+    public static void OnAccuseCharacter(NPC n)
+    {
+        StoryManager.instance.OnAccuseCharacter(n);
+    }
+
     public static void OnPlayerPressSpacebar() { }
 }

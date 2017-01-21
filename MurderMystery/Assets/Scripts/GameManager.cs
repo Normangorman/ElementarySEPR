@@ -12,4 +12,14 @@ public class GameManager : MonoBehaviour
     // This GameManager can be used to do the scroring later on which includes the time 
     // There is currently no time or scoring and therefore this class is not used
 
+
+    public void WinGame()
+    {
+        
+    }
+
+    public void LoseGame()
+    {
+        
+    }
 }

@@ -225,7 +225,7 @@ public class Player : Character
 
     public void AccuseCharacter()
     {
-        NPC npc = GetNearbyNPC();
+        MessagePasser.OnAccuseCharacter(GetNearbyNPC());
     }
 }
 
