@@ -39,4 +39,14 @@ public class StoryManager : MonoBehaviour {
 	
 	void Update () {
 	}
+
+    internal string GetRoomDescription()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal string GetClueDescription()
+    {
+        throw new NotImplementedException();
+    }
 }

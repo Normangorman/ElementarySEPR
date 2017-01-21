@@ -5,10 +5,12 @@ using System.Collections;
 /*! Class for both the NPCs and Player objects containing personality traits. */
 public class Character : MonoBehaviour
 {
+    public Constants.People person;
+    public Sprite Icon;
 
-    int Charisma; //!< Charisma integer value.
-    int Friendliness; //!< Friendliness integer value.
-    private int Saracasm; //!< Sarcasm integer value.
+    public int Charisma; //!< Charisma integer value.
+    public int Friendly; //!< Friendliness integer value.
+    public int Sarcasm; //!< Sarcasm integer value.
     
     // Setters for properties
     //! sets Charisma value.
@@ -25,7 +27,7 @@ public class Character : MonoBehaviour
      */
     public void SetFriendliness(int i)
     {
-        Friendliness = i;
+        Friendly = i;
     }
 
     //!< sets Sarcasm value.
@@ -34,8 +36,9 @@ public class Character : MonoBehaviour
      */
     public void SetSarcasm(int i)
     {
-        Saracasm = i;
+        Sarcasm = i;
     }
+
     // Getters
     //! gets Charisma value.
     /*!
@@ -51,7 +54,7 @@ public class Character : MonoBehaviour
      */
     public int GetFriendliness()
     {
-        return Friendliness;
+        return Friendly;
     }
     //! gets Sarcasm value.
     /*!
@@ -59,6 +62,6 @@ public class Character : MonoBehaviour
      */
     public int GetSarcasm()
     {
-        return Saracasm;
+        return Sarcasm;
     }
 }
