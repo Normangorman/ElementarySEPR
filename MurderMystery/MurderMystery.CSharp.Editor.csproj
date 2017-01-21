@@ -318,6 +318,7 @@
     <None Include="Assets\DoozyUI\Presets\UIAnimations\OnClick\TwitchToLeft_OnClick.xml" />
     <None Include="Assets\DoozyUI\Presets\UIAnimations\OnClick\TwitchToRight_OnClick.xml" />
     <None Include="Assets\DoozyUI\Readme.txt" />
+    <None Include="Assets\Materials\WARNING.txt" />
     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\AngryInclude.cginc" />
     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\CharacterSelfIlluminationReflective.shader" />
     <None Include="Assets\UnityTestTools\Examples\IntegrationTestsFrameworkExamples\AngryBotsTests\Shaders\BackgroundAndCharacters\EnemySelfIlluminationReflective.shader" />

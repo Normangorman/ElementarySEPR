@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.UI;
 using ProgressBar;
 
@@ -15,18 +16,20 @@ public class UIController : MonoBehaviour
     public Transform InventoryList;
 
     public ProgressBarBehaviour InteractionPointBar;
-    public GameObject PlayerIcon;
-    public GameObject NPCIcon;
+    public Image PlayerIcon;
+    public Image NPCIcon;
     public ProgressBarBehaviour CharismaBar;
     public ProgressBarBehaviour FriendlyBar;
     public ProgressBarBehaviour SarcasmBar;
     public ProgressBarBehaviour NpcCharismaBar;
     public ProgressBarBehaviour NpcFriendlyBar;
     public ProgressBarBehaviour NpcSarcasmBar;
-    public Text Button1Text;
-    public Text Button2Text;
-    public Text Button3Text;
+    public GameObject Button0;
+    public GameObject Button1;
+    public GameObject Button2;
     public Text DialogueBox;
+
+    public Camera MiniMapCamera;
     #endregion
 
     //! Initialises UI object before game loads.
@@ -37,21 +40,15 @@ public class UIController : MonoBehaviour
         GuestList = GameObject.FindGameObjectWithTag("GuestList").transform;
     }
 
-    
-    public void SetResponseTexts(string Text1, string Text2, string Text3)
-    {
-        /*
-         * Sets the texts for the different response buttons. Call this function with the names that
-         * you want to appear on the buttons when you are responding to an NPC
-         */
-        Button1Text.text = Text1;
-        Button2Text.text = Text2;
-        Button3Text.text = Text3;
-    }
 
     public void SetInteractionPoint(int i = 0)
     {
         InteractionPointBar.Value = i;
+    }
+
+    public void SetCameraViewPort()
+    {
+        MiniMapCamera.rect = new Rect(0.7f, 0.7f, 0.3f, 0.3f);
     }
 
 
@@ -59,22 +56,21 @@ public class UIController : MonoBehaviour
     /*!
      * \param person Character for which the bars are to be set.
      */ 
-    public void SetNpcAbilities(Constants.People person)
+    public void SetNPC(NPC npc)
     {
-        Dictionary<Constants.People, List<int>> Dict = Constants.CharacterValues;
-        NpcFriendlyBar.Value = Dict[person][0];
-        NpcCharismaBar.Value = Dict[person][1];
-        NpcSarcasmBar.Value = Dict[person][2];
+        NPCIcon.sprite = npc.Icon;
+        NpcFriendlyBar.Value = npc.GetFriendliness();
+        NpcCharismaBar.Value = npc.GetCharisma();
+        NpcSarcasmBar.Value = npc.GetSarcasm();
     }
 
 
-    public void SetPerson(Constants.People p)
+    public void SetPerson(Player player)
     {
-        PlayerIcon.GetComponent<Image>().sprite = Resources.Load("Poirot") as Sprite;
-        Dictionary<Constants.People, List<int>> Dict = Constants.CharacterValues;
-        NpcFriendlyBar.Value = Dict[p][0];
-        NpcCharismaBar.Value = Dict[p][1];
-        NpcSarcasmBar.Value = Dict[p][2];
+        PlayerIcon.sprite = player.Icon;
+        FriendlyBar.Value = player.Friendly;
+        CharismaBar.Value = player.Charisma;
+        SarcasmBar.Value = player.Sarcasm;
     }
 
     public void SetPlayerIcon(Constants.People person)
@@ -86,9 +82,9 @@ public class UIController : MonoBehaviour
 
     public void SetPlayerAbilities(int i, int j, int k)
     {
-        NpcFriendlyBar.Value = i;
-        NpcCharismaBar.Value = j;
-        NpcSarcasmBar.Value = k;
+        FriendlyBar.Value = i;
+        CharismaBar.Value = j;
+        SarcasmBar.Value = k;
     }
 
 
@@ -96,7 +92,38 @@ public class UIController : MonoBehaviour
     {
         DialogueBox.text = str;
     }
-    
+
+    public void SetButtonText(Dictionary<string, string> dialogue)
+    {
+        Button0.GetComponent<ResponseButton>().ButtonText = dialogue.Keys.First();
+        Button0.GetComponent<ResponseButton>().Response = dialogue.Values.First();
+        dialogue.Remove(dialogue.Keys.First());
+        Button1.GetComponent<ResponseButton>().ButtonText = dialogue.Keys.First();
+        Button1.GetComponent<ResponseButton>().Response = dialogue.Values.First();
+        dialogue.Remove(dialogue.Keys.First());
+        Button2.GetComponent<ResponseButton>().ButtonText = dialogue.Keys.First();
+        Button2.GetComponent<ResponseButton>().Response = dialogue.Values.First();
+        dialogue.Remove(dialogue.Keys.First());
+        Debug.Log("Remaining keys in dictionary:: ");
+        foreach (var str in dialogue)
+        {
+            Debug.Log(str.Key);
+        }
+    }
+
+    public void ClickButton1()
+    {
+        DialogueBox.text = Button0.GetComponent<ResponseButton>().Response;
+    }
+
+    public void ClickButton2()
+    {
+        DialogueBox.text = Button1.GetComponent<ResponseButton>().Response;
+    }
+    public void ClickButton3()
+    {
+        DialogueBox.text = Button2.GetComponent<ResponseButton>().Response;
+    }
     public void AddToInventoryList(Clue clue)
     {
         GameObject r = Resources.Load("Item") as GameObject;
