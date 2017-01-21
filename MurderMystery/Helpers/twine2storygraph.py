@@ -42,7 +42,7 @@ STATE_BLOCK_TEMPLATE = """{
 	string[] requirements = {$REQUIREMENTS};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 	$DIALOGUE
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 """
 

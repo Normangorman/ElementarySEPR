@@ -47,9 +47,13 @@ public class Mystery1Script : StoryScript {
 	{
         base.OnNPCSpokenTo(npc);
 
+        Debug.Log("Mystery1Script#OnNPCSpokenTo: " + npc.ToString());
+
         if (npc.person == Constants.People.Receptionist) {
+            Debug.Log("Spoken to Receptionist");
             if (storyGraph.IsStateActive("Intro"))
             {
+                Debug.Log("Intro is active");
                 storyGraph.CompleteState("Intro");
                 storyGraph.CompleteState("Inspect Reception"); // TODO: unlock when you ask specifically about CCTV
             }

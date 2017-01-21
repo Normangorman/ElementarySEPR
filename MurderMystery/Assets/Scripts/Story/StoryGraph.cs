@@ -149,6 +149,20 @@ public abstract class StoryGraph {
         return states.Count;
     }
 
+    protected void AddState(StoryGraphState state)
+    {
+        // Adds a new state to the list of states
+        states.Add(state);
+
+        if (state.unlocked)
+        {
+            // Some states (such as the intro state) have no requirements.
+            // Thus they are never unlocked by CompleteState so dialogoue is not updated for them
+            // so do that here instead.
+            UpdateCurrentDialogue(state);
+        }
+    }
+
 	private StoryGraphState GetStateWithTitle(string stateTitle)
 	{
 		/* 

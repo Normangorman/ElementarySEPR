@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class Mystery1Graph : StoryGraph
 {
-	/* DO NOT EDIT: This file was generated automatically by twine2storygraph.py on 01/20/17 12:13:29
+	/* DO NOT EDIT: This file was generated automatically by twine2storygraph.py on 01/21/17 15:31:36
      * (See "MurderMystery/Helpers")
      * Hint: in Visual Studio highlight all and press Ctrl+k+f to fix indentation
 	 */
@@ -22,7 +22,7 @@ public class Mystery1Graph : StoryGraph
 };
 
 
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Explore kitchen";
@@ -30,7 +30,7 @@ public class Mystery1Graph : StoryGraph
 	string[] requirements = {"Intro"};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Inspect Reception";
@@ -43,7 +43,7 @@ public class Mystery1Graph : StoryGraph
 };
 
 
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Question Bond";
@@ -56,7 +56,7 @@ public class Mystery1Graph : StoryGraph
 };
 
 
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Find catering notes";
@@ -64,7 +64,7 @@ public class Mystery1Graph : StoryGraph
 	string[] requirements = {"Intro"};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Inspect lecture theatre";
@@ -72,7 +72,7 @@ public class Mystery1Graph : StoryGraph
 	string[] requirements = {"Inspect Reception"};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Inspect bin store";
@@ -86,7 +86,7 @@ public class Mystery1Graph : StoryGraph
 };
 
 
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Find wanted poster in bins";
@@ -94,7 +94,7 @@ public class Mystery1Graph : StoryGraph
 	string[] requirements = {"Intro"};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Find Mercury's clothing";
@@ -102,7 +102,7 @@ public class Mystery1Graph : StoryGraph
 	string[] requirements = {"Intro"};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Inspect stairwell";
@@ -110,7 +110,7 @@ public class Mystery1Graph : StoryGraph
 	string[] requirements = {"Explore kitchen"};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Inspect common room";
@@ -124,7 +124,7 @@ public class Mystery1Graph : StoryGraph
 };
 
 
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Talk to Mercury about clothing";
@@ -138,7 +138,7 @@ public class Mystery1Graph : StoryGraph
 };
 
 
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Find a bloody dagger";
@@ -146,7 +146,7 @@ public class Mystery1Graph : StoryGraph
 	string[] requirements = {"Intro"};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Talk to Dumbledore about suspicions";
@@ -160,7 +160,7 @@ public class Mystery1Graph : StoryGraph
 };
 
 
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Inspect balcony";
@@ -168,7 +168,7 @@ public class Mystery1Graph : StoryGraph
 	string[] requirements = {"Intro"};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Inspect island";
@@ -182,7 +182,7 @@ public class Mystery1Graph : StoryGraph
 };
 
 
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Find Dumbledore's Cookbook";
@@ -190,7 +190,7 @@ public class Mystery1Graph : StoryGraph
 	string[] requirements = {"Intro"};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Inspect 360 room";
@@ -198,7 +198,7 @@ public class Mystery1Graph : StoryGraph
 	string[] requirements = {"Talk to Mercury about clothing"};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Talk to Queen about Mercury's clothes";
@@ -212,7 +212,7 @@ public class Mystery1Graph : StoryGraph
 };
 
 
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Talk to Queen";
@@ -225,7 +225,7 @@ public class Mystery1Graph : StoryGraph
 };
 
 
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 {
 	string title = "Talk to Receptionist about Dinner";
@@ -239,7 +239,7 @@ public class Mystery1Graph : StoryGraph
 };
 
 
-	states.Add(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, description, requirements, dialogue));
 }
 
 	}

@@ -172,6 +172,13 @@ public class Player : Character
                 StoryManager.GetCurrentDialogueForPerson(n.person);
                 MessagePasser.OnNPCSpokenTo(n);
                 Dictionary<string, string> dialogue = StoryManager.instance.GetCurrentDialogueForPerson(n.person);
+                Debug.Log("Dialogue for: " + n.person.ToString());
+                foreach (string topic in dialogue.Keys)
+                {
+                    Debug.LogFormat("{0}: {1}", topic, dialogue[topic]);
+
+                }
+
                 UIController.SetButtonText(dialogue);
                 InitialiseInteraction();
             }
