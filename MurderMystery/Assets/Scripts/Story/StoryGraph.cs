@@ -104,7 +104,7 @@ public abstract class StoryGraph {
         // Returns a (topic -> text) dictionary
         if (!currentDialogue.ContainsKey(person))
         {
-            throw new Exception("No dialogue found for person: " + person.ToString());
+            throw new Exception("No dialogue found for person: " + person);
         }
 
         return currentDialogue[person];

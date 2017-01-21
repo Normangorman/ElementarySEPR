@@ -8,7 +8,6 @@ public class Character : MonoBehaviour
 
     int Charisma; //!< Charisma integer value.
     int Friendliness; //!< Friendliness integer value.
-    int Aggressiveness; //!< Aggressiveness integer value.
     private int Saracasm; //!< Sarcasm integer value.
     
     // Setters for properties
@@ -28,14 +27,7 @@ public class Character : MonoBehaviour
     {
         Friendliness = i;
     }
-    //! sets Aggressiveness value.
-    /*!
-      \param i an integer constant.
-     */
-    public void SetAggressiveness(int i)
-    {
-        Aggressiveness = i;
-    }
+
     //!< sets Sarcasm value.
     /*!
       \param i an integer constant.
@@ -44,7 +36,6 @@ public class Character : MonoBehaviour
     {
         Saracasm = i;
     }
-
     // Getters
     //! gets Charisma value.
     /*!
@@ -61,14 +52,6 @@ public class Character : MonoBehaviour
     public int GetFriendliness()
     {
         return Friendliness;
-    }
-    //! gets Aggressiveness value.
-    /*!
-      \return Aggressiveness.
-     */
-    public int GetAggressiveness()
-    {
-        return Aggressiveness;
     }
     //! gets Sarcasm value.
     /*!

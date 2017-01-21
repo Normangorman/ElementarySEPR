@@ -9,7 +9,6 @@ public class Clue : MonoBehaviour
     public Constants.Clues type;
     public Sprite img;
     public string description;
-    private InteractionPair interaction; //!< interaction pair.
     
     public Clue(Constants.Clues type)
     {

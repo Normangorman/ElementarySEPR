@@ -8,7 +8,7 @@ public class Constants
 {
     // Enum of all the characters in the game
 	public enum People { DonaldTrump, Dumbledore, MarilynMonroe, FreddieMercury, JamesBond, TheQueen, Receptionist,
-                         PabloEscobar, Poirot, Poirot2, Detective} //!< Enum of all characters
+                         PabloEscobar, Poirot, Poirot2, Detective, CompSciNerd} //!< Enum of all characters
 
     // Enum of all the rooms in the game
     // TODO: this should only be the rooms we are actually using
@@ -18,6 +18,8 @@ public class Constants
 
     // Enum of all the clues in the game
     public enum Clues { Dagger, Letter, Hat, BlondeHair, WantedPoster, CateringNotes, CookBook, MercurysClothing} //!< Enum of all clues
+
+    public static string NotificationPath = "1_Notification_4";
 
     // Enum of all the items in the game These can be used to enhance the player's abilities
     //public enum Items { Hat, WalkingStick, MagnifyingGlass, Dagger }
@@ -36,7 +38,7 @@ public class Constants
     // Dictionary of the person and their intial values for their character traits
     public static Dictionary<People, List<int>> CharacterValues = new Dictionary<People, List<int>> //!< Dictionary associating characters and initial character traits.
     {
-        // Person : Aggresive, friendly, charisma, sarcasm. ALWAYS IN THIS ORDER
+        // Person : friendly, charisma, sarcasm. ALWAYS IN THIS ORDER
         {People.DonaldTrump, new List<int> {0, 15, 15} },
         {People.Dumbledore, new List<int> {80, 5, 5} },
         {People.MarilynMonroe, new List<int> {30, 40, 20} },
@@ -44,7 +46,23 @@ public class Constants
         {People.JamesBond, new List<int> {10, 20, 20} },
         {People.TheQueen, new List<int> {75, 15, 0} },
         {People.Poirot, new List<int> {10, 70, 20} },
-        {People.Poirot2, new List<int> {60, 10, 30} }
+        {People.Poirot2, new List<int> {60, 10, 30} },
+        { People.PabloEscobar, new List<int> { 0, 30, 70} },
+        {People.Receptionist,new List<int> {90, 10, 0 } }
+    };
+
+    Dictionary<Constants.People, string> GuestDescription = new Dictionary<Constants.People, string> //!< Dictionary associating characters and textual descriptions.
+    {
+        {People.DonaldTrump, ""},
+        {People.Dumbledore, "" },
+        {People.MarilynMonroe, "" },
+        {People.FreddieMercury,"" },
+        {People.JamesBond, "" },
+        {People.TheQueen, "" },
+        {People.Poirot, "" },
+        {People.Poirot2, ""},
+        { People.PabloEscobar, "" },
+        {People.Receptionist, "" }
     };
 
     public static People GetPersonByName(string name)
