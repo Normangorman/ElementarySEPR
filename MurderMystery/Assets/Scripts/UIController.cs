@@ -41,7 +41,7 @@ public class UIController : MonoBehaviour
     }
 
 
-    public void SetInteractionPoint(int i = 0)
+    public void SetInteractionPoint(int i)
     {
         InteractionPointBar.Value = i;
     }
@@ -71,6 +71,7 @@ public class UIController : MonoBehaviour
         FriendlyBar.Value = player.Friendly;
         CharismaBar.Value = player.Charisma;
         SarcasmBar.Value = player.Sarcasm;
+        SetInteractionPoint(100);
     }
 
     public void SetPlayerIcon(Constants.People person)

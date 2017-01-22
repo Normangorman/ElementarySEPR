@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DoozyUI;
 
 public abstract class StoryScript {
     /* This class represents the script for a particular story.
@@ -45,7 +46,7 @@ public abstract class StoryScript {
     {
 		/* Called when the player enters a new room.
 		 */
-        Debug.Log("Player entered room" + room.ToString());
+        Debug.Log("Player entered room" + room);
     }
 
     public StoryGraph GetStoryGraph()
