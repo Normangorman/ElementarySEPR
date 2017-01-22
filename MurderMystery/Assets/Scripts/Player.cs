@@ -20,8 +20,8 @@ public class Player : Character
         }
         set
         {
-            interaction_points = InteractionPoints;
-            //UIController.SetInteractionPoint(InteractionPoints);
+            interaction_points = value;
+            UIController.SetInteractionPoint(value);
         }
     }
 
@@ -117,6 +117,7 @@ public class Player : Character
                 AddToInventory(itemComponent);
                 col.gameObject.SetActive(false);
                 MessagePasser.OnItemFound(itemComponent);
+                InteractionPoints += 5;
             }
         }
     } // Deals with picking up clues
@@ -230,34 +231,42 @@ public class Player : Character
         switch (CurrentInteractionType)
         {
             case Constants.InteractionType.Friendly:
-                if (Math.Abs(GetFriendliness() - GetNearbyNPC().GetFriendliness()) < 20)
+                int i = Math.Abs(GetFriendliness() - GetNearbyNPC().GetFriendliness());
+                if (i <= 20)
                 {
                     UIController.SetButtonText(CurrentDialogue);
+                    InteractionPoints = i;
                 }
                 else
                 {
                     UIController.SetDialogueBoxText("NEEDS TO BE SET TO DEFAULT SAYING FOR EACH CHARACTER");
+                    InteractionPoints -= 30;
                 }
                 break;
             case Constants.InteractionType.Charismatic:
-                if (Math.Abs(GetCharisma() - GetNearbyNPC().GetCharisma()) < 20)
+                i = Math.Abs(GetCharisma() - GetNearbyNPC().GetCharisma());
+                if (i <= 20)
                 {
                     UIController.SetButtonText(CurrentDialogue);
+                    InteractionPoints -= i;
                 }
                 else
                 {
                     UIController.SetDialogueBoxText("NEEDS TO BE SET TO DEFAULT SAYING FOR EACH CHARACTER");
+                    InteractionPoints -= 30;
                 }
                 break;
             case Constants.InteractionType.Sarcastic:
-                Debug.Log(GetSarcasm() + "   " + GetNearbyNPC().GetSarcasm() + "    "+ Math.Abs(GetSarcasm() - GetNearbyNPC().GetSarcasm()));
-                if (Math.Abs(GetSarcasm() - GetNearbyNPC().GetSarcasm()) < 20)
+                i = Math.Abs(GetSarcasm() - GetNearbyNPC().GetSarcasm());
+                if (i <= 20)
                 {
                     UIController.SetButtonText(CurrentDialogue);
+                    InteractionPoints -= i;
                 }
                 else
                 {
                     UIController.SetDialogueBoxText("NEEDS TO BE SET TO DEFAULT SAYING FOR EACH CHARACTER");
+                    InteractionPoints -= 30;
                 }
                 break;
         }
@@ -276,5 +285,6 @@ public class Player : Character
         CurrentInteractionType = (Constants.InteractionType)Enum.Parse(typeof(Constants.InteractionType), interaction);
         TestForAcceptResponse();
     }
+
 }
 

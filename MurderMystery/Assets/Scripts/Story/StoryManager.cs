@@ -36,9 +36,6 @@ public class StoryManager : MonoBehaviour {
     {
         return storyScript.GetStoryGraph().GetCurrentDialogueForPerson(npc);
     }
-	
-	void Update () {
-	}
 
     internal string GetRoomDescription()
     {
