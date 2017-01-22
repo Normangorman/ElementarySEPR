@@ -10,9 +10,8 @@ public class Clue : MonoBehaviour
     public Sprite img;
     public string description;
     
-    public Clue(Constants.Clues type)
+    public void Awake()
     {
-        this.type = type;
         description = Constants.ClueDescriptions[type];
         img = Resources.Load(type.ToString()) as Sprite;
     }
