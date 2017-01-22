@@ -37,23 +37,27 @@ public class StoryManager : MonoBehaviour {
         return storyScript.GetStoryGraph().GetCurrentDialogueForPerson(npc);
     }
 
-    internal string GetRoomDescription()
+    public string GetRoomDescription()
     {
         throw new NotImplementedException();
     }
 
-    internal string GetClueDescription()
+    public string GetClueDescription(Constants.Clues clue)
     {
-        throw new NotImplementedException();
+        return storyScript.GetStoryGraph().GetClueDescription(clue);
     }
 
-    internal string GetNpcDescription()
+    public string GetNpcDescription()
     {
         throw new NotImplementedException();
     }
 
     public void OnAccuseCharacter(NPC n)
     {
+        if (storyScript.CheckAccusation(n.person))
+        {
+            GameManager.instance.WinGame();
+        }
         // Interacts with the GameManager to see if the player has won or lost
     }
 }

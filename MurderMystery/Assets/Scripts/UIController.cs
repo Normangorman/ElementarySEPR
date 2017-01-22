@@ -97,9 +97,14 @@ public class UIController : MonoBehaviour
     public void SetButtonText(Dictionary<string, string> dialogue)
     {
         Transform ResponseButtonTrans = GameObject.FindGameObjectWithTag("ResponseButtons").transform;
+        foreach(Transform child in ResponseButtonTrans)
+        {
+            Destroy(child.gameObject);
+        }
+
         GameObject button = Resources.Load("ResponseButton") as GameObject;
         int i = 0;
-        dialogue.Remove(dialogue.Keys.First());
+        dialogue.Remove("NO_TOPIC");
         foreach (string key in dialogue.Keys)
         {
             GameObject b = Instantiate(button,ResponseButtonTrans,false) as GameObject;
@@ -107,14 +112,19 @@ public class UIController : MonoBehaviour
             b.GetComponent<ResponseButton>().ButtonText = key;
             b.GetComponent<ResponseButton>().Response = dialogue[key];
             b.name = "ResponseButton" + i;
-            b.GetComponent<Button>().onClick.AddListener(() => MakeDialogueText("ResponseButton" + i));
+            string s = key; // make a copy of key to avoid a bug with the listener function - where every listener uses the same key
+            int j = i;
+            b.GetComponent<Button>().onClick.AddListener(() => MakeDialogueText("ResponseButton" + j, s));
+            i++;
         }
     }
 
-    public void MakeDialogueText(string name)
+    public void MakeDialogueText(string name, string topic)
     {
+        Debug.LogFormat("MakeDialogueText: {0}, {1}", name, topic);
         GameObject button = GameObject.Find(name);
         SetDialogueBoxText(button.GetComponent<ResponseButton>().Response);
+        MessagePasser.OnNPCSpokenTo(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetNearbyNPC(), topic);
     }
 
     public void AddToInventoryList(Clue clue)

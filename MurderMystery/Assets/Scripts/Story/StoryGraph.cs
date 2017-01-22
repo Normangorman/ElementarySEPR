@@ -31,10 +31,10 @@ public abstract class StoryGraph {
     protected string storyName; // set in child class when it is constructed
     protected List<StoryGraphState> states; // set in child class
     protected string storySynopsis; // to be shown in the credits when you complete the game
-    protected Dictionary<Constants.Clues, string> clueDescriptions;
     private StoryScript storyScript;
     // currentDialogue is a (person -> (topic -> text)) dictionary.
     // As new states are unlocked it is populated so that the most up to date text for each topic is available.
+    protected Dictionary<Constants.Clues, string> clueDescriptions;
     private Dictionary<Constants.People, Dictionary<string, string>> currentDialogue;
 
 	public StoryGraph(StoryScript storyScript)
@@ -105,7 +105,25 @@ public abstract class StoryGraph {
             throw new Exception("No dialogue found for person: " + person);
         }
 
-        return currentDialogue[person];
+        // Make a clone of the dialogue dictionary so that it can be edited safely by the recipient
+        Dictionary<string, string> dialogueClone = new Dictionary<string, string>();
+        foreach (var key in currentDialogue[person].Keys)
+        {
+            dialogueClone[key] = currentDialogue[person][key];
+        }
+
+        return dialogueClone;
+    }
+
+    public string GetClueDescription(Constants.Clues clue)
+    {
+        Debug.Log("GetClueDescription called for: " + clue.ToString());
+        if (!clueDescriptions.ContainsKey(clue))
+        {
+            throw new Exception("No description found for clue: " + clue);
+        }
+
+        return clueDescriptions[clue];
     }
 
     public void CompleteStateIfNeeded(string stateTitle)

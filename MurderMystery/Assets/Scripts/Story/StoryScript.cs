@@ -37,9 +37,16 @@ public abstract class StoryScript {
 
 	public virtual void OnNPCSpokenTo(NPC npc)
 	{
-		/* Called after the player finishes speaking to an NPC.
+		/* Called when the player begins speaking to an NPC.
 		 */
         Debug.Log("NPC spoken to " + npc.GetName());
+	}
+
+	public virtual void OnNPCSpokenTo(NPC npc, string topic)
+	{
+		/* Called when the player speaks to an NPC about a certain topic
+		 */
+        Debug.LogFormat("NPC spoken to {0} about topic {1}", npc.GetName(), topic);
 	}
 
     public virtual void OnPlayerChangeRoom(Constants.Rooms room)
@@ -47,6 +54,14 @@ public abstract class StoryScript {
 		/* Called when the player enters a new room.
 		 */
         Debug.Log("Player entered room" + room);
+    }
+
+    public virtual bool CheckAccusation(Constants.People person)
+    {
+        /* Called when the player accuses someone to check whether the accusation succeeded.
+         * Returns true if the accusation was successful and false if not
+         */
+        return false;
     }
 
     public StoryGraph GetStoryGraph()

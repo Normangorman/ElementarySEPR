@@ -182,8 +182,7 @@ public class Player : Character
             MessagePasser.OnPlayerPressSpacebar();
         }
     }
-
-    NPC GetNearbyNPC()
+    public NPC GetNearbyNPC()
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 5);
         foreach (Collider2D col in hitColliders)

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 /*! Manages time.*/
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     private Player player;
     public float time; //!< Time constant which changes throughout gameplay.
     public float timeScale = 0; // TODO: What does this do?
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     public void Awake()
     {
+        instance = this;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
