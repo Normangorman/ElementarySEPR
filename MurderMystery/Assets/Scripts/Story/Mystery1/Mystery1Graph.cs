@@ -2,245 +2,298 @@ using System.Collections.Generic;
 
 public class Mystery1Graph : StoryGraph
 {
-	/* DO NOT EDIT: This file was generated automatically by twine2storygraph.py on 01/21/17 15:31:36
+	/* DO NOT EDIT: This file was generated automatically by twine2storygraph.py on 01/22/17 14:25:25
      * (See "MurderMystery/Helpers")
      * Hint: in Visual Studio highlight all and press Ctrl+k+f to fix indentation
 	 */
     public Mystery1Graph(StoryScript storyScript) : base(storyScript)
     {
         this.storyName = "Mystery1";
+        this.storySynopsis = "In this mystery, PabloEscobar has been murdered. Dumbledore is the murderer. It turns out that Pablo has an awful gluten allergy and Dumbledore has 'poisoned' his food with breadcrumbs! The motive clue is a wanted poster featuring Pablo.";
         this.states = new List<StoryGraphState>();
 
-		{
-	string title = "Intro";
-	string description = "Talk to main hall receptionist";
+        this.clueDescriptions = new Dictionary<Constants.Clues, string>();
+        this.clueDescriptions[Constants.Clues.WantedPoster] = "A wanted poster with a picture of Pablo Escobar on it. A reward of $1,000,000 is offered. It is torn and looks like someone has tried to dispose of it recently.";
+this.clueDescriptions[Constants.Clues.BrokenTape] = "A broken video tape. It looks like someone has smashed it up on purpose. Maybe it's a CCTV tape...";
+this.clueDescriptions[Constants.Clues.Money] = "A $20 note. It seems to have been discarded by someone.";
+this.clueDescriptions[Constants.Clues.DumbledoresCookbook] = "A small, rune bound cookbook that seems to belong to Dumbledore. When you open the book, it seems to automatically fall on a falafel recipe.";
+this.clueDescriptions[Constants.Clues.DoctorsNote] = "A doctor's note with a fairly recent date. It seems to belong to Pablo. The words EXTREME GLUTEN ALLERGY stand out.";
+this.clueDescriptions[Constants.Clues.FreddysClothing] = "A ripped piece of Freddie Mercury's clothing.";
+this.clueDescriptions[Constants.Clues.MealOrders] = "A list of everybody's meal orders. They all had burger, apart from Pablo who had falafel.";
+this.clueDescriptions[Constants.Clues.Breadcrumbs] = "A handful of breadcrumbs. Perhaps someone was a messy eater?";
+this.clueDescriptions[Constants.Clues.Knife] = "A large kitchen knife that seems to be bloodstained. An obvious murder weapon - although maybe someone was just chopping meat?";
+
+
+        {
+        string title = "Intro";
+	string[] requirements = {};
+	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
+	dialogue[Constants.People.JamesBond] = new Dictionary<string, string>
+{
+    {"NO_TOPIC", "Hi $detective... what a shocking murder! You should probably go see the $receptionist."}
+};
+
+dialogue[Constants.People.Dumbledore] = new Dictionary<string, string>
+{
+    {"NO_TOPIC", "Hi $detective... what a shocking murder! You should probably go see the $receptionist."}
+};
+
+dialogue[Constants.People.TheQueen] = new Dictionary<string, string>
+{
+    {"NO_TOPIC", "Hi $detective... what a shocking murder! You should probably go see the $receptionist."}
+};
+
+dialogue[Constants.People.FreddieMercury] = new Dictionary<string, string>
+{
+    {"NO_TOPIC", "Hi $detective... what a shocking murder! You should probably go see the $receptionist."}
+};
+
+dialogue[Constants.People.Receptionist] = new Dictionary<string, string>
+{
+    {"CCTV", "Ah yes - I thought you might want to see that. We only have footage from inside the lecture theatre, and it's just a video of $JamesBond pacing around. I hope that's useful."},
+{"NO_TOPIC", "Hi $detective, we're glad to see you. There's been a murder in the Ron Cooke Hub, $victim's dead. Sorry we didn't check to see how he died, thought it would be more fun for you to find out..."}
+};
+
+dialogue[Constants.People.MarilynMonroe] = new Dictionary<string, string>
+{
+    {"NO_TOPIC", "Hi $detective... what a shocking murder! You should probably go see the $receptionist."}
+};
+
+dialogue[Constants.People.DonaldTrump] = new Dictionary<string, string>
+{
+    {"NO_TOPIC", "Hi $detective... what a shocking murder! You should probably go see the $receptionist."}
+};
+
+
+	AddState(new StoryGraphState(title, requirements, dialogue));
+}
+{
+        string title = "Find meal orders";
+	string[] requirements = {};
+	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
+	
+	AddState(new StoryGraphState(title, requirements, dialogue));
+}
+{
+        string title = "Question Receptionist about CCTV";
+	string[] requirements = {};
+	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
+	
+	AddState(new StoryGraphState(title, requirements, dialogue));
+}
+{
+        string title = "Question Bond about CCTV";
+	string[] requirements = {"Question Receptionist about CCTV"};
+	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
+	dialogue[Constants.People.JamesBond] = new Dictionary<string, string>
+{
+    {"NO_TOPIC", "Hello $detective, can I help you with anything?"},
+{"CCTV: $TheQueen was meant to meet me in there at around 20", "00 for a discussion about Brexit, but is clearly not feeling very punctual today. I had to wait around for a while."}
+};
+
+
+	AddState(new StoryGraphState(title, requirements, dialogue));
+}
+{
+        string title = "Find wanted poster";
+	string[] requirements = {};
+	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
+	dialogue[Constants.People.TheQueen] = new Dictionary<string, string>
+{
+    {"Wanted poster", "A $1,000,000 reward!? Buckingham Palace is in need of a new roof you know..."}
+};
+
+dialogue[Constants.People.DonaldTrump] = new Dictionary<string, string>
+{
+    {"Wanted poster", "Huh, I didn't realize Pablo was a wanted man. With such a large reward - I can see how topping him off might be... temping"}
+};
+
+
+	AddState(new StoryGraphState(title, requirements, dialogue));
+}
+{
+        string title = "Find Mercury's clothing";
+	string[] requirements = {};
+	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
+	dialogue[Constants.People.FreddieMercury] = new Dictionary<string, string>
+{
+    {"Ripped clothing", "Oh yeah I think that's a bit of my jeans. I just love to dance. It must have torn off earlier."}
+};
+
+dialogue[Constants.People.TheQueen] = new Dictionary<string, string>
+{
+    {"Ripped clothing", "Well before the murder I'm fairly sure all $FreddieMercury's clothes were intact. How curious..."}
+};
+
+
+	AddState(new StoryGraphState(title, requirements, dialogue));
+}
+{
+        string title = "Find epipen";
 	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 	dialogue[Constants.People.Receptionist] = new Dictionary<string, string>
 {
-    {"NO_TOPIC", "Hi Poirot, we're glad to see you. There's been a murder in the Ron Cooke Hub, PabloEscobar's dead. Sorry we didn't check to see how he died, thought it would be more fun for you to find out..."}
+    {"Epipen", "Hmm, that might belong to $victim actually. They were the only one who ordered a gluten-free meal."}
 };
 
 
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, requirements, dialogue));
 }
 {
-	string title = "Explore kitchen";
-	string description = "Nobody in kitchen. Find everybody's meal orders. They all have burger, apart from pablo who had falafel.";
-	string[] requirements = {"Intro"};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
-}
-{
-	string title = "Inspect Reception";
-	string description = "Talk to Recpetionist about the CCTV footage.";
-	string[] requirements = {"Intro"};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	dialogue[Constants.People.Receptionist] = new Dictionary<string, string>
-{
-    {"CCTV", "We only have footagee from inside the lecture theatre, and it's just a video of JamesBond pacing around. I hope that's useful."}
-};
-
-
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
-}
-{
-	string title = "Question Bond";
-	string description = "Bond explains that he was meeting the Queen. They had a conversation about Brexit. Apparently Buckingham Palace is getting renovated and they were discussing interior decorating.";
-	string[] requirements = {"Inspect Reception"};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	dialogue[Constants.People.JamesBond] = new Dictionary<string, string>
-{
-    {"NO_TOPIC", "Hello Poirot, can I help you with anything?"}
-};
-
-
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
-}
-{
-	string title = "Find catering notes";
-	string description = "You find some catering notes lying around, on it is a note saying 'Dumbledore needs to speak to the chef'.";
-	string[] requirements = {"Intro"};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
-}
-{
-	string title = "Inspect lecture theatre";
-	string description = "There are two sets of footprints where James Bond was in the CCTV. That's suspicious.";
-	string[] requirements = {"Inspect Reception"};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
-}
-{
-	string title = "Inspect bin store";
-	string description = "You meet Trump who says he heard non-famous voices coming from the balcony - is very worried he may have to talk to somebody with no influence.";
-	string[] requirements = {"Intro"};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	dialogue[Constants.People.DonaldTrump] = new Dictionary<string, string>
-{
-    {"NO_TOPIC", "How's it going Poirot?"},
-{"general", "Actually I did notice something fishy going on, I heard some people talking up on the balcony but get this - they weren't even famous! I know right, don't know what that's all about."}
-};
-
-
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
-}
-{
-	string title = "Find wanted poster in bins";
-	string description = "You find a wanted poster with a picture of Pablo on.";
-	string[] requirements = {"Intro"};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
-}
-{
-	string title = "Find Mercury's clothing";
-	string description = "You find a ripped piece of Freddy Mercury's clothing.";
-	string[] requirements = {"Intro"};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
-}
-{
-	string title = "Inspect stairwell";
-	string description = "Nobody is around. You find an epipen with 'Deliver in case of gluten ingestion' written on the side.";
-	string[] requirements = {"Explore kitchen"};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
-}
-{
-	string title = "Inspect common room";
-	string description = "Find Marilyn Monroe. She mentions that the queen has been the least talkative and quite emotionless and boring.";
-	string[] requirements = {"Intro"};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	dialogue[Constants.People.MarilynMonroe] = new Dictionary<string, string>
-{
-    {"NO_TOPIC", "Hello Poirot, can I assist you with anything?"},
-{"general", "Nothing particularly exciting has happened, TheQueen has been a bit stony this evening, hasn't spoken much and is just a bit boring."}
-};
-
-
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
-}
-{
-	string title = "Talk to Mercury about clothing";
-	string description = "Mercury says his ripped clothes were because he was dancing too hard.";
-	string[] requirements = {"Find Mercury's clothing"};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	dialogue[Constants.People.FreddieMercury] = new Dictionary<string, string>
-{
-    {"NO_TOPIC", "Hey Poirot, what can I do for you?"},
-{"clothes", "Oh that's mine yeah, I think that's a bit of my jeans. Must have done it dancing with PabloEscobar earlier on."}
-};
-
-
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
-}
-{
-	string title = "Find a bloody dagger";
-	string description = "You find a bloody dagger lying under a chair.";
-	string[] requirements = {"Intro"};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
-}
-{
-	string title = "Talk to Dumbledore about suspicions";
-	string description = "Go to the balcony. Dumbledore says that he is an aspiring chef, he mentioned this to the receptionist who made a note to say that the chef should talk to him.";
-	string[] requirements = {"Find catering notes","Find Dumbledore's Cookbook"};
+        string title = "Find a bloody kitchen knife";
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 	dialogue[Constants.People.Dumbledore] = new Dictionary<string, string>
 {
-    {"cooking", "You think I'm the killer? Because of that? HAHAHAHAHA don't quit your day job my friend, I just appreciate good food."},
-{"NO_TOPIC", "Hello there Poirot, any luck?"}
+    {"Knife", "A knife is such an inefficient weapon."}
+};
+
+dialogue[Constants.People.JamesBond] = new Dictionary<string, string>
+{
+    {"Knife", "You found a knife? Looks like an ideal murder weapon... although the body doesn't seem to have any wounds..."}
+};
+
+dialogue[Constants.People.MarilynMonroe] = new Dictionary<string, string>
+{
+    {"Knife>", "Ewww blood. Gross."}
 };
 
 
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, requirements, dialogue));
 }
 {
-	string title = "Inspect balcony";
-	string description = "Find a walkie talkie on the balcony inside a flower pot (or something inconspicuous).";
-	string[] requirements = {"Intro"};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
-}
-{
-	string title = "Inspect island";
-	string description = "Talk to Queen and ask her where she was at time of death. She says she was with Bond talking about things.";
-	string[] requirements = {"Question Bond"};
+        string title = "Question Queen about meeting with Bond";
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 	dialogue[Constants.People.TheQueen] = new Dictionary<string, string>
 {
-    {"CCTV", "Well I was in the middle of a conversation with JamesBond actually, I'll be honest they do like to chatter..."},
-{"NO_TOPIC", "Oh hi Poirot, you startled me!"}
+    {"Meeting with Bond", "Oh yes - me and James had a hearty chat about Brexit."}
 };
 
 
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, requirements, dialogue));
 }
 {
-	string title = "Find Dumbledore's Cookbook";
-	string description = "You find a small rune-bound book on the floor. Inside are some very exotic sounding recipes and Dumbledore's name is incribed on the inside cover.";
-	string[] requirements = {"Intro"};
+        string title = "Find Dumbledore's Cookbook";
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
-}
+	dialogue[Constants.People.Dumbledore] = new Dictionary<string, string>
 {
-	string title = "Inspect 360 room";
-	string description = "Nobody is there but there's a montage of Freddy Mercury dancing his tits off.";
-	string[] requirements = {"Talk to Mercury about clothing"};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
-}
-{
-	string title = "Talk to Queen about Mercury's clothes";
-	string description = "Ask the Queen what she thinks about Mercury's ripped clothes, she says she saw his clothes all in order before the murder...";
-	string[] requirements = {"Find Mercury's clothing"};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	dialogue[Constants.People.TheQueen] = new Dictionary<string, string>
-{
-    {"NO_TOPIC", "Hi how is the detective work coming along?"},
-{"clothes", "Well before the murder I'm fairly sure all FreddieMercury's clothes were in tact. How curious..."}
+    {"Cookbook", "You think I'm the killer? Because of that? HAHAHAHAHA don't quit your day job my friend, I just appreciate good food."},
+{"NO_TOPIC", "Hello there $detective, any luck with the mystery?"}
 };
 
 
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, requirements, dialogue));
 }
 {
-	string title = "Talk to Queen";
-	string description = "Says that it's a shame about Pablo, says she had a long, deep conversation with him about all the wonderful things he did for the people of Columbia and for cocaine as an industry.";
-	string[] requirements = {"Intro"};
+        string title = "Dummy Dialogue State";
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
-	dialogue[Constants.People.TheQueen] = new Dictionary<string, string>
+	dialogue[Constants.People.JamesBond] = new Dictionary<string, string>
 {
-    {"NO_TOPIC", "Hello detective, do you need a hand with anything?"}
+    {"NO_TOPIC", "This party was so great. It's a shame how much death kills the vibe right?"}
+};
+
+dialogue[Constants.People.Dumbledore] = new Dictionary<string, string>
+{
+    {"NO_TOPIC", "What a tragedy... Pablo was so young and so talented..."}
+};
+
+dialogue[Constants.People.TheQueen] = new Dictionary<string, string>
+{
+    {"NO_TOPIC", "One is most disturbed by this horrible event."}
+};
+
+dialogue[Constants.People.FreddieMercury] = new Dictionary<string, string>
+{
+    {"NO_TOPIC", "WAZZUP dude? Is this just fantasy or what? MURDER on such a beautiful evening? I can hardly believe it."}
+};
+
+dialogue[Constants.People.MarilynMonroe] = new Dictionary<string, string>
+{
+    {"NO_TOPIC", "Hey $detective. How's the investigation going?"},
+{"James Bond", "I've been trying to talk to $JamesBond this evening but he is just so stony."}
+};
+
+dialogue[Constants.People.DonaldTrump] = new Dictionary<string, string>
+{
+    {"NO_TOPIC", "Hey buddy, how's the investigation going? If I was you, I would have my eyes on $JamesBond, he seems like a shady character."}
 };
 
 
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, requirements, dialogue));
 }
 {
-	string title = "Talk to Receptionist about Dinner";
-	string description = "Ask them about the epipens. They explain he wanted a gluten-free meal, thought he was just a hipster.";
-	string[] requirements = {"Inspect stairwell"};
+        string title = "Find a broken tape";
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
 	dialogue[Constants.People.Receptionist] = new Dictionary<string, string>
 {
-    {"allergy", "Oh that's PabloEscobar's, maybe they dropped it. They asked for a gluten-free meal but we just thought they were a bit of a hipster."},
-{"NO_TOPIC", "What's new detective?"}
+    {"Broken tape", "You found this in the bins? Hmm... the room code on the tape is 056 - that means it's the tape for the Kitchen. It must have been stolen!"}
 };
 
 
-	AddState(new StoryGraphState(title, description, requirements, dialogue));
+	AddState(new StoryGraphState(title, requirements, dialogue));
+}
+{
+        string title = "Find $20 note";
+	string[] requirements = {};
+	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
+	
+	AddState(new StoryGraphState(title, requirements, dialogue));
+}
+{
+        string title = "Find breadcrumbs";
+	string[] requirements = {};
+	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
+	
+	AddState(new StoryGraphState(title, requirements, dialogue));
+}
+{
+        string title = "Find doctor's note";
+	string[] requirements = {};
+	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
+	
+	AddState(new StoryGraphState(title, requirements, dialogue));
+}
+{
+        string title = "Find gun";
+	string[] requirements = {};
+	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
+	dialogue[Constants.People.JamesBond] = new Dictionary<string, string>
+{
+    {"Gun", "Oh you found my pistol. I take it with me everywhere but I must have dropped it."}
+};
+
+dialogue[Constants.People.MarilynMonroe] = new Dictionary<string, string>
+{
+    {"Gun", "You found a gun!! What a perfect murder weapon!"}
+};
+
+
+	AddState(new StoryGraphState(title, requirements, dialogue));
+}
+{
+        string title = "Question Trump about money";
+	string[] requirements = {"Find $20 note"};
+	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
+	dialogue[Constants.People.DonaldTrump] = new Dictionary<string, string>
+{
+    {"Money", "You found a $20 note? I must have dropped that earlier. You know, I was talking to $Dumbledore earlier and he mentioned that Hogwarts is in real financial trouble right now. Maybe you should give it to him HAHAHA!"}
+};
+
+
+	AddState(new StoryGraphState(title, requirements, dialogue));
+}
+{
+        string title = "Accuse Dumbledore";
+	string[] requirements = {};
+	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
+	
+	AddState(new StoryGraphState(title, requirements, dialogue));
 }
 
-	}
+    }
 }

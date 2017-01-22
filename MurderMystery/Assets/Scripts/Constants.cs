@@ -19,7 +19,7 @@ public class Constants
                         Balcony, CommonRoom, Room360 } //!< Enum of all rooms
 
     // Enum of all the clues in the game
-    public enum Clues { Dagger, Letter, Hat, BlondeHair, WantedPoster, CateringNotes, CookBook, MercurysClothing} //!< Enum of all clues
+    public enum Clues { WantedPoster, BrokenTape, Money, DumbledoresCookbook, DoctorsNote, FreddysClothing, MealOrders, Breadcrumbs, Knife } //!< Enum of all clues
 
     public static string NotificationPath = "1_Notification_1";
 
