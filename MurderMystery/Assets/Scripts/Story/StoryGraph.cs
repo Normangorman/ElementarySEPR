@@ -13,18 +13,15 @@ public abstract class StoryGraph {
 		/* Represents a particular state within the story.
 		 */ 
 		public readonly string title;
-		public readonly string description;
 		public readonly string[] requirements;
 		public bool completed = false;
         public bool unlocked = false;
         public Dictionary<Constants.People, Dictionary<string, string>> dialogue; // (character -> (topic -> text)) dictionary
 
-		public StoryGraphState(string title, string description, string[] requirements,
-                               Dictionary<Constants.People, Dictionary<string, string>> dialogue)
+		public StoryGraphState(string title, string[] requirements, Dictionary<Constants.People, Dictionary<string, string>> dialogue)
 		{
-            //Debug.LogFormat("Creating new StoryGraphState: {0}, {1}, {2}", title, description, requirements.Count);
+            //Debug.LogFormat("Creating new StoryGraphState: {0}, {1}, {2}", title, requirements.Count);
 			this.title = title;
-			this.description = description;
 			this.requirements = requirements;
             if (requirements.Length == 0)
                 unlocked = true;
@@ -33,7 +30,9 @@ public abstract class StoryGraph {
 	}
 
     protected string storyName; // set in child class when it is constructed
-    protected List<StoryGraphState> states;
+    protected List<StoryGraphState> states; // set in child class
+    protected string storySynopsis; // to be shown in the credits when you complete the game
+    protected Dictionary<Constants.Clues, string> clueDescriptions;
     private StoryScript storyScript;
     // currentDialogue is a (person -> (topic -> text)) dictionary.
     // As new states are unlocked it is populated so that the most up to date text for each topic is available.
