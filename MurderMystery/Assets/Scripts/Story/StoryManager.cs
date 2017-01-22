@@ -36,7 +36,24 @@ public class StoryManager : MonoBehaviour {
     {
         return storyScript.GetStoryGraph().GetCurrentDialogueForPerson(npc);
     }
-	
-	void Update () {
-	}
+
+    internal string GetRoomDescription()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal string GetClueDescription()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal string GetNpcDescription()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnAccuseCharacter(NPC n)
+    {
+        // Interacts with the GameManager to see if the player has won or lost
+    }
 }

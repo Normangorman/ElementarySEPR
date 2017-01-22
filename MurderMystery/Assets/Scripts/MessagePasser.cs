@@ -11,11 +11,17 @@ public class MessagePasser : MonoBehaviour {
     public static void OnItemFound(Clue item)
     {
         StoryManager.instance.GetStoryScript().OnItemFound(item);
+        DoozyUI.UIManager.ShowNotification("Example_1_Notification_5", 2f, true, StoryManager.instance.GetClueDescription());
     }
 
     public static void OnPlayerChangeRoom(Constants.Rooms room)
     {
         StoryManager.instance.GetStoryScript().OnPlayerChangeRoom(room);
+    }
+
+    public static void OnAccuseCharacter(NPC n)
+    {
+        StoryManager.instance.OnAccuseCharacter(n);
     }
 
     public static void OnPlayerPressSpacebar() { }

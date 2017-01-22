@@ -8,7 +8,9 @@ public class Constants
 {
     // Enum of all the characters in the game
 	public enum People { DonaldTrump, Dumbledore, MarilynMonroe, FreddieMercury, JamesBond, TheQueen, Receptionist,
-                         PabloEscobar, Poirot, Poirot2, Detective, CompSciNerd} //!< Enum of all characters
+                         PabloEscobar, Poirot, Poirot2, CompSciNerd} //!< Enum of all characters
+
+    public enum InteractionType { Friendly, Charismatic, Sarcastic}
 
     // Enum of all the rooms in the game
     // TODO: this should only be the rooms we are actually using
@@ -19,7 +21,7 @@ public class Constants
     // Enum of all the clues in the game
     public enum Clues { Dagger, Letter, Hat, BlondeHair, WantedPoster, CateringNotes, CookBook, MercurysClothing} //!< Enum of all clues
 
-    public static string NotificationPath = "1_Notification_4";
+    public static string NotificationPath = "1_Notification_1";
 
     // Enum of all the items in the game These can be used to enhance the player's abilities
     //public enum Items { Hat, WalkingStick, MagnifyingGlass, Dagger }
@@ -68,12 +70,12 @@ public class Constants
     public static People GetPersonByName(string name)
     {
         bool matched = false;
-        Constants.People matchedPerson = Constants.People.Detective; // because the compiler whines if it has no value, give it some random value
+        Constants.People matchedPerson = Constants.People.Poirot; // because the compiler whines if it has no value, give it some random value
 
         if (name == "Poirot") // Special case for detective
         {
             matched = true;
-            matchedPerson = Constants.People.Detective;
+            matchedPerson = Constants.People.Poirot;
         }
         else
         {
