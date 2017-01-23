@@ -13,7 +13,7 @@ public class InteractionPair : MonoBehaviour
     public NPC npc; //!< NPC object
     public Clue item; //!< Clue object
 
-    enum InteractionType { item, npc }
+    enum InteractionType { item, npc } //!< Enum of object interaction types.
     
     public void Start() 
     {

@@ -10,7 +10,7 @@ public class Constants
 	public enum People { DonaldTrump, Dumbledore, MarilynMonroe, FreddieMercury, JamesBond, TheQueen, Receptionist,
                          PabloEscobar, Poirot, Poirot2, CompSciNerd} //!< Enum of all characters
 
-    public enum InteractionType { Friendly, Charismatic, Sarcastic}
+    public enum InteractionType { Friendly, Charismatic, Sarcastic} //!< Enum of all interaction types.
 
     // Enum of all the rooms in the game
     public enum Rooms { Kitchen, Lift, Staircase1, Staircase2, BinBay, BusinessRoom1, BusinessRoom2, ExhibitionRoom, InteractionIsland, LectureTheatre, Reception, Terrace, GrandHall,
@@ -20,7 +20,7 @@ public class Constants
     public enum Clues { WantedPoster, BrokenTape, Money, DumbledoresCookbook, DoctorsNote, FreddysClothing, MealOrders, Breadcrumbs,
                         Knife, Pistol, Epipen } //!< Enum of all clues
 
-    public static string NotificationPath = "1_Notification_1";
+    public static string NotificationPath = "1_Notification_1"; //!< File path for notification prefab.
 
     // Enum of all the items in the game These can be used to enhance the player's abilities
     //public enum Items { Hat, WalkingStick, MagnifyingGlass, Dagger }
@@ -55,6 +55,11 @@ public class Constants
         {People.Receptionist, "" }
     };
 
+    //! Given a name of a person, returns a person from the enum of people.
+    /*!
+     * \param name Given name.
+     * \return A person from list of game characters.
+     */ 
     public static People GetPersonByName(string name)
     {
         bool matched = false;
@@ -92,6 +97,8 @@ public class Constants
     }
 }
 
+//! Person Not Found error exception.
+/*! If a reference is made to a person that does not exist, this error is given. */
 public class PersonNotFound : Exception
 {
     public PersonNotFound(string personName) :
