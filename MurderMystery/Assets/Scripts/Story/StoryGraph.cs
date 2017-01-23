@@ -150,6 +150,11 @@ public abstract class StoryGraph {
         return storySynopsis;
     }
 
+    public string GetStoryName()
+    {
+        return storyName;
+    }
+
     public void CompleteStateIfNeeded(string stateTitle)
     {
         // Utility function: a common pattern is "if (!state completed) complete state;"

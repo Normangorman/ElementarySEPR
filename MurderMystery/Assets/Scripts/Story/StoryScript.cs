@@ -28,25 +28,25 @@ public abstract class StoryScript {
         //Debug.Log("State Unlocked: " + stateTitle);
 	}
 
-	public virtual void OnItemFound(Clue item)
+	public virtual void OnItemFound(Constants.Clues item)
 	{
 		/* Called after the player picks up an item.
 		 */
-        Debug.Log("Clue Found " + item.GetName());
+        Debug.Log("Clue Found " + item.ToString());
 	}
 
-	public virtual void OnNPCSpokenTo(NPC npc)
+	public virtual void OnNPCSpokenTo(Constants.People person)
 	{
 		/* Called when the player begins speaking to an NPC.
 		 */
-        Debug.Log("NPC spoken to " + npc.GetName());
+        Debug.Log("NPC spoken to " + person.ToString());
 	}
 
-	public virtual void OnNPCSpokenTo(NPC npc, string topic)
+	public virtual void OnNPCSpokenTo(Constants.People person, string topic)
 	{
 		/* Called when the player speaks to an NPC about a certain topic
 		 */
-        Debug.LogFormat("NPC spoken to {0} about topic {1}", npc.GetName(), topic);
+        Debug.LogFormat("NPC spoken to {0} about topic {1}", person.ToString(), topic);
 	}
 
     public virtual void OnPlayerChangeRoom(Constants.Rooms room)

@@ -5,18 +5,18 @@ public class MessagePasser : MonoBehaviour {
 
     public static void OnNPCSpokenTo(NPC npc)
     {
-        StoryManager.instance.GetStoryScript().OnNPCSpokenTo(npc);
+        StoryManager.instance.GetStoryScript().OnNPCSpokenTo(npc.person);
     }
 
     public static void OnNPCSpokenTo(NPC npc, string topic)
     {
         Debug.LogFormat("MessagePasser#OnNPCSpokenTo: {0}, {1}", npc.GetName(), topic);
-        StoryManager.instance.GetStoryScript().OnNPCSpokenTo(npc, topic);
+        StoryManager.instance.GetStoryScript().OnNPCSpokenTo(npc.person, topic);
     }
 
     public static void OnItemFound(Clue item)
     {
-        StoryManager.instance.GetStoryScript().OnItemFound(item);
+        StoryManager.instance.GetStoryScript().OnItemFound(item.type);
         DoozyUI.UIManager.ShowNotification("Example_1_Notification_5", 2f, true, StoryManager.instance.GetClueDescription(item.type));
     }
 
