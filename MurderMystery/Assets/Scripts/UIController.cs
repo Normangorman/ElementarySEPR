@@ -11,23 +11,24 @@ public class UIController : MonoBehaviour
 {
     #region Variables
     [HideInInspector]
-    public UIController Instance;
-    public Transform InventoryList;
+    public UIController Instance; //!< Instance of the UI Controller.
+    public Transform GuestList; //!< Guest list object.
+    public Transform InventoryList; //!< Inventory list object.
 
-    public ProgressBarBehaviour InteractionPointBar;
-    public Image PlayerIcon;
-    public Image NPCIcon;
-    public ProgressBarBehaviour CharismaBar;
-    public ProgressBarBehaviour FriendlyBar;
-    public ProgressBarBehaviour SarcasmBar;
-    public ProgressBarBehaviour NpcCharismaBar;
-    public ProgressBarBehaviour NpcFriendlyBar;
-    public ProgressBarBehaviour NpcSarcasmBar;
-    public Text SynopsisWinText;
-    public Text SynopsisLoseText;
-    public Text DialogueBox;
+    public ProgressBarBehaviour InteractionPointBar; //!< Interaction Points bar graphic.
+    public Image PlayerIcon; //!< Player Icon sprite.
+    public Image NPCIcon; //!< NPC Icon sprite.
+    public ProgressBarBehaviour CharismaBar; //!< Charisma Bar graphic.
+    public ProgressBarBehaviour FriendlyBar; //!< Friendly Bar graphic.
+    public ProgressBarBehaviour SarcasmBar; //!< Sarcasm Bar graphic.
+    public ProgressBarBehaviour NpcCharismaBar; //!< NPC Charisma Bar graphic.
+    public ProgressBarBehaviour NpcFriendlyBar; //!< NPC Friendly Bar graphic.
+    public ProgressBarBehaviour NpcSarcasmBar; //!< NPC Sarcasm Bar graphic.
+    public Text SynopsisWinText; //!< Text that displays when the win condition is met.
+    public Text SynopsisLoseText; //!< Text that displays when the lose condition is met.
+    public Text DialogueBox; //!< Text that displays a dialogue event occurs.
 
-    public Camera MiniMapCamera;
+    public Camera MiniMapCamera; //!< Camera Object for the minimap.
     #endregion
 
     //! Initialises UI object before game loads.
@@ -37,12 +38,19 @@ public class UIController : MonoBehaviour
         InventoryList = GameObject.FindGameObjectWithTag("InventoryList").transform;
     }
 
-
+    //! Sets interaction point bar values.
+    /*!
+     * \param i Integer value.
+     */ 
     public void SetInteractionPoint(int i)
     {
         InteractionPointBar.Value = i;
     }
 
+    //! Displays or hides minimap camera view port depending on a boolean value.
+    /*!
+     * \param b On or off boolean value.
+     */
     public void SetCameraViewPort(bool b)
     {
         if (b)
@@ -66,7 +74,10 @@ public class UIController : MonoBehaviour
         NpcSarcasmBar.Value = npc.Sarcasm;
     }
 
-
+    //! Sets player details to display on UI.
+    /*!
+     * \param player Player object.
+     */
     public void SetPerson(Player player)
     {
         PlayerIcon.sprite = player.Icon;
@@ -76,6 +87,10 @@ public class UIController : MonoBehaviour
         SetInteractionPoint(100);
     }
 
+    //! Sets the player icon for the person selected.
+    /*!
+     * \param person Person object.
+     */
     public void SetPlayerIcon(Constants.People person)
     {
         Sprite img = Resources.Load(person.ToString()) as Sprite;
@@ -83,6 +98,12 @@ public class UIController : MonoBehaviour
     }
 
 
+    //! Sets the player abilities to given values.
+    /*!
+     * \param i Friendly value.
+     * \param j Charisma value.
+     * \param k Sarcasm value.
+     */
     public void SetPlayerAbilities(int i, int j, int k)
     {
         FriendlyBar.Value = i;
@@ -90,12 +111,19 @@ public class UIController : MonoBehaviour
         SarcasmBar.Value = k;
     }
 
-
+    //! Sets the dialogue box text to a given string.
+    /*!
+     * \param str String to set text to.
+     */
     public void SetDialogueBoxText(string str)
     {
         DialogueBox.text = str;
     }
 
+    //! Sets the button text for the appropriate dialogue response.
+    /*!
+     * \param dialogue Dictionary of the dialogue.
+     */
     public void SetButtonText(Dictionary<string, string> dialogue)
     {
         Transform ResponseButtonTrans = GameObject.FindGameObjectWithTag("ResponseButtons").transform;
@@ -121,6 +149,11 @@ public class UIController : MonoBehaviour
         }
     }
 
+    //! Makes dialogue text for the next response.
+    /*!
+     * \param name 
+     * \param topic
+     */
     public void MakeDialogueText(string name, string topic)
     {
         Debug.LogFormat("MakeDialogueText: {0}, {1}", name, topic);
@@ -130,6 +163,10 @@ public class UIController : MonoBehaviour
 
     }
 
+    //! Adds a clue to the inventory list.
+    /*!
+     * \param clue Clue that has been added.
+     */
     public void AddToInventoryList(Clue clue)
     {
         GameObject r = Resources.Load("Item") as GameObject;
@@ -138,11 +175,20 @@ public class UIController : MonoBehaviour
         g.transform.GetChild(1).GetComponent<Text>().text = clue.GetDescription();
     }
 
+    //! Sets the text that displays on the win condition.
+    /*!
+     * \param str Text that is to be set.
+     */
     public void SetSynopsisWinText(string str)
     {
         SynopsisWinText.text = str;
         SetCameraViewPort(false);
     }
+
+    //! Sets the text that displays on the lose condition.
+    /*!
+     * \param str Text that is to be set.
+     */
     public void SetSynopsisLoseText(string str)
     {
         SynopsisLoseText.text = str;

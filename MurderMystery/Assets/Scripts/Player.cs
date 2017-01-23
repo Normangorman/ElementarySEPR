@@ -10,8 +10,8 @@ public class Player : Character
 {
     //Player Properties
 
-    public List<Clue> InventoryList;
-    private int interaction_points = 100;
+    public List<Clue> InventoryList; //!< Player's inventory list.
+    private int interaction_points = 100; //!< Number of interaction points, set to a default of 100.
     public int InteractionPoints //!< Interaction Points getter and setter.
     {
         get
@@ -32,16 +32,30 @@ public class Player : Character
         }
     }
 
+    //! Sets player Friendliness value.
+    /*
+     * \param i Integer value.
+     */ 
     public new void SetFriendliness(int i)
     {
         base.SetFriendliness(i);
         UIController.FriendlyBar.Value = GetFriendliness();
     }
+
+    //! Sets player Charisma value.
+    /*
+     * \param i Integer value.
+     */
     public new void SetCharisma(int i)
     {
         base.SetCharisma(i);
         UIController.CharismaBar.Value = GetCharisma();
     }
+
+    //! Sets player Sarcasm value.
+    /*
+     * \param i Integer value.
+     */
     public new void SetSarcasm(int i)
     {
         base.SetSarcasm(i);
@@ -51,13 +65,13 @@ public class Player : Character
     private int i = 5; //!<.
     public float speed = 0.1f; //!< Player movement speed modifier .                      
 
-    public Constants.InteractionType CurrentInteractionType;
-    private Dictionary<string, string> CurrentDialogue;
+    public Constants.InteractionType CurrentInteractionType; //!< Type of the current player interaction.
+    private Dictionary<string, string> CurrentDialogue; //!< Current dictionary of dialogue.
 
-    public NPC currentNpc;
+    public NPC currentNpc; //!< Current NPC that is being interacted with.
 
-    private StoryManager StoryManager;
-    public int layerMask; //!<.
+    private StoryManager StoryManager; //!< Story manager object.
+    public int layerMask; //!< Layer of the player in the game.
     private UIController UIController; //!< UIController object.
    
     //! sets UIController object and interaction once all objects initialised.
@@ -69,6 +83,10 @@ public class Player : Character
         StoryManager = GameObject.FindGameObjectWithTag("StoryManager").GetComponent<StoryManager>();
     }
 
+    //! Called when the player is selecting a character to play as.
+    /*
+     * \param person Integer referring to character selected.
+     */ 
     public void ChoosePlayer(int person)
     {
         if (person == 0)
@@ -93,12 +111,20 @@ public class Player : Character
         UIController.SetCameraViewPort(true);
     }
 
+    //!< Gets a sprite image given a file path.
+    /*
+     * \param path The path of the sprite.
+     */ 
     public Sprite GetSprite(string path)
     {
         Sprite[] sprites = Resources.LoadAll<Sprite>(path);
         return sprites[1];
     }
 
+    //! When the player enters a trigger with the specific tags, apply the appropriate modifier to a player or UI attribute.
+    /*
+     * \param col Collider that is entered.
+     */ 
     public void OnTriggerEnter2D(Collider2D col) 
     {
         /*
@@ -128,15 +154,19 @@ public class Player : Character
                 InteractionPoints += 5;
             }
         }
-    } // Deals with picking up clues
+    } 
 
+    //! Adds a clue item to the player's inventory in the list and the UI.
+    /*!
+     * \param item Clue that is to be added.
+     */ 
     public void AddToInventory(Clue item)
     {
         InventoryList.Add(item); // Adds it to the player's inventory
         UIController.AddToInventoryList(item); // Add it to the inventory list in the UI
     }
 
-    //! Every 0.05 seconds gets movement infor and moves player accordingly.
+    //! Every 0.05 seconds gets movement information and moves player accordingly.
     void FixedUpdate()
     {
         transform.position += new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * speed ;
@@ -152,6 +182,10 @@ public class Player : Character
         */
     }
 
+    //! When the player leaves a collider, change the appropriate values.
+    /*
+     * \param col Collider that is left.
+     */
     void OnTriggerExit2D(Collider2D col)
     {
         if (col.tag == "stairs")
@@ -191,6 +225,11 @@ public class Player : Character
             MessagePasser.OnPlayerPressSpacebar();
         }
     }
+
+    //! Gets a nearby NPC
+    /*!
+     * \return NPC object, if nearby.
+     */ 
     public NPC GetNearbyNPC()
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 5);
@@ -205,6 +244,7 @@ public class Player : Character
         return null;
     }
 
+    //! Initialises interaction between player and an NPC.
     public void InitialiseInteraction()
     {
         /*
@@ -219,6 +259,7 @@ public class Player : Character
         
     }
 
+    //! Resets objects and view when interaction is cancelled.
     public void CancelInteraction()
     {
         /*
@@ -234,6 +275,7 @@ public class Player : Character
         DoozyUI.UIManager.HideUiElement("InteractionStyleButtons");
     }
 
+    //! Tests if the NPC should accept the response, depending on player points.
     public void TestForAcceptResponse()
     {
         switch (CurrentInteractionType)
@@ -283,22 +325,30 @@ public class Player : Character
         DoozyUI.UIManager.HideUiElement("InteractionStyleButtons");
     }
 
+    //! Called when an NPC is accused.
     public void AccuseCharacter()
     {
         MessagePasser.OnAccuseCharacter(currentNpc);
     }
 
+    //! Sets the current interaction type and calls a response test.
+    /*
+     * \param interaction Type of interaction.
+     */ 
     public void SetInteractionType(string interaction)
     {
         CurrentInteractionType = (Constants.InteractionType)Enum.Parse(typeof(Constants.InteractionType), interaction);
         TestForAcceptResponse();
     }
 
+    //! Stops the player from moving.
     public void SetSpeedNull()
     {
         speed = 0;
         UIController.SetCameraViewPort(false);
     }
+
+    //! Resumes the player movement.
     public void SetSpeedGo()
     {
         speed = 0.1f;
