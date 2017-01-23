@@ -23,18 +23,18 @@
 
 
 
-</script><tw-passagedata pid="1" name="Intro" tags="" position="665,38">Talk to main hall receptionist
+</script><tw-passagedata pid="1" name="Intro" tags="" position="666,38">Talk to main hall receptionist
 
 &lt;aliases&gt;
 victim = PabloEscobar
 detective = Poirot
+Receptionist = Receptionist
 JamesBond = JamesBond
 TheQueen = TheQueen
 Dumbledore = Dumbledore
 DonaldTrump = DonaldTrump
 FreddieMercury = FreddieMercury
 MarilynMonroe = MarilynMonroe
-Receptionist = Receptionist
 &lt;/aliases&gt;
 
 &lt;synopsis&gt;In this mystery, PabloEscobar has been murdered. Dumbledore is the murderer. It turns out that Pablo has an awful gluten allergy and Dumbledore has &#39;poisoned&#39; his food with breadcrumbs! The motive clue is a wanted poster featuring Pablo.&lt;/synopsis&gt;
@@ -48,79 +48,21 @@ Receptionist = Receptionist
 &lt;clue name=&quot;MealOrders&quot;&gt;A list of everybody&#39;s meal orders. They all had burger, apart from Pablo who had falafel.&lt;/clue&gt;
 &lt;clue name=&quot;DoctorsNote&quot;&gt;A doctor&#39;s note with a fairly recent date. It seems to belong to Pablo. The words EXTREME GLUTEN ALLERGY stand out.&lt;/clue&gt;
 &lt;clue name=&quot;BrokenTape&quot;&gt;A broken video tape. It looks like someone has smashed it up on purpose. Maybe it&#39;s a CCTV tape...&lt;/clue&gt;
+&lt;clue name=&quot;Pistol&quot;&gt;A small handgun. The safety is on and there are bullets loaded.&lt;/clue&gt;
+&lt;clue name=&quot;Epipen&quot;&gt;An epipen with the words USE IN CASE OF GLUTEN INGESTION inscribed on the side.&lt;/clue&gt;
 
-&lt;dialogue&gt;
+&lt;dialogueunlocked&gt;
 Receptionist: Hi $detective, we&#39;re glad to see you. There&#39;s been a murder in the Ron Cooke Hub, $victim&#39;s dead. Sorry we didn&#39;t check to see how he died, thought it would be more fun for you to find out...
 Receptionist|CCTV: Ah yes - I thought you might want to see that. We only have footage from inside the lecture theatre, and it&#39;s just a video of $JamesBond pacing around. I hope that&#39;s useful.
-JamesBond: Hi $detective... what a shocking murder! You should probably go see the $receptionist.
-TheQueen: Hi $detective... what a shocking murder! You should probably go see the $receptionist.
-Dumbledore: Hi $detective... what a shocking murder! You should probably go see the $receptionist.
-DonaldTrump: Hi $detective... what a shocking murder! You should probably go see the $receptionist.
-FreddieMercury: Hi $detective... what a shocking murder! You should probably go see the $receptionist.
-MarilynMonroe: Hi $detective... what a shocking murder! You should probably go see the $receptionist.
-&lt;/dialogue&gt;
+JamesBond: Hi $detective... what a shocking murder! You should probably go see the $Receptionist.
+TheQueen: Hi $detective... what a shocking murder! You should probably go see the $Receptionist.
+Dumbledore: Hi $detective... what a shocking murder! You should probably go see the $Receptionist.
+DonaldTrump: Hi $detective... what a shocking murder! You should probably go see the $Receptionist.
+FreddieMercury: Hi $detective... what a shocking murder! You should probably go see the $Receptionist.
+MarilynMonroe: Hi $detective... what a shocking murder! You should probably go see the $Receptionist.
+&lt;/dialogueunlocked&gt;
 
-[[a|Question Receptionist about CCTV]]
-[[a|Dummy Dialogue State]]
-[[a|Find Mercury&#39;s clothing]]
-[[a|Find $20 note]]
-[[a|Find meal orders]]
-[[a|Find wanted poster]]
-[[a|Find epipen]] 
-[[a|Find a bloody kitchen knife]] 
-[[a|Find Dumbledore&#39;s Cookbook]] 
-[[a|Find a broken tape]]
-[[a|Find gun]]
-[[a|Find doctor&#39;s note]]
-[[a|Find breadcrumbs]]</tw-passagedata>
-<tw-passagedata pid="2" name="Find meal orders" tags="" position="1149,351"></tw-passagedata>
-<tw-passagedata pid="3" name="Question Receptionist about CCTV" tags="" position="261.00019999999995,213">Talk to Receptionist about the CCTV footage.
-
-[[|Question Bond about CCTV]]</tw-passagedata>
-<tw-passagedata pid="4" name="Question Bond about CCTV" tags="" position="206,354">Bond explains that he was meeting the Queen. They had a conversation about Brexit. Apparently Buckingham Palace is getting renovated and they were discussing interior decorating.
-
-&lt;dialogue&gt;
-JamesBond: Hello $detective, can I help you with anything?
-JamesBond|CCTV: $TheQueen was meant to meet me in there at around 20:00 for a discussion about Brexit, but is clearly not feeling very punctual today. I had to wait around for a while.
-&lt;/dialogue&gt;
-
-[[Go to island|Question Queen about meeting with Bond]]</tw-passagedata>
-<tw-passagedata pid="5" name="Find wanted poster" tags="" position="565,346">You find a wanted poster with a picture of Pablo on. It looks like someone has tried to dispose of it recently.
-
-&lt;dialogue&gt;
-DonaldTrump|Wanted poster: Huh, I didn&#39;t realize Pablo was a wanted man. With such a large reward - I can see how topping him off might be... temping
-TheQueen|Wanted poster: A $1,000,000 reward!? Buckingham Palace is in need of a new roof you know...
-&lt;/dialogue&gt;
-
-[[|Accuse Dumbledore]] </tw-passagedata>
-<tw-passagedata pid="6" name="Find Mercury&#39;s clothing" tags="" position="136.00019999999998,122">You find a ripped piece of Freddy Mercury&#39;s clothing.
-
-&lt;dialogue&gt;
-FreddieMercury|Ripped clothing: Oh yeah I think that&#39;s a bit of my jeans. I just love to dance. It must have torn off earlier.
-TheQueen|Ripped clothing: Well before the murder I&#39;m fairly sure all $FreddieMercury&#39;s clothes were intact. How curious...
-&lt;/dialogue&gt;</tw-passagedata>
-<tw-passagedata pid="7" name="Find epipen" tags="" position="1593,307">You find an epipen with &quot;Use in case of gluten ingestion&quot; written on the side.
-
-&lt;dialogue&gt;
-Receptionist|Epipen: Hmm, that might belong to $victim actually. They were the only one who ordered a gluten-free meal.
-&lt;/dialogue&gt;</tw-passagedata>
-<tw-passagedata pid="8" name="Find a bloody kitchen knife" tags="" position="1012.0001,350">&lt;dialogue&gt;
-JamesBond|Knife: You found a knife? Looks like an ideal murder weapon... although the body doesn&#39;t seem to have any wounds...
-MarilynMonroe|Knife&gt;: Ewww blood. Gross.
-Dumbledore|Knife: A knife is such an inefficient weapon.
-&lt;/dialogue&gt;</tw-passagedata>
-<tw-passagedata pid="9" name="Question Queen about meeting with Bond" tags="" position="180,528">Talk to Queen and ask her about the meeting with Bond.
-
-&lt;dialogue&gt;
-TheQueen|Meeting with Bond: Oh yes - me and James had a hearty chat about Brexit.
-&lt;/dialogue&gt;</tw-passagedata>
-<tw-passagedata pid="10" name="Find Dumbledore&#39;s Cookbook" tags="" position="753,345">&lt;dialogue&gt;
-Dumbledore: Hello there $detective, any luck with the mystery?
-Dumbledore|Cookbook: You think I&#39;m the killer? Because of that? HAHAHAHAHA don&#39;t quit your day job my friend, I just appreciate good food.
-&lt;/dialogue&gt;</tw-passagedata>
-<tw-passagedata pid="11" name="Dummy Dialogue State" tags="" position="423,26">This state has no purpose except to unlock dialogue after the intro.
-
-&lt;dialogue&gt;
+&lt;dialoguecompleted&gt;
 Dumbledore: What a tragedy... Pablo was so young and so talented...
 JamesBond: This party was so great. It&#39;s a shame how much death kills the vibe right?
 MarilynMonroe: Hey $detective. How&#39;s the investigation going?
@@ -128,27 +70,85 @@ TheQueen: One is most disturbed by this horrible event.
 DonaldTrump: Hey buddy, how&#39;s the investigation going? If I was you, I would have my eyes on $JamesBond, he seems like a shady character.
 FreddieMercury: WAZZUP dude? Is this just fantasy or what? MURDER on such a beautiful evening? I can hardly believe it.
 MarilynMonroe|James Bond: I&#39;ve been trying to talk to $JamesBond this evening but he is just so stony.
-&lt;/dialogue&gt;</tw-passagedata>
-<tw-passagedata pid="12" name="Find a broken tape" tags="" position="1620,182">
+&lt;/dialoguecompleted&gt;
 
-&lt;dialogue&gt;
+[[|Question Receptionist about CCTV]]
+[[|Find Mercury&#39;s clothing]]
+[[|Find $20 note]]
+[[|Find meal orders]]
+[[|Find wanted poster]]
+[[|Find epipen]] 
+[[|Find a bloody kitchen knife]] 
+[[|Find Dumbledore&#39;s Cookbook]] 
+[[|Find a broken tape]]
+[[|Find gun]]
+[[|Find doctor&#39;s note]]
+[[|Find breadcrumbs]]</tw-passagedata>
+<tw-passagedata pid="2" name="Find meal orders" tags="" position="1149,351"></tw-passagedata>
+<tw-passagedata pid="3" name="Question Receptionist about CCTV" tags="" position="261.00019999999995,213">Talk to Receptionist about the CCTV footage.
+
+[[|Question Bond about CCTV]]</tw-passagedata>
+<tw-passagedata pid="4" name="Question Bond about CCTV" tags="" position="206,354">Bond explains that he was meeting the Queen. They had a conversation about Brexit. Apparently Buckingham Palace is getting renovated and they were discussing interior decorating.
+
+&lt;dialogueunlocked&gt;
+JamesBond: Hello $detective, can I help you with anything?
+JamesBond|CCTV: $TheQueen was meant to meet me in there at around 20:00 for a discussion about Brexit, but is clearly not feeling very punctual today. I had to wait around for a while.
+&lt;/dialogueunlocked&gt;
+
+[[Go to island|Question Queen about meeting with Bond]]</tw-passagedata>
+<tw-passagedata pid="5" name="Find wanted poster" tags="" position="565,346">You find a wanted poster with a picture of Pablo on. It looks like someone has tried to dispose of it recently.
+
+&lt;dialoguecompleted&gt;
+DonaldTrump|Wanted poster: Huh, I didn&#39;t realize Pablo was a wanted man. With such a large reward - I can see how topping him off might be... temping
+TheQueen|Wanted poster: A $1,000,000 reward!? Buckingham Palace is in need of a new roof you know...
+&lt;/dialoguecompleted&gt;
+
+[[|Accuse Dumbledore]] </tw-passagedata>
+<tw-passagedata pid="6" name="Find Mercury&#39;s clothing" tags="" position="136.00019999999998,122">You find a ripped piece of Freddy Mercury&#39;s clothing.
+
+&lt;dialoguecompleted&gt;
+FreddieMercury|Ripped clothing: Oh yeah I think that&#39;s a bit of my jeans. I just love to dance. It must have torn off earlier.
+TheQueen|Ripped clothing: Well before the murder I&#39;m fairly sure all $FreddieMercury&#39;s clothes were intact. How curious...
+&lt;/dialoguecompleted&gt;</tw-passagedata>
+<tw-passagedata pid="7" name="Find epipen" tags="" position="1593.0001,307">You find an epipen with &quot;Use in case of gluten ingestion&quot; written on the side.
+
+&lt;dialoguecompleted&gt;
+Receptionist|Epipen: Hmm, that might belong to $victim actually. They were the only one who ordered a gluten-free meal.
+&lt;/dialoguecompleted&gt;</tw-passagedata>
+<tw-passagedata pid="8" name="Find a bloody kitchen knife" tags="" position="1012.0002,350">&lt;dialoguecompleted&gt;
+JamesBond|Knife: You found a knife? Looks like an ideal murder weapon... although the body doesn&#39;t seem to have any wounds...
+MarilynMonroe|Knife&gt;: Ewww blood. Gross.
+Dumbledore|Knife: A knife is such an inefficient weapon.
+&lt;/dialoguecompleted&gt;</tw-passagedata>
+<tw-passagedata pid="9" name="Question Queen about meeting with Bond" tags="" position="180,528">Talk to Queen and ask her about the meeting with Bond.
+
+&lt;dialogueunlocked&gt;
+TheQueen|Meeting with Bond: Oh yes - me and James had a hearty chat about Brexit.
+&lt;/dialogueunlocked&gt;</tw-passagedata>
+<tw-passagedata pid="10" name="Find Dumbledore&#39;s Cookbook" tags="" position="753,345">&lt;dialoguecompleted&gt;
+Dumbledore: Hello there $detective, any luck with the mystery?
+Dumbledore|Cookbook: You think I&#39;m the killer? Because of that? HAHAHAHAHA don&#39;t quit your day job my friend, I just appreciate good food.
+&lt;/dialoguecompleted&gt;</tw-passagedata>
+<tw-passagedata pid="11" name="Find a broken tape" tags="" position="1620,181">
+
+&lt;dialoguecompleted&gt;
 Receptionist|Broken tape: You found this in the bins? Hmm... the room code on the tape is 056 - that means it&#39;s the tape for the Kitchen. It must have been stolen!
-&lt;/dialogue&gt;</tw-passagedata>
-<tw-passagedata pid="13" name="Find $20 note" tags="" position="374,344">
+&lt;/dialoguecompleted&gt;</tw-passagedata>
+<tw-passagedata pid="12" name="Find $20 note" tags="" position="374,344">
 
 [[|Question Trump about money]] </tw-passagedata>
-<tw-passagedata pid="14" name="Find breadcrumbs" tags="" position="887,345"></tw-passagedata>
-<tw-passagedata pid="15" name="Find doctor&#39;s note" tags="" position="1311,357"></tw-passagedata>
-<tw-passagedata pid="16" name="Find gun" tags="" position="1445,348">&lt;dialogue&gt;
+<tw-passagedata pid="13" name="Find breadcrumbs" tags="" position="887,345"></tw-passagedata>
+<tw-passagedata pid="14" name="Find doctor&#39;s note" tags="" position="1311,357"></tw-passagedata>
+<tw-passagedata pid="15" name="Find gun" tags="" position="1445,348">&lt;dialoguecompleted&gt;
 JamesBond|Gun: Oh you found my pistol. I take it with me everywhere but I must have dropped it.
 MarilynMonroe|Gun: You found a gun!! What a perfect murder weapon!
-&lt;/dialogue&gt;</tw-passagedata>
-<tw-passagedata pid="17" name="Question Trump about money" tags="" position="372,509">&lt;dialogue&gt;
+&lt;/dialoguecompleted&gt;</tw-passagedata>
+<tw-passagedata pid="16" name="Question Trump about money" tags="" position="372,509">&lt;dialogueunlocked&gt;
 DonaldTrump|Money: You found a $20 note? I must have dropped that earlier. You know, I was talking to $Dumbledore earlier and he mentioned that Hogwarts is in real financial trouble right now. Maybe you should give it to him HAHAHA!
-&lt;/dialogue&gt;
+&lt;/dialogueunlocked&gt;
 
 [[|Accuse Dumbledore]]</tw-passagedata>
-<tw-passagedata pid="18" name="Accuse Dumbledore" tags="" position="453,747">Double-click this passage to edit it.</tw-passagedata>
+<tw-passagedata pid="17" name="Accuse Dumbledore" tags="" position="453,747">Double-click this passage to edit it.</tw-passagedata>
 </tw-storydata>
 
 
