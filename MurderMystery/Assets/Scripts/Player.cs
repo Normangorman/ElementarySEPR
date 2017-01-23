@@ -20,7 +20,14 @@ public class Player : Character
         }
         set
         {
-            interaction_points = value;
+            if (value >= 100)
+            {
+                interaction_points = 100;
+            }
+            else
+            {
+                interaction_points = value;
+            }
             UIController.SetInteractionPoint(value);
         }
     }

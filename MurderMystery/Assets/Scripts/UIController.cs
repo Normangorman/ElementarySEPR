@@ -12,7 +12,6 @@ public class UIController : MonoBehaviour
     #region Variables
     [HideInInspector]
     public UIController Instance;
-    public Transform GuestList;
     public Transform InventoryList;
 
     public ProgressBarBehaviour InteractionPointBar;
@@ -36,7 +35,6 @@ public class UIController : MonoBehaviour
     {
         Instance = this;
         InventoryList = GameObject.FindGameObjectWithTag("InventoryList").transform;
-        GuestList = GameObject.FindGameObjectWithTag("GuestList").transform;
     }
 
 
