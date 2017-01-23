@@ -6,7 +6,6 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    private Player player;
     public float time; //!< Time constant which changes throughout gameplay.
     public float timeScale = 0; // TODO: What does this do?
     private int failedAccusations = 0;
@@ -17,7 +16,6 @@ public class GameManager : MonoBehaviour
     public void Awake()
     {
         instance = this;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     public void WinGame(string storySynopsis)
@@ -48,7 +46,7 @@ public class GameManager : MonoBehaviour
                 j = 50;
                 break;
         }
-        player.InteractionPoints += i;
+        GetPlayer().InteractionPoints += i;
         DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 2f, true, "You bought " + i + " Interaction Points\ncosting " + j + " score points");
     }
 
@@ -60,5 +58,11 @@ public class GameManager : MonoBehaviour
         {
             LoseGame(StoryManager.instance.GetStoryScript().GetStoryGraph().GetSynopsis());
         }
+    }
+
+    private Player GetPlayer()
+    {
+        // Finds the player object in the hierarchy and returns it's Player component
+        return GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 }

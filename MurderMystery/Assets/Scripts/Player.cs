@@ -97,6 +97,8 @@ public class Player : Character
          * This function adds the item that the player goes accross to their inventory 
          * with its description that has been got from the json file
          */
+        Debug.Log("Player#OnTriggerEnter2D");
+
         if (col.tag == "stairs")
             speed = speed / 1.5f;
 
