@@ -23,7 +23,7 @@ public class ConstantsTests
         // Every NPC should have an entry in the CharacterValues table
         foreach (Constants.People person in Enum.GetValues(typeof(Constants.People)))
         {
-            Assert.True(Constants.GuestDescription.ContainsKey(person));
+            Assert.True(Constants.GuestDefaultSayings.ContainsKey(person));
         }
     }
 
