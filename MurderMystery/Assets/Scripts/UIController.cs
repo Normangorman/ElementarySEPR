@@ -36,7 +36,6 @@ public class UIController : MonoBehaviour
     {
         Instance = this;
         InventoryList = GameObject.FindGameObjectWithTag("InventoryList").transform;
-        GuestList = GameObject.FindGameObjectWithTag("GuestList").transform;
     }
 
     //! Sets interaction point bar values.

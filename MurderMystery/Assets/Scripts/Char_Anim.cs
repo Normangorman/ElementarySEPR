@@ -25,13 +25,14 @@ public class Char_Anim : MonoBehaviour {
 	void Update () {
         if (gameObject.CompareTag("Player"))
         {
-            if (Input.GetKey(KeyCode.RightArrow)) {
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
                 rend.sprite = right;
-            } else if (Input.GetKey(KeyCode.LeftArrow)) {
+            } else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) {
                 rend.sprite = left;
-            } else if (Input.GetKey(KeyCode.UpArrow)) {
+            } else if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) {
                 rend.sprite = back;
-            } else if(Input.GetKey(KeyCode.DownArrow)){
+            } else if(Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+            {
                 rend.sprite = forward;
             }
         }
