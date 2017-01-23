@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -6,14 +6,14 @@ using UnityEngine.UI;
 /*! Handles trigger entry and exit relating to the rooms of the map. */
 public class RoomTrigger : MonoBehaviour
 {
-    // default to GrandHall
+    // default to GrandHall 
     public Constants.Rooms roomLocation = Constants.Rooms.GrandHall; //!< Room trigger that is being triggered.
     public Text RoomText; //!< Text displayed when triggered.
 
     //! When player object enters a trigger, check for correct tag and switch to correct room name.
     /*
      * \param coll Collider that is being triggered.
-     */ 
+     */
     void OnTriggerEnter2D(Collider2D coll)
     {
         if (!coll.gameObject.CompareTag("RoomTrigger"))
