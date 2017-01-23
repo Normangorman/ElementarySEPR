@@ -42,7 +42,7 @@ public class Player : Character
     }
 
     private int i = 5; //!<.
-    public float speed = 0.05f; //!< Player movement speed modifier .                      
+    public float speed = 0.1f; //!< Player movement speed modifier .                      
 
     public Constants.InteractionType CurrentInteractionType;
     private Dictionary<string, string> CurrentDialogue;
@@ -102,7 +102,7 @@ public class Player : Character
             speed = speed / 1.5f;
 
         if (col.tag == "NPC")
-            DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 3f, true, "Found NPC\nPress SPACE BAR to interact");
+            DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 1f, true, "Found NPC\nPress SPACE BAR to interact");
 
         if (col.gameObject.CompareTag("Clue"))
         {
@@ -151,7 +151,6 @@ public class Player : Character
             speed = speed * 1.5f;
 
         if (col.tag == "NPC")
-            DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 2f, true, "Leaving NPC\nYou have left the interaction zone");
             CancelInteraction();
     }
 
@@ -241,33 +240,33 @@ public class Player : Character
                 }
                 else
                 {
-                    UIController.SetDialogueBoxText("NEEDS TO BE SET TO DEFAULT SAYING FOR EACH CHARACTER");
+                    UIController.SetDialogueBoxText(Constants.GuestDefaultSayings[currentNpc.person]);
                     InteractionPoints -= 30;
                 }
                 break;
             case Constants.InteractionType.Charismatic:
-                i = Math.Abs(GetCharisma() - currentNpc.GetCharisma());
-                if (i <= 20)
+                int j = Math.Abs(GetCharisma() - currentNpc.GetCharisma());
+                if (j <= 20)
                 {
                     UIController.SetButtonText(CurrentDialogue);
-                    InteractionPoints -= i;
+                    InteractionPoints -= j;
                 }
                 else
                 {
-                    UIController.SetDialogueBoxText("NEEDS TO BE SET TO DEFAULT SAYING FOR EACH CHARACTER");
+                    UIController.SetDialogueBoxText(Constants.GuestDefaultSayings[currentNpc.person]);
                     InteractionPoints -= 30;
                 }
                 break;
             case Constants.InteractionType.Sarcastic:
-                i = Math.Abs(GetSarcasm() - currentNpc.GetSarcasm());
-                if (i <= 20)
+                int k = Math.Abs(GetSarcasm() - currentNpc.GetSarcasm());
+                if (k <= 20)
                 {
                     UIController.SetButtonText(CurrentDialogue);
-                    InteractionPoints -= i;
+                    InteractionPoints -= k;
                 }
                 else
                 {
-                    UIController.SetDialogueBoxText("NEEDS TO BE SET TO DEFAULT SAYING FOR EACH CHARACTER");
+                    UIController.SetDialogueBoxText(Constants.GuestDefaultSayings[currentNpc.person]);
                     InteractionPoints -= 30;
                 }
                 break;
@@ -286,6 +285,17 @@ public class Player : Character
     {
         CurrentInteractionType = (Constants.InteractionType)Enum.Parse(typeof(Constants.InteractionType), interaction);
         TestForAcceptResponse();
+    }
+
+    public void SetSpeedNull()
+    {
+        speed = 0;
+        UIController.SetCameraViewPort(false);
+    }
+    public void SetSpeedGo()
+    {
+        speed = 0.1f;
+        UIController.SetCameraViewPort(true);
     }
 
 }

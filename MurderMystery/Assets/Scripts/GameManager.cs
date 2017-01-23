@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
         player.InteractionPoints += j;
-        DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 2f, true, "You bought " + j + " Interaction Points\ncosting " + i + " score points");
+        DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 1.5f, true, "You bought " + j + " Interaction Points\ncosting " + i + " score points");
     }
 
     public void OnFailedAccusation(NPC n)
@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 2f, true, "NO! You have either accused " + n + " wrongly or you don't have enough evidence. You have one more Accuse left!");
+            DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 1.5f, true, "NO! You have either accused " + n + " wrongly or you don't have enough evidence. You have one more Accuse left!");
         }
     }
 }

@@ -129,6 +129,7 @@ public class UIController : MonoBehaviour
         GameObject button = GameObject.Find(name);
         SetDialogueBoxText(button.GetComponent<ResponseButton>().Response);
         MessagePasser.OnNPCSpokenTo(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().currentNpc, topic);
+
     }
 
     public void AddToInventoryList(Clue clue)
