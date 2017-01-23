@@ -101,6 +101,10 @@ public class Constants
 /*! If a reference is made to a person that does not exist, this error is given. */
 public class PersonNotFound : Exception
 {
+    //! Error message given for PersonNotFound.
+    /*
+     * \param personName Invalid person name.
+     */ 
     public PersonNotFound(string personName) :
         base("Couldn't find the associated Constants.People value with: " + personName)
     { }

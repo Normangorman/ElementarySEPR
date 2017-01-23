@@ -2,24 +2,37 @@
 using System.Collections.Generic;
 using System;
 
+//! Story Graph object class.
+/*! Represents the graph of a story in the game, with states that are unlocked by player actions. */
 public abstract class StoryGraph {
 	/* 
      * This class represents the graph of a story in the game.
 	 * It has states which can be unlocked by the player by performing certain actions in the game.
 	 */
 
+    //! StoryGraph State object class.
+    /*! Represents a state within the story graph. */
 	public class StoryGraphState {
 		/* Represents a particular state within the story.
 		 */ 
-		public readonly string title;
-		public readonly string[] requirements;
-		public bool completed = false;
-        public bool unlocked = false;
+		public readonly string title; //!< State title.
+		public readonly string[] requirements; //!< State unlock requirements.
+		public bool completed = false; //!< State completed boolean.
+        public bool unlocked = false; //!< State unlocked boolean.
         // dialogue dictionaries map (character -> (topic -> text)) 
-        public Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked; // unlock this dialogue when the state is unlocked
-        public Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted;  // unlock this dialogue when the state is completed
+        // unlock this dialogue when the state is unlocked
+        public Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked; //!< Dictionary of dialogue when unlocked.
+        // unlock this dialogue when the state is completed 
+        public Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted; //!< Dictionary of dialogue when completed.
 
-		public StoryGraphState(string title, string[] requirements,
+        //! StoryGraphState Constructor.
+        /*!
+         * \param title State title.
+         * \param requirements State unlock requirements.
+         * \param dialogueOnUnlocked State unlocked boolean.
+         * \param dialogueOnCompleted State completed boolean.
+         */
+        public StoryGraphState(string title, string[] requirements,
             Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked,
             Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted)
 		{
@@ -30,17 +43,24 @@ public abstract class StoryGraph {
             this.dialogueOnCompleted = dialogueOnCompleted;
 		}
 	}
-
-    protected string storyName; // set in child class when it is constructed
-    protected List<StoryGraphState> states; // set in child class
-    protected string storySynopsis; // to be shown in the credits when you complete the game
-    private StoryScript storyScript;
+    // set in child class when it is constructed
+    protected string storyName; //!< Story name
+    // set in child class
+    protected List<StoryGraphState> states; //!< List of graph states.
+    // to be shown in the credits when you complete the game
+    protected string storySynopsis; //!< Text of story synopsis.
     // currentDialogue is a (person -> (topic -> text)) dictionary.
-    // As new states are unlocked it is populated so that the most up to date text for each topic is available.
-    protected Dictionary<Constants.Clues, string> clueDescriptions;
-    private Dictionary<Constants.People, Dictionary<string, string>> currentDialogue;
+    private StoryScript storyScript; //!< Current story graph script.
 
-	public StoryGraph(StoryScript storyScript)
+    // As new states are unlocked it is populated so that the most up to date text for each topic is available.
+    protected Dictionary<Constants.Clues, string> clueDescriptions; //!< List of descriptions of clues.
+    private Dictionary<Constants.People, Dictionary<string, string>> currentDialogue; //!< List of current dialogue.
+
+    //! StoryGraph constructor.
+    /*!
+     * \param storyScript Current story graph script.
+     */ 
+    public StoryGraph(StoryScript storyScript)
 	{
         this.storyScript = storyScript;
         this.currentDialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
@@ -48,6 +68,10 @@ public abstract class StoryGraph {
         // Child class should set storyName and states in it's constructor.
 	}
 
+    //! Marks state as completed and triggers OnStateCompleted, raises error if requirements not met or invalid state name.
+    /*
+     * \param stateTitle State requested for completion.
+     */ 
 	public void CompleteState(string stateTitle)
 	{
         /* Marks the state with the given title as being completed.
@@ -108,6 +132,10 @@ public abstract class StoryGraph {
 		}
 	}
 
+    //! Marks state as unlocked and triggers OnStateUnlocked.
+    /*
+     * \param state State to be unlocked.
+     */
     private void UnlockState(StoryGraphState state)
     {
         Debug.Log("Unlocking state: " + state.title);
@@ -116,6 +144,11 @@ public abstract class StoryGraph {
         UpdateCurrentDialogue(state);
     }
 
+    //! Gets the dialogue for the current person being interacted with.
+    /*!
+     * \param person NPC being interacted with.
+     * \return Dialogue for the current person
+     */ 
     public Dictionary<string, string> GetCurrentDialogueForPerson(Constants.People person)
     {
         // Returns a (topic -> text) dictionary
@@ -134,6 +167,11 @@ public abstract class StoryGraph {
         return dialogueClone;
     }
 
+    //! Gets the clue description for the requested clue.
+    /*!
+     * \param clue Requested clue.
+     * \return Clue description
+     */ 
     public string GetClueDescription(Constants.Clues clue)
     {
         Debug.Log("GetClueDescription called for: " + clue.ToString());
@@ -145,11 +183,16 @@ public abstract class StoryGraph {
         return clueDescriptions[clue];
     }
 
+    //! Gets the current story synopsis.
     public string GetSynopsis()
     {
         return storySynopsis;
     }
 
+    //! Utility function to complete state if not already complete.
+    /*!
+     * \param stateTitle Name of state.
+     */ 
     public void CompleteStateIfNeeded(string stateTitle)
     {
         // Utility function: a common pattern is "if (!state completed) complete state;"
@@ -160,22 +203,38 @@ public abstract class StoryGraph {
         }
     }
 
+    //! Gets the completed boolean from a state.
+    /*!
+     * \param stateTitle
+     * \return Boolean of completed or incomplete.
+     */
     public bool IsStateComplete(string stateTitle)
     {
         return GetStateWithTitle(stateTitle).completed;
     }
 
+    //! Gets the unlocked boolean from a state.
+    /*!
+     * \param stateTitle Name of state.
+     * \return Boolean of unlocked or locked.
+     */
     public bool IsStateUnlocked(string stateTitle)
     {
         return GetStateWithTitle(stateTitle).unlocked;
     }
 
+    //! Finds if a state is unlocked but not complete
+    /*!
+     * \param stateTitle Title of state.
+     * \return Boolean of activeness.
+     */
     public bool IsStateActive(string stateTitle)
     {
         // Active state = unlocked but not yet complete
         return IsStateUnlocked(stateTitle) && !IsStateComplete(stateTitle);
     }
 
+    //! Test function to reset all states to incomplete.
     public void ResetStory()
     {
         // Mainly used for testing - resets the story by marking all states as incomplete.
@@ -183,12 +242,20 @@ public abstract class StoryGraph {
             state.completed = false;
     }
 
+    //! Test function for finding the number of states.
+    /*!
+     * \return Number of states
+     */
     public int CountStates()
     {
         // Only used for testing
         return states.Count;
     }
 
+    //! Adds a new state to the list of states.
+    /*!
+     * \param state State object to be added.
+     */
     protected void AddState(StoryGraphState state)
     {
         // Adds a new state to the list of states
@@ -201,7 +268,12 @@ public abstract class StoryGraph {
         }
     }
 
-	private StoryGraphState GetStateWithTitle(string stateTitle)
+    //! Gets a state with a given title, throws error if state is not found.
+    /*!
+     * \param stateTitle Title of state.
+     * \return State with given title.
+     */
+    private StoryGraphState GetStateWithTitle(string stateTitle)
 	{
 		/* 
          * Returns the state with the given title
@@ -217,6 +289,10 @@ public abstract class StoryGraph {
         throw new StateNotFound(stateTitle);
 	}
 
+    //! Updates the dialogue for a state.
+    /*! 
+     * \param state State that should be updated.
+     */
     private void UpdateCurrentDialogue(StoryGraphState state)
     {
         // Updates the dialogue for a state, either when it is freshly unlocked or freshly completed
@@ -230,6 +306,10 @@ public abstract class StoryGraph {
         }
     }
 
+    //! Updates the currentDialogue with the dialogue in a give dictionary.
+    /*!
+     * \param dict Dictionary of new dialogue.
+     */
     private void UpdateCurrentDialogueFromDict(Dictionary<Constants.People, Dictionary<string, string>> dict)
     {
         // Update the currentDialogue with the dialogue in this dictionary 
@@ -251,15 +331,31 @@ public abstract class StoryGraph {
     }
 }
 
+//! StateNotFound error class.
+/*!
+ * Thrown when a state is searched for with an invalid name.
+ */
 public class StateNotFound : Exception
 {
+    //! StateNotFound error message.
+    /*!
+     * \param stateTitle State name that was incorrectly indexed.
+     */ 
     public StateNotFound(string stateTitle) :
         base("GetStateWithTitle called for '" + stateTitle + "' but it was not found. This is likely a typo")
     { }
 }
 
+//! StateRequirementsNotMet error class.
+/*!
+ * Thrown when a state is attempted to be completed or unlocked but the requirements are not met.
+ */
 public class StateRequirementsNotMet : Exception
 {
+    //! StateRequirementsNotMet error message.
+    /*!
+     * \param stateTitle State name that requirements are not met.
+     */
     public StateRequirementsNotMet(string stateTitle) :
         base("CompleteState called for '" + stateTitle + "' but requirements not met.")
     { }
