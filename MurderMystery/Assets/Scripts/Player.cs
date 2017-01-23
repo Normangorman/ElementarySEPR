@@ -47,6 +47,7 @@ public class Player : Character
     public Constants.InteractionType CurrentInteractionType;
     private Dictionary<string, string> CurrentDialogue;
 
+    public NPC currentNpc;
 
     private StoryManager StoryManager;
     public int layerMask; //!<.
@@ -82,7 +83,7 @@ public class Player : Character
             UIController.SetPerson(this);
         }
         Time.timeScale = 1;
-        UIController.SetCameraViewPort();
+        UIController.SetCameraViewPort(true);
     }
 
     public Sprite GetSprite(string path)
@@ -189,9 +190,9 @@ public class Player : Character
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 5);
         foreach (Collider2D col in hitColliders)
         {
-            //Debug.Log("Overlapping col: " + col.ToString());
             if (col.GetComponent<NPC>() != null)
             {
+                currentNpc = col.gameObject.GetComponent<NPC>();
                 return col.gameObject.GetComponent<NPC>();
             }
         }
@@ -232,7 +233,7 @@ public class Player : Character
         switch (CurrentInteractionType)
         {
             case Constants.InteractionType.Friendly:
-                int i = Math.Abs(GetFriendliness() - GetNearbyNPC().GetFriendliness());
+                int i = Math.Abs(GetFriendliness() - currentNpc.GetFriendliness());
                 if (i <= 20)
                 {
                     UIController.SetButtonText(CurrentDialogue);
@@ -245,7 +246,7 @@ public class Player : Character
                 }
                 break;
             case Constants.InteractionType.Charismatic:
-                i = Math.Abs(GetCharisma() - GetNearbyNPC().GetCharisma());
+                i = Math.Abs(GetCharisma() - currentNpc.GetCharisma());
                 if (i <= 20)
                 {
                     UIController.SetButtonText(CurrentDialogue);
@@ -258,7 +259,7 @@ public class Player : Character
                 }
                 break;
             case Constants.InteractionType.Sarcastic:
-                i = Math.Abs(GetSarcasm() - GetNearbyNPC().GetSarcasm());
+                i = Math.Abs(GetSarcasm() - currentNpc.GetSarcasm());
                 if (i <= 20)
                 {
                     UIController.SetButtonText(CurrentDialogue);
@@ -278,7 +279,7 @@ public class Player : Character
 
     public void AccuseCharacter()
     {
-        MessagePasser.OnAccuseCharacter(GetNearbyNPC());
+        MessagePasser.OnAccuseCharacter(currentNpc);
     }
 
     public void SetInteractionType(string interaction)

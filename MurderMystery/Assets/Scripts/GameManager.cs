@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    private UIController UIController;
     private Player player;
     public float time; //!< Time constant which changes throughout gameplay.
     public float timeScale = 0; // TODO: What does this do?
@@ -14,20 +15,25 @@ public class GameManager : MonoBehaviour
     // This GameManager can be used to do the scroring later on which includes the time 
     // There is currently no time or scoring and therefore this class is not used
 
-    public void Awake()
+    void Start()
     {
         instance = this;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        UIController = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<UIController>().Instance;
     }
 
     public void WinGame(string storySynopsis)
     {
         DoozyUI.UIManager.ShowUiElement("WinMenu");
+        DoozyUI.UIManager.HideUiElement("InGameHud");
+        UIController.SetSynopsisWinText(storySynopsis);
     }
 
     public void LoseGame(string storySynopsis)
     {
-        DoozyUI.UIManager.ShowUiElement("WinMenu");
+        DoozyUI.UIManager.ShowUiElement("LoseMenu");
+        DoozyUI.UIManager.HideUiElement("InGameHud");
+        UIController.SetSynopsisLoseText(storySynopsis);
     }
 
     public void BuyCoffee(int i)
@@ -35,21 +41,21 @@ public class GameManager : MonoBehaviour
         int j = 0;
         switch (i)
         {
-            case 1:
+            case 10:
                 j = 5;
                 break;
-            case 5:
-                j = 20;
+            case 18:
+                j = 10;
                 break;
-            case 10:
-                j = 35;
+            case 25:
+                j = 15;
                 break;
-            case 15:
-                j = 50;
+            case 50:
+                j = 30;
                 break;
         }
-        player.InteractionPoints += i;
-        DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 2f, true, "You bought " + i + " Interaction Points\ncosting " + j + " score points");
+        player.InteractionPoints += j;
+        DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 2f, true, "You bought " + j + " Interaction Points\ncosting " + i + " score points");
     }
 
     public void OnFailedAccusation(NPC n)
@@ -59,6 +65,10 @@ public class GameManager : MonoBehaviour
         if (failedAccusations >= 2)
         {
             LoseGame(StoryManager.instance.GetStoryScript().GetStoryGraph().GetSynopsis());
+        }
+        else
+        {
+            DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 2f, true, "NO! You have either accused " + n + " wrongly or you don't have enough evidence. You have one more Accuse left!");
         }
     }
 }

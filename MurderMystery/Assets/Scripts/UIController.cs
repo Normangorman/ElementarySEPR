@@ -24,9 +24,8 @@ public class UIController : MonoBehaviour
     public ProgressBarBehaviour NpcCharismaBar;
     public ProgressBarBehaviour NpcFriendlyBar;
     public ProgressBarBehaviour NpcSarcasmBar;
-    public GameObject Button0;
-    public GameObject Button1;
-    public GameObject Button2;
+    public Text SynopsisWinText;
+    public Text SynopsisLoseText;
     public Text DialogueBox;
 
     public Camera MiniMapCamera;
@@ -46,9 +45,14 @@ public class UIController : MonoBehaviour
         InteractionPointBar.Value = i;
     }
 
-    public void SetCameraViewPort()
+    public void SetCameraViewPort(bool b)
     {
-        MiniMapCamera.rect = new Rect(0.7f, 0.7f, 0.3f, 0.3f);
+        if (b)
+            MiniMapCamera.rect = new Rect(0.7f, 0.7f, 0.3f, 0.3f);
+        else
+        {
+            MiniMapCamera.rect = new Rect(0.7f, 0.7f, 0f, 0f);
+        }
     }
 
 
@@ -124,7 +128,7 @@ public class UIController : MonoBehaviour
         Debug.LogFormat("MakeDialogueText: {0}, {1}", name, topic);
         GameObject button = GameObject.Find(name);
         SetDialogueBoxText(button.GetComponent<ResponseButton>().Response);
-        MessagePasser.OnNPCSpokenTo(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetNearbyNPC(), topic);
+        MessagePasser.OnNPCSpokenTo(GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().currentNpc, topic);
     }
 
     public void AddToInventoryList(Clue clue)
@@ -135,4 +139,14 @@ public class UIController : MonoBehaviour
         g.transform.GetChild(1).GetComponent<Text>().text = clue.GetDescription();
     }
 
+    public void SetSynopsisWinText(string str)
+    {
+        SynopsisWinText.text = str;
+        SetCameraViewPort(false);
+    }
+    public void SetSynopsisLoseText(string str)
+    {
+        SynopsisLoseText.text = str;
+        SetCameraViewPort(false);
+    }
 }
