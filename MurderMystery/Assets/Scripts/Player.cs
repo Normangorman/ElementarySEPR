@@ -164,6 +164,8 @@ public class Player : Character
             {
                 StoryManager.GetCurrentDialogueForPerson(n.person);
                 MessagePasser.OnNPCSpokenTo(n);
+
+                // Show the dialogue UI
                 CurrentDialogue = StoryManager.instance.GetCurrentDialogueForPerson(n.person);
                 UIController.SetDialogueBoxText(CurrentDialogue["NO_TOPIC"]);
                 Debug.Log("Dialogue for: " + n.person);
@@ -234,7 +236,7 @@ public class Player : Character
                 if (i <= 20)
                 {
                     UIController.SetButtonText(CurrentDialogue);
-                    InteractionPoints = i;
+                    InteractionPoints -= i;
                 }
                 else
                 {

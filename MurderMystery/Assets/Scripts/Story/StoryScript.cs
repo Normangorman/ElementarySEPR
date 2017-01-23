@@ -25,7 +25,7 @@ public abstract class StoryScript {
 		/* Called by the story graph when a new state in the story has been unlocked
 		 * (i.e. all it's requirements have been completed)
 		 */
-        Debug.Log("State Unlocked: " + stateTitle);
+        //Debug.Log("State Unlocked: " + stateTitle);
 	}
 
 	public virtual void OnItemFound(Clue item)

@@ -15,16 +15,19 @@ public abstract class StoryGraph {
 		public readonly string[] requirements;
 		public bool completed = false;
         public bool unlocked = false;
-        public Dictionary<Constants.People, Dictionary<string, string>> dialogue; // (character -> (topic -> text)) dictionary
+        // dialogue dictionaries map (character -> (topic -> text)) 
+        public Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked; // unlock this dialogue when the state is unlocked
+        public Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted;  // unlock this dialogue when the state is completed
 
-		public StoryGraphState(string title, string[] requirements, Dictionary<Constants.People, Dictionary<string, string>> dialogue)
+		public StoryGraphState(string title, string[] requirements,
+            Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked,
+            Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted)
 		{
             //Debug.LogFormat("Creating new StoryGraphState: {0}, {1}, {2}", title, requirements.Count);
 			this.title = title;
 			this.requirements = requirements;
-            if (requirements.Length == 0)
-                unlocked = true;
-            this.dialogue = dialogue;
+            this.dialogueOnUnlocked = dialogueOnUnlocked;
+            this.dialogueOnCompleted = dialogueOnCompleted;
 		}
 	}
 
@@ -70,11 +73,18 @@ public abstract class StoryGraph {
         Debug.Log("Marking state as completed and calling storyScript's OnStateCompleted");
         storyScript.OnStateCompleted(stateTitle);
 		state.completed = true;
+        UpdateCurrentDialogue(state);
 
-		// Check if completing this state unlocks any new states
+        // Check if completing this state unlocks any new states
+        Debug.Log("Checking for newly unlocked states");
 		foreach (var otherState in states)
 		{
-            if (otherState.unlocked) continue;
+            //Debug.Log("Iterating: " + otherState.title);
+            if (otherState.title == stateTitle || otherState.unlocked)
+            {
+                //Debug.Log("Skipping " + otherState.title);
+                continue;
+            }
 
             bool allReqsComplete = true;
             foreach (var req in otherState.requirements)
@@ -88,14 +98,23 @@ public abstract class StoryGraph {
 
             if (allReqsComplete)
             {
-                Debug.Log("Unlocking state: " + otherState.title);
-                storyScript.OnStateUnlocked(otherState.title);
-                otherState.unlocked = true;
-
-                UpdateCurrentDialogue(otherState);
+                //Debug.Log("All reqs completed");
+                UnlockState(otherState);
+            }
+            else
+            {
+                //Debug.Log("All reqs not completed");
             }
 		}
 	}
+
+    private void UnlockState(StoryGraphState state)
+    {
+        Debug.Log("Unlocking state: " + state.title);
+        storyScript.OnStateUnlocked(state.title);
+        state.unlocked = true;
+        UpdateCurrentDialogue(state);
+    }
 
     public Dictionary<string, string> GetCurrentDialogueForPerson(Constants.People person)
     {
@@ -124,6 +143,11 @@ public abstract class StoryGraph {
         }
 
         return clueDescriptions[clue];
+    }
+
+    public string GetSynopsis()
+    {
+        return storySynopsis;
     }
 
     public void CompleteStateIfNeeded(string stateTitle)
@@ -170,12 +194,10 @@ public abstract class StoryGraph {
         // Adds a new state to the list of states
         states.Add(state);
 
-        if (state.unlocked)
+        if (state.requirements.Length == 0)
         {
             // Some states (such as the intro state) have no requirements.
-            // Thus they are never unlocked by CompleteState so dialogoue is not updated for them
-            // so do that here instead.
-            UpdateCurrentDialogue(state);
+            UnlockState(state);
         }
     }
 
@@ -195,12 +217,25 @@ public abstract class StoryGraph {
         throw new StateNotFound(stateTitle);
 	}
 
-    private void UpdateCurrentDialogue(StoryGraphState newlyUnlockedState)
+    private void UpdateCurrentDialogue(StoryGraphState state)
     {
-        // Update the currentDialogue with this state's dialogue
-        foreach (Constants.People person in newlyUnlockedState.dialogue.Keys)
+        // Updates the dialogue for a state, either when it is freshly unlocked or freshly completed
+        if (state.completed)
         {
-            Dictionary<string, string> personDialogue = newlyUnlockedState.dialogue[person];
+            UpdateCurrentDialogueFromDict(state.dialogueOnCompleted);
+        }
+        else if (state.unlocked)
+        {
+            UpdateCurrentDialogueFromDict(state.dialogueOnUnlocked);
+        }
+    }
+
+    private void UpdateCurrentDialogueFromDict(Dictionary<Constants.People, Dictionary<string, string>> dict)
+    {
+        // Update the currentDialogue with the dialogue in this dictionary 
+        foreach (Constants.People person in dict.Keys)
+        {
+            Dictionary<string, string> personDialogue = dict[person];
             foreach (string topic in personDialogue.Keys)
             {
                 string text = personDialogue[topic];
