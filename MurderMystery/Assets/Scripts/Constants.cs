@@ -29,12 +29,12 @@ public class Constants
     public static Dictionary<People, List<int>> CharacterValues = new Dictionary<People, List<int>> //!< Dictionary associating characters and initial character traits.
     {
         // Person : friendly, charisma, sarcasm. ALWAYS IN THIS ORDER
-        {People.DonaldTrump, new List<int> {0, 15, 15} },
-        {People.Dumbledore, new List<int> {80, 5, 5} },
-        {People.MarilynMonroe, new List<int> {30, 40, 20} },
-        {People.FreddieMercury, new List<int> { 50, 20, 20} },
-        {People.JamesBond, new List<int> {10, 20, 20} },
-        {People.TheQueen, new List<int> {75, 15, 0} },
+        {People.DonaldTrump, new List<int> {0, 15, 85} },
+        {People.Dumbledore, new List<int> {80, 15, 5} },
+        {People.MarilynMonroe, new List<int> {40, 40, 20} },
+        {People.FreddieMercury, new List<int> { 50, 20, 30} },
+        {People.JamesBond, new List<int> {10, 20, 70} },
+        {People.TheQueen, new List<int> {75, 25, 0} },
         {People.Poirot, new List<int> {10, 70, 20} },
         {People.Poirot2, new List<int> {60, 10, 30} },
         { People.PabloEscobar, new List<int> { 0, 30, 70} },

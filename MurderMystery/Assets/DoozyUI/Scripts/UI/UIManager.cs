@@ -279,10 +279,10 @@ namespace DoozyUI
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && backButtonDisabled == false) //The listener for the 'Back' button event
-            {
-                SendButtonClick("Back", false, true);
-            }
+            //if (Input.GetKeyDown(KeyCode.Escape) && backButtonDisabled == false) //The listener for the 'Back' button event
+            //{
+            //    SendButtonClick("Back", false, true);
+            //}
 
             if (GetEventSystem.currentSelectedGameObject != currentlySelectedGameObject) //if the user selected a new button
             {
