@@ -54,10 +54,14 @@ public class StoryManager : MonoBehaviour {
 
     public void OnAccuseCharacter(NPC n)
     {
+        // Interacts with the GameManager to see if the player has won or lost
         if (storyScript.CheckAccusation(n.person))
         {
-            GameManager.instance.WinGame();
+            GameManager.instance.WinGame(storyScript.GetStoryGraph().GetSynopsis());
         }
-        // Interacts with the GameManager to see if the player has won or lost
+        else
+        {
+            MessagePasser.OnFailedAccusation(n);
+        }
     }
 }

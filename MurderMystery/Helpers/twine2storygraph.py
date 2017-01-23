@@ -45,13 +45,15 @@ public class $CLASSNAME : StoryGraph
 STATE_BLOCK_TEMPLATE = """{
         string title = "$TITLE";
 	string[] requirements = {$REQUIREMENTS};
-	Dictionary<Constants.People, Dictionary<string, string>> dialogue = new Dictionary<Constants.People, Dictionary<string, string>>();
+	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked = new Dictionary<Constants.People, Dictionary<string, string>>();
+	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted = new Dictionary<Constants.People, Dictionary<string, string>>();
 	$DIALOGUE
-	AddState(new StoryGraphState(title, requirements, dialogue));
+	AddState(new StoryGraphState(title, requirements, dialogueOnUnlocked, dialogueOnCompleted));
 }
 """
 
-DIALOGUE_TEMPLATE = """dialogue[$PERSONCONSTANT] = new Dictionary<string, string>
+# $WHEN is either dialogueOnUnlocked or dialogueOnCompleted
+DIALOGUE_TEMPLATE = """$WHEN[$PERSONCONSTANT] = new Dictionary<string, string>
 {
     $TOPICS
 };
@@ -60,10 +62,11 @@ DIALOGUE_TEMPLATE = """dialogue[$PERSONCONSTANT] = new Dictionary<string, string
 CLUE_TEMPLATE = """this.clueDescriptions[Constants.Clues.$CLUE] = "$DESCRIPTION";"""
 
 class TwineStoryState:
-        def __init__(self, title, requirements, dialogue):
+        def __init__(self, title, requirements, dialogueOnUnlocked, dialogueOnCompleted):
 		self.title = title
 		self.requirements = requirements
-		self.dialogue = dialogue
+		self.dialogueOnUnlocked = dialogueOnUnlocked
+		self.dialogueOnCompleted = dialogueOnCompleted
 
 class TwineStory:
 	def __init__(self, twine_file_path):
@@ -118,16 +121,8 @@ class TwineStory:
                     state_output = state_output.replace("$REQUIREMENTS", output_reqs)
 
                     # Build dialogue output
-                    output_dialogue = ""
-                    for (alias, person_dialogue) in state.dialogue.items():
-                        person_dialogue_output = DIALOGUE_TEMPLATE
-                        person_dialogue_output = person_dialogue_output.replace("$PERSONCONSTANT", "Constants.People." + self.aliases[alias])
-                        # The { and } are doubled up because python requires this for single brackets in str.format
-                        output_topics = ",\n".join(['{{"{0}", "{1}"}}'.format(topic, text) for (topic, text) in person_dialogue.items()])
-                        person_dialogue_output = person_dialogue_output.replace("$TOPICS", output_topics)
-
-                        output_dialogue += person_dialogue_output + "\n"
-
+                    output_dialogue = self._getOutputDialogue(state, "OnUnlocked") + "\n" + self._getOutputDialogue(state, "OnCompleted")
+                   
                     state_output = state_output.replace("$DIALOGUE", output_dialogue)
                     output += state_output
 
@@ -138,6 +133,26 @@ class TwineStory:
             for (clue, desc) in self.clue_descriptions.items():
                 output += CLUE_TEMPLATE.replace("$CLUE", clue.replace('"', '')).replace("$DESCRIPTION", desc) + "\n"
             return output
+
+        def _getOutputDialogue(self, state, when="OnUnlocked"):
+                output = ""
+                if when == "OnUnlocked":
+                        dialogue = state.dialogueOnUnlocked
+                else:
+                        dialogue = state.dialogueOnCompleted
+                        
+                for (alias, person_dialogue) in dialogue.items():
+                        person_output = DIALOGUE_TEMPLATE
+                        person_output = person_output.replace("$WHEN", "dialogueOnUnlocked" if when == "OnUnlocked" else "dialogueOnCompleted")
+                        person_output = person_output.replace("$PERSONCONSTANT", "Constants.People." + self.aliases[alias])
+                        # The { and } are doubled up because python requires this for single brackets in str.format
+                        output_topics = ",\n".join(['{{"{0}", "{1}"}}'.format(topic, text) for (topic, text) in person_dialogue.items()])
+                        person_output = person_output.replace("$TOPICS", output_topics)
+
+                        output += person_output + "\n"
+
+                return output
+                        
 
 	def _loadStoryName(self):
 		story_data = self.soup.find("tw-storydata")
@@ -187,10 +202,8 @@ class TwineStory:
 		requirements = {}
 		for state in story_states:
 			state_title = state.attrs["name"]
-			if not state.string:
-                                continue
-                        #print("state.string: " + state.string)
-			for link in re.findall(r"\[\[(.*)\]\]", state.string):
+                       
+			for link in re.findall(r"\[\[(.*)\]\]", str(state)):
 				child_title = link.split("|")[1]
 				if child_title in requirements:
 					requirements[child_title].append(state_title) 
@@ -201,8 +214,9 @@ class TwineStory:
 		for state_data in story_states:
 			title = state_data.attrs["name"]
 			reqs = requirements[title] if title in requirements else []
-                        dialogue = self._extractDialogue(state_data)
-                        self.states.append(TwineStoryState(title, reqs, dialogue))
+                        dialogueOnUnlocked = self._extractDialogue(state_data, 'dialogueunlocked')
+                        dialogueOnCompleted = self._extractDialogue(state_data, 'dialoguecompleted')
+                        self.states.append(TwineStoryState(title, reqs, dialogueOnUnlocked, dialogueOnCompleted))
 
                 print("{0} in self.states".format(len(self.states)))
 
@@ -216,16 +230,24 @@ class TwineStory:
 			if state_title == "Intro":
                                 return state
 
-        def _extractDialogue(self, state_data):
-                # Extracts the dialogue from given state_data, returning a dictionary mapping topic -> text
-                dialogue_tags = state_data.findAll('dialogue')
-                if len(dialogue_tags) != 1: # states have either no dialogue or 1 dialogue tag
-                    return {}
+        def _lookupAlias(self, alias):
+                # Looks up the alias in the aliases dict
+                if alias in self.aliases:
+                        # Convert an alias like "JamesBond" to "James Bond"
+                        name = self.aliases[alias]
+                        return name[0] + camelCaseToSpaces(name[1:])
                 else:
-                    all_dialogue = dialogue_tags[0].string
-                    #print(dialogue_tags[0])
-                    
-                    
+                        print("Couldn't resolve alias: " + alias)
+                        return alias
+
+        def _extractDialogue(self, state_data, tagname):
+                # Extracts the dialogue from given state_data, returning a dictionary mapping topic -> text
+                dialogue_tags = state_data.findAll(tagname)
+                if len(dialogue_tags) != 1: # states have either no dialogue or 1 dialogue tag
+                        return {}
+                else:
+                        all_dialogue = dialogue_tags[0].string
+                        #print(dialogue_tags[0])
 
                 dialogue = {}
                 # This regex is ugly but it's purpose is just to extract the name, topic and text from a dialogue line that looks something like
@@ -234,10 +256,10 @@ class TwineStory:
                 for (name, _, topic, text) in re.findall(r'(\w+)(\|(.+))?:\s*(.+)\s*', all_dialogue):
                         print("name={0}, topic={1}, text={2}".format(name, topic, text))
                         text = text.replace('"', '') # remove any double quotes
-                    
+                        
                         # Replace all aliases with their actual names. Maybe this should be done in C# instead??
                         # Aliases in text look like <char1>
-                        text = re.sub("<(\w+)>", lambda m: self.aliases[m.group(1)], text)
+                        text = re.sub("\$([a-zA-Z]+)", lambda m: self._lookupAlias(m.group(1)), text)
 
                         if name not in dialogue:
                                 dialogue[name] = {}
@@ -248,6 +270,14 @@ class TwineStory:
                                 dialogue[name][topic] = text
 
                 return dialogue
+
+def camelCaseToSpaces(ident):
+        # Converts camel case string like "testString" to "test String"
+        new = ""
+        for x in ident:
+                if x.islower(): new += x
+                else: new += " " + x
+        return new
 
 story = TwineStory(TWINE_STORY_FILE_PATH)
 story.compile(OUTPUT_FILE_PATH)

@@ -13,8 +13,6 @@ public class Constants
     public enum InteractionType { Friendly, Charismatic, Sarcastic}
 
     // Enum of all the rooms in the game
-    // TODO: this should only be the rooms we are actually using
-    // More in at the minute because certain rooms are mentioned in storyline 1 which don't actually exist in game
     public enum Rooms { Kitchen, Lift, Staircase1, Staircase2, BinBay, BusinessRoom1, BusinessRoom2, ExhibitionRoom, InteractionIsland, LectureTheatre, Reception, Terrace, GrandHall,
                         Balcony, CommonRoom, Room360 } //!< Enum of all rooms
 

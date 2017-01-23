@@ -27,7 +27,14 @@ public class MessagePasser : MonoBehaviour {
 
     public static void OnAccuseCharacter(NPC n)
     {
+        Debug.LogFormat("Accusing character: {0}", n.person.ToString());
         StoryManager.instance.OnAccuseCharacter(n);
+    }
+
+    public static void OnFailedAccusation(NPC n)
+    {
+        // TODO: Add an alert that you failed
+        GameManager.instance.OnFailedAccusation(n);
     }
 
     public static void OnPlayerPressSpacebar() { }
