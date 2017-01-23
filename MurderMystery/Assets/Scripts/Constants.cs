@@ -41,18 +41,18 @@ public class Constants
         {People.Receptionist,new List<int> {90, 10, 0 } }
     };
 
-    Dictionary<Constants.People, string> GuestDescription = new Dictionary<Constants.People, string> //!< Dictionary associating characters and textual descriptions.
+    public static Dictionary<Constants.People, string> GuestDefaultSayings = new Dictionary<Constants.People, string> //!< Dictionary associating characters and textual descriptions.
     {
-        {People.DonaldTrump, ""},
-        {People.Dumbledore, "" },
-        {People.MarilynMonroe, "" },
-        {People.FreddieMercury,"" },
-        {People.JamesBond, "" },
-        {People.TheQueen, "" },
+        {People.DonaldTrump, "I have nothing to say! Get away from me.... NOW!"},
+        {People.Dumbledore, "Unfortunately I have nothing else to give you, I am terribly sorry. I hope you find your man" },
+        {People.MarilynMonroe, "I'm sorry darling, I can't help you" },
+        {People.FreddieMercury, "Get off my back!" },
+        {People.JamesBond, "Don't have anything for you, I need to get back to business" },
+        {People.TheQueen, "Dear Sir, I regret to inform you that I have no other information" },
         {People.Poirot, "" },
         {People.Poirot2, ""},
-        { People.PabloEscobar, "" },
-        {People.Receptionist, "" }
+        {People.PabloEscobar, "Go away or you will lose your tongue!!!" },
+        {People.Receptionist, "Sorry! Don't know anything about that!" }
     };
 
     public static People GetPersonByName(string name)
