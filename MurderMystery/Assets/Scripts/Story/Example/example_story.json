@@ -1,0 +1,23 @@
+﻿{
+	"states": [
+        {
+            "title": "Introduction",
+            "description": "Talk to receptionist"
+        },
+        {
+            "title": "Watch CCTV",
+            "description": "Go to watch the CCTV",
+            "requirements": ["Introduction"]
+        },
+        {
+            "title": "Search for clues",
+            "description": "Look around for something interesting",
+            "requirements": ["Introduction"]
+        },
+        {
+            "title": "Interrogate Dumbledore",
+            "description":  "Don't be nice!",
+            "requirements": [ "Watch CCTV", "Search for clues" ]
+        }
+    ]
+}
