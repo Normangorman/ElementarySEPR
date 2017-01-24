@@ -84,7 +84,7 @@ public class UIController : MonoBehaviour
         FriendlyBar.Value = player.Friendly;
         CharismaBar.Value = player.Charisma;
         SarcasmBar.Value = player.Sarcasm;
-        SetInteractionPoint(100);
+        SetInteractionPoint(player.InteractionPoints);
     }
 
     //! Sets the player icon for the person selected.

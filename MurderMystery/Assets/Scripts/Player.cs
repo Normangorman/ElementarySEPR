@@ -152,8 +152,8 @@ public class Player : Character
             {
                 AddToInventory(itemComponent);
                 col.gameObject.SetActive(false);
-                MessagePasser.OnItemFound(itemComponent);
-                InteractionPoints += 5;
+                InteractionPoints += 5;MessagePasser.OnItemFound(itemComponent);
+                
             }
         }
     } 

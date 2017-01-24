@@ -10,6 +10,11 @@ public class RoomTrigger : MonoBehaviour
     public Constants.Rooms roomLocation = Constants.Rooms.GrandHall; //!< Room trigger that is being triggered.
     public Text RoomText; //!< Text displayed when triggered.
 
+    public void Awake()
+    {
+        RoomText = GameObject.FindGameObjectWithTag("RoomText").GetComponent<Text>();
+    }
+
     //! When player object enters a trigger, check for correct tag and switch to correct room name.
     /*
      * \param coll Collider that is being triggered.

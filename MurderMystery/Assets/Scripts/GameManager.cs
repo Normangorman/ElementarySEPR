@@ -58,8 +58,8 @@ public class GameManager : MonoBehaviour
             case 18:
                 j = 10;
                 break;
-            case 25:
-                j = 15;
+            case 35:
+                j = 20;
                 break;
             case 50:
                 j = 30;
@@ -67,6 +67,10 @@ public class GameManager : MonoBehaviour
         }
         GetPlayer().InteractionPoints += j;
         DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 1.5f, true, "You bought " + j + " Interaction Points\ncosting " + i + " score points");
+        // Score points are going to implemented when the score is made. Points will start at 100 and
+        // will increase when you interact successfully or when you pick up a clue. If you do something
+        // wrong you can lose score points and interaction points. this is only an idea and can be changed 
+        // in assessment 3 if the team would like
     }
 
     //! Called when the accusation fails.

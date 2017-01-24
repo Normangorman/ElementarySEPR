@@ -32,6 +32,7 @@ public class MessagePasser : MonoBehaviour {
     public static void OnItemFound(Clue item)
     {
         DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 1.5f, true, StoryManager.instance.GetClueDescription(item.type));
+        StoryManager.instance.GetStoryScript().OnItemFound(item.type);
     }
 
     //! Called when the player changes rooms.
