@@ -1,33 +1,31 @@
 ﻿using UnityEngine;
 
 public class ExampleStoryScript : StoryScript {
-/*
-    private const string graphFilePath = "Assets/Scripts/Story/example_story.json";
+    /* Used for testing purposes exclusively */
 
-    public ExampleStoryScript() : base(graphFilePath)
+    public ExampleStoryScript()
     {
         Debug.Log("Loading ExampleStoryScript");
+        this.storyGraph = new ExampleStoryGraph(this);
     }
 
-    public override void OnStateUnlocked(string stateTitle)
+    public override void OnNPCSpokenTo(Constants.People person)
     {
-        base.OnStateUnlocked(stateTitle);
+        base.OnNPCSpokenTo(person);
 
-        if (stateTitle == "Watch CCTV")
+        if (person == Constants.People.TheQueen && storyGraph.IsStateActive("Intro"))
         {
-            Debug.Log("TODO: Make CCTV object appear here");
+            storyGraph.CompleteState("Intro");
         }
     }
 
-    public override void OnNPCSpokenTo(NPC npc)
+    public override void OnItemFound(Constants.Clues clue)
     {
-        base.OnNPCSpokenTo(npc);
+        base.OnItemFound(clue);
 
-        if (npc.person == Constants.People.Receptionist &&
-            !storyGraph.IsStateComplete("Introduction"))
+        if (clue == Constants.Clues.Knife && storyGraph.IsStateUnlocked("Find knife"))
         {
-            storyGraph.CompleteState("Introduction");
+            storyGraph.CompleteState("Find knife");
         }
     }
-*/
 }

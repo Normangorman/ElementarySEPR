@@ -39,38 +39,38 @@ public abstract class StoryScript {
         //Debug.Log("State Unlocked: " + stateTitle);
 	}
 
+	public virtual void OnItemFound(Constants.Clues item)
     //! Called after the player picks up a clue.
     /*!
-     * \param item Clue picked up.
+     * \param item Constants.Clue type of clue picked up.
      */
-    public virtual void OnItemFound(Clue item)
 	{
 		/* Called after the player picks up an item.
 		 */
-        Debug.Log("Clue Found " + item.GetName());
+        Debug.Log("Clue Found " + item.ToString());
 	}
 
+	public virtual void OnNPCSpokenTo(Constants.People person)
     //! Called when an NPC is spoken to.
     /*!
-     * \param npc NPC spoken to.
+     * \param npc Constants.People npc constant spoken to.
      */
-    public virtual void OnNPCSpokenTo(NPC npc)
 	{
 		/* Called when the player begins speaking to an NPC.
 		 */
-        Debug.Log("NPC spoken to " + npc.GetName());
+        Debug.Log("NPC spoken to " + person.ToString());
 	}
 
+	public virtual void OnNPCSpokenTo(Constants.People person, string topic)
     //! Called when an NPC is spoken to about a particular topic.
     /*! 
-     * \param npc 
-     * \param topic 
+     * \param person Constants.People
+     * \param topic string
      */
-    public virtual void OnNPCSpokenTo(NPC npc, string topic)
 	{
 		/* Called when the player speaks to an NPC about a certain topic
 		 */
-        Debug.LogFormat("NPC spoken to {0} about topic {1}", npc.GetName(), topic);
+        Debug.LogFormat("NPC spoken to {0} about topic {1}", person.ToString(), topic);
 	}
 
     //! Called when the player enters a new room.

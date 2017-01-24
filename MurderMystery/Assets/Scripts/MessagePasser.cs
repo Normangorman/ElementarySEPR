@@ -11,7 +11,7 @@ public class MessagePasser : MonoBehaviour {
      */ 
     public static void OnNPCSpokenTo(NPC npc)
     {
-        StoryManager.instance.GetStoryScript().OnNPCSpokenTo(npc);
+        StoryManager.instance.GetStoryScript().OnNPCSpokenTo(npc.person);
     }
 
     //! Called when an NPC is spoken to and a specific topic is given.
@@ -22,7 +22,7 @@ public class MessagePasser : MonoBehaviour {
     public static void OnNPCSpokenTo(NPC npc, string topic)
     {
         Debug.LogFormat("MessagePasser#OnNPCSpokenTo: {0}, {1}", npc.GetName(), topic);
-        StoryManager.instance.GetStoryScript().OnNPCSpokenTo(npc, topic);
+        StoryManager.instance.GetStoryScript().OnNPCSpokenTo(npc.person, topic);
     }
 
     //! Called when an item is found.
@@ -31,8 +31,8 @@ public class MessagePasser : MonoBehaviour {
      */
     public static void OnItemFound(Clue item)
     {
-        StoryManager.instance.GetStoryScript().OnItemFound(item);
         DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 1.5f, true, StoryManager.instance.GetClueDescription(item.type));
+        StoryManager.instance.GetStoryScript().OnItemFound(item.type);
     }
 
     //! Called when the player changes rooms.

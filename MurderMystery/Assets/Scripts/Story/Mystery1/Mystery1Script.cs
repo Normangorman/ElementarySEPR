@@ -17,11 +17,10 @@ public class Mystery1Script : StoryScript {
         base.OnStateUnlocked(stateTitle);
 	}
 
-	public override void OnItemFound(Clue item)
+	public override void OnItemFound(Constants.Clues type)
 	{
-        base.OnItemFound(item);
+        base.OnItemFound(type);
 
-        Constants.Clues type = item.type;
         CheckClueState(type, Constants.Clues.FreddysClothing, "Find Mercury's Clothing");
         CheckClueState(type, Constants.Clues.Money, "Find $20 note");
         CheckClueState(type, Constants.Clues.WantedPoster, "Find wanted poster");
@@ -36,11 +35,11 @@ public class Mystery1Script : StoryScript {
 
 	}
 
-	public override void OnNPCSpokenTo(NPC npc)
+	public override void OnNPCSpokenTo(Constants.People person)
 	{
-        base.OnNPCSpokenTo(npc);
+        base.OnNPCSpokenTo(person);
 
-        if (npc.person == Constants.People.Receptionist)
+        if (person == Constants.People.Receptionist)
         {
             if (storyGraph.IsStateActive("Intro"))
             {
@@ -49,32 +48,32 @@ public class Mystery1Script : StoryScript {
         }
 	}
 
-    public override void OnNPCSpokenTo(NPC npc, string topic)
+    public override void OnNPCSpokenTo(Constants.People person, string topic)
     {
-        base.OnNPCSpokenTo(npc, topic);
+        base.OnNPCSpokenTo(person, topic);
 
-        if (npc.person == Constants.People.Receptionist)
+        if (person == Constants.People.Receptionist)
         {
             if (topic == "CCTV" && storyGraph.IsStateActive("Question Receptionist about CCTV"))
             {
                 storyGraph.CompleteState("Question Receptionist about CCTV");
             }
         }
-        else if (npc.person == Constants.People.JamesBond)
+        else if (person == Constants.People.JamesBond)
         {
             if (topic == "CCTV" && storyGraph.IsStateActive("Question Bond about CCTV"))
             {
                 storyGraph.CompleteState("Question Bond about CCTV");
             }
         }
-        else if (npc.person == Constants.People.TheQueen)
+        else if (person == Constants.People.TheQueen)
         {
             if (topic == "Meeting with Bond" && storyGraph.IsStateActive("Question Queen about meeting with Bond"))
             {
                 storyGraph.CompleteState("Question Queen about meeting with Bond");
             }
         }
-        else if (npc.person == Constants.People.DonaldTrump)
+        else if (person == Constants.People.DonaldTrump)
         {
             if (topic == "Money" && storyGraph.IsStateActive("Question Trump about money"))
             {

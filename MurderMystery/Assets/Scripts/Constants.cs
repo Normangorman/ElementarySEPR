@@ -8,7 +8,7 @@ public class Constants
 {
     // Enum of all the characters in the game
 	public enum People { DonaldTrump, Dumbledore, MarilynMonroe, FreddieMercury, JamesBond, TheQueen, Receptionist,
-                         PabloEscobar, Poirot, Poirot2, CompSciNerd} //!< Enum of all characters
+                         PabloEscobar, Poirot, Poirot2 } //!< Enum of all characters
 
     public enum InteractionType { Friendly, Charismatic, Sarcastic} //!< Enum of all interaction types.
 
@@ -37,7 +37,7 @@ public class Constants
         {People.TheQueen, new List<int> {75, 25, 0} },
         {People.Poirot, new List<int> {10, 70, 20} },
         {People.Poirot2, new List<int> {60, 10, 30} },
-        { People.PabloEscobar, new List<int> { 0, 30, 70} },
+        {People.PabloEscobar, new List<int> { 0, 30, 70} },
         {People.Receptionist,new List<int> {90, 10, 0 } }
     };
 
@@ -62,38 +62,17 @@ public class Constants
      */ 
     public static People GetPersonByName(string name)
     {
-        bool matched = false;
-        Constants.People matchedPerson = Constants.People.Poirot; // because the compiler whines if it has no value, give it some random value
-
-        if (name == "Poirot") // Special case for detective
+        // Find the NPC with this name
+        foreach (Constants.People person in Enum.GetValues(typeof(Constants.People)))
         {
-            matched = true;
-            matchedPerson = Constants.People.Poirot;
-        }
-        else
-        {
-            // Find the NPC with this name
-            foreach (Constants.People person in Enum.GetValues(typeof(Constants.People)))
+            if (name == person.ToString())
             {
-                if (name == person.ToString())
-                {
-                    matched = true;
-                    matchedPerson = person;
-                    break;
-                }
-            } 
-        }
+                //Debug.Log("Matched " + name);
+                return person;
+            }
+        } 
 
-        if (matched)
-        {
-            Debug.Log("Matched " + name);
-        }
-        else
-        {
-            throw new PersonNotFound(name);
-        }
-
-        return matchedPerson;
+        throw new PersonNotFound(name);
     }
 }
 

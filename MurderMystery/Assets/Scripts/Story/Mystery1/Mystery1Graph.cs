@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class Mystery1Graph : StoryGraph
 {
-	/* DO NOT EDIT: This file was generated automatically by twine2storygraph.py on 01/23/17 15:47:10
+	/* DO NOT EDIT: This file was generated automatically by twine2storygraph.py on 01/23/17 20:22:11
      * (See "MurderMystery/Helpers")
      * Hint: in Visual Studio highlight all and press Ctrl+k+f to fix indentation
 	 */
@@ -104,7 +104,7 @@ dialogueOnCompleted[Constants.People.DonaldTrump] = new Dictionary<string, strin
 }
 {
         string title = "Find meal orders";
-	string[] requirements = {"Intro"};
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked = new Dictionary<Constants.People, Dictionary<string, string>>();
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
@@ -127,8 +127,8 @@ dialogueOnCompleted[Constants.People.DonaldTrump] = new Dictionary<string, strin
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted = new Dictionary<Constants.People, Dictionary<string, string>>();
 	dialogueOnUnlocked[Constants.People.JamesBond] = new Dictionary<string, string>
 {
-    {"NO_TOPIC", "Hello Poirot, can I help you with anything?"},
-{"CCTV: $TheQueen was meant to meet me in there at around 20", "00 for a discussion about Brexit, but is clearly not feeling very punctual today. I had to wait around for a while."}
+    {"CCTV", "The Queen was meant to meet me in there at around 20:00 for a discussion about Brexit, but is clearly not feeling very punctual today. I had to wait around for a while."},
+{"NO_TOPIC", "Hello Poirot, can I help you with anything?"}
 };
 
 
@@ -137,7 +137,7 @@ dialogueOnCompleted[Constants.People.DonaldTrump] = new Dictionary<string, strin
 }
 {
         string title = "Find wanted poster";
-	string[] requirements = {"Intro"};
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked = new Dictionary<Constants.People, Dictionary<string, string>>();
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
@@ -156,7 +156,7 @@ dialogueOnCompleted[Constants.People.DonaldTrump] = new Dictionary<string, strin
 }
 {
         string title = "Find Mercury's clothing";
-	string[] requirements = {"Intro"};
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked = new Dictionary<Constants.People, Dictionary<string, string>>();
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
@@ -175,7 +175,7 @@ dialogueOnCompleted[Constants.People.TheQueen] = new Dictionary<string, string>
 }
 {
         string title = "Find epipen";
-	string[] requirements = {"Intro"};
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked = new Dictionary<Constants.People, Dictionary<string, string>>();
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
@@ -189,7 +189,7 @@ dialogueOnCompleted[Constants.People.Receptionist] = new Dictionary<string, stri
 }
 {
         string title = "Find a bloody kitchen knife";
-	string[] requirements = {"Intro"};
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked = new Dictionary<Constants.People, Dictionary<string, string>>();
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
@@ -227,7 +227,7 @@ dialogueOnCompleted[Constants.People.MarilynMonroe] = new Dictionary<string, str
 }
 {
         string title = "Find Dumbledore's Cookbook";
-	string[] requirements = {"Intro"};
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked = new Dictionary<Constants.People, Dictionary<string, string>>();
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
@@ -242,7 +242,7 @@ dialogueOnCompleted[Constants.People.Dumbledore] = new Dictionary<string, string
 }
 {
         string title = "Find a broken tape";
-	string[] requirements = {"Intro"};
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked = new Dictionary<Constants.People, Dictionary<string, string>>();
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
@@ -256,7 +256,7 @@ dialogueOnCompleted[Constants.People.Receptionist] = new Dictionary<string, stri
 }
 {
         string title = "Find $20 note";
-	string[] requirements = {"Intro"};
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked = new Dictionary<Constants.People, Dictionary<string, string>>();
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
@@ -265,7 +265,7 @@ dialogueOnCompleted[Constants.People.Receptionist] = new Dictionary<string, stri
 }
 {
         string title = "Find breadcrumbs";
-	string[] requirements = {"Intro"};
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked = new Dictionary<Constants.People, Dictionary<string, string>>();
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
@@ -274,7 +274,7 @@ dialogueOnCompleted[Constants.People.Receptionist] = new Dictionary<string, stri
 }
 {
         string title = "Find doctor's note";
-	string[] requirements = {"Intro"};
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked = new Dictionary<Constants.People, Dictionary<string, string>>();
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted = new Dictionary<Constants.People, Dictionary<string, string>>();
 	
@@ -283,7 +283,7 @@ dialogueOnCompleted[Constants.People.Receptionist] = new Dictionary<string, stri
 }
 {
         string title = "Find gun";
-	string[] requirements = {"Intro"};
+	string[] requirements = {};
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnUnlocked = new Dictionary<Constants.People, Dictionary<string, string>>();
 	Dictionary<Constants.People, Dictionary<string, string>> dialogueOnCompleted = new Dictionary<Constants.People, Dictionary<string, string>>();
 	

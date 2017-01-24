@@ -189,6 +189,11 @@ public abstract class StoryGraph {
         return storySynopsis;
     }
 
+    public string GetStoryName()
+    {
+        return storyName;
+    }
+
     //! Utility function to complete state if not already complete.
     /*!
      * \param stateTitle Name of state.

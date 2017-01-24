@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance; //!< Instance of this class.
     private UIController UIController; //!< UIController object.
-    private Player player; //!< Player object.
     public float time; //!< Time constant which changes throughout gameplay.
     public float timeScale = 0; //!< Time modifier for speed of time passing.
     private int failedAccusations = 0;
@@ -19,7 +18,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         instance = this;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         UIController = GameObject.FindGameObjectWithTag("DoozyUI").GetComponent<UIController>().Instance;
     }
 
@@ -60,15 +58,19 @@ public class GameManager : MonoBehaviour
             case 18:
                 j = 10;
                 break;
-            case 25:
-                j = 15;
+            case 35:
+                j = 20;
                 break;
             case 50:
                 j = 30;
                 break;
         }
-        player.InteractionPoints += j;
+        GetPlayer().InteractionPoints += j;
         DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 1.5f, true, "You bought " + j + " Interaction Points\ncosting " + i + " score points");
+        // Score points are going to implemented when the score is made. Points will start at 100 and
+        // will increase when you interact successfully or when you pick up a clue. If you do something
+        // wrong you can lose score points and interaction points. this is only an idea and can be changed 
+        // in assessment 3 if the team would like
     }
 
     //! Called when the accusation fails.
@@ -87,5 +89,11 @@ public class GameManager : MonoBehaviour
         {
             DoozyUI.UIManager.ShowNotification(Constants.NotificationPath, 1.5f, true, "NO! You have either accused " + n + " wrongly or you don't have enough evidence. You have one more Accuse left!");
         }
+    }
+
+    private Player GetPlayer()
+    {
+        // Finds the player object in the hierarchy and returns it's Player component
+        return GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 }

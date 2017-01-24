@@ -17,8 +17,8 @@ import time
 import json
 import sys
 
-TWINE_STORY_FILE_PATH = "C:\Users\Ben\Projects\ElementarySEPR\git2\ElementarySEPR\MurderMystery\Assets\TwineStories\Mystery 1 FINAL.html"
-OUTPUT_FILE_PATH = "C:\Users\Ben\Projects\ElementarySEPR\git2\ElementarySEPR\MurderMystery\Assets\Scripts\Story\Mystery1\Mystery1Graph.cs"
+TWINE_STORY_FILE_PATH = "C:\Users\Ben\Projects\ElementarySEPR\git3\ElementarySEPR\MurderMystery\Assets\TwineStories\Mystery 1 FINAL.html"
+OUTPUT_FILE_PATH = "C:\Users\Ben\Projects\ElementarySEPR\git3\ElementarySEPR\MurderMystery\Assets\Scripts\Story\Mystery1\Mystery1Graph.cs"
 
 OUTPUT_TEMPLATE = """using System.Collections.Generic;
 
@@ -253,7 +253,7 @@ class TwineStory:
                 # This regex is ugly but it's purpose is just to extract the name, topic and text from a dialogue line that looks something like
                 # Receptionist: Hey
                 # JamesBond|CCTV: sup dude
-                for (name, _, topic, text) in re.findall(r'(\w+)(\|(.+))?:\s*(.+)\s*', all_dialogue):
+                for (name, _, topic, text) in re.findall(r'(\w+)(\|([^:]+))?:\s*(.+)\s*', all_dialogue):
                         print("name={0}, topic={1}, text={2}".format(name, topic, text))
                         text = text.replace('"', '') # remove any double quotes
                         
